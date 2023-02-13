@@ -14,7 +14,8 @@ class TemplateCard extends StatelessWidget {
         "assets/images/components/Template_$templateIndex.png",
       ),
       onTap: () {
-        BlocProvider.of<NotesBloc>(context).add(AddNotes());
+        BlocProvider.of<NotesBloc>(context)
+            .add(AddNotes(templateIndex: 10 + templateIndex));
       },
     );
   }

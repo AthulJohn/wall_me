@@ -13,5 +13,7 @@ class SingleNote {
   SingleNote(
       {this.noteid = 0,
       this.textComponents = const [],
-      this.imageComponents = const []});
+      this.imageComponents = const [],
+      this.templateId = 11,
+      this.backgroundColor = Colors.white});
 }

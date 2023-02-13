@@ -5,4 +5,11 @@ class NotesEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class AddNotes extends NotesEvent {}
+class AddNotes extends NotesEvent {
+  final int templateIndex;
+  AddNotes({this.templateIndex = 11});
+}
+
+class NextPage extends NotesEvent {}
+
+class PreviousPage extends NotesEvent {}
