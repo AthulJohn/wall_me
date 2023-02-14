@@ -36,9 +36,7 @@ class ActiveBoard extends StatelessWidget {
                               horizontal: 30, vertical: 15))),
                   child: const Text('Previous Page')),
             const Spacer(),
-            AspectRatio(
-                aspectRatio: 16 / 9,
-                child: Template1(note: state.notes[state.currentNoteIndex])),
+            const AspectRatio(aspectRatio: 16 / 9, child: Template1()),
             const Spacer(),
             ElevatedButton(
                 onPressed: () {

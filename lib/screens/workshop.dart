@@ -10,6 +10,7 @@ import 'package:wall_me/components/workshop/templates_panel.dart';
 import 'package:wall_me/components/workshop/workshop_board.dart';
 import 'package:wall_me/global_functions.dart';
 
+import '../bloc/single_note/single_note_bloc.dart';
 import '../components/workshop/template_card.dart';
 
 class WorkshopScreen extends StatelessWidget {

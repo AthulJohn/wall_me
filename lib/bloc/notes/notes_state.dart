@@ -2,17 +2,20 @@ part of 'notes_bloc.dart';
 
 enum NotesStatus { loading, success, initial, error }
 
-class NotesState {
-  List<SingleNote> notes = [];
-  int notesCount = 0;
-  int currentNoteIndex = 0;
-  NotesStatus notesStatus;
+class NotesState extends Equatable {
+  final List<SingleNote> notes;
+  final int notesCount;
+  final int currentNoteIndex;
+  final NotesStatus notesStatus;
 
-  NotesState(
+  const NotesState(
       {this.notes = const [],
       this.notesCount = 0,
       this.currentNoteIndex = 0,
       this.notesStatus = NotesStatus.initial});
+
+  @override
+  List<Object?> get props => [notes, notesCount, currentNoteIndex, notesStatus];
 
   NotesState copyWith(
       {List<SingleNote>? notes,
@@ -27,13 +30,21 @@ class NotesState {
     );
   }
 
-  void addNote(int template) {
-    if (notes.isEmpty) {
-      notes = [SingleNote(templateId: template)];
-    } else {
-      notes.add(SingleNote(templateId: template));
-    }
-    notesCount = notes.length;
-    currentNoteIndex = notesCount - 1;
+  SingleNote get currentNote => notes[currentNoteIndex];
+
+  NotesState editCurrentNote(SingleNote singleNote) {
+    notes[currentNoteIndex] = singleNote;
+    return this;
+  }
+
+  NotesState addImageToCurrentNote({
+    required String imagePath,
+  }) {
+    notes[currentNoteIndex].addImage(imagePath);
+    return NotesState(
+        notes: notes,
+        notesCount: notesCount,
+        currentNoteIndex: currentNoteIndex,
+        notesStatus: NotesStatus.success);
   }
 }

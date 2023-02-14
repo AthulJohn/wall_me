@@ -1,11 +1,10 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 part 'workshop_ui_state.dart';
 
 class WorkshopUiCubit extends Cubit<WorkshopUiState> {
-  WorkshopUiCubit() : super(WorkshopUiState(true, true));
+  WorkshopUiCubit() : super(const WorkshopUiState(true, true));
   void toggleOutline() {
     emit(WorkshopUiState(!state.isOutlineOpen, state.isTemplatesOpen));
   }

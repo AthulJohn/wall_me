@@ -13,3 +13,8 @@ class AddNotes extends NotesEvent {
 class NextPage extends NotesEvent {}
 
 class PreviousPage extends NotesEvent {}
+
+class AddImage extends NotesEvent {
+  // final List<ImageComponent> imageComponents;
+  AddImage();
+}
