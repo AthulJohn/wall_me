@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class TextComponent {
-  String text;
-  String fontFamily;
-  double fontSize;
-  Color fontColor;
-  bool isBold, isUnderlined, isItalic;
-  TextAlign textAlign;
+  final String text;
+  final String fontFamily;
+  final double fontSize;
+  final Color fontColor;
+  final bool isBold, isUnderlined, isItalic;
+  final TextAlign textAlign;
+  final int textId;
 
   TextComponent({
     this.text = "Sample Text",
@@ -17,5 +18,6 @@ class TextComponent {
     this.isUnderlined = false,
     this.isItalic = false,
     this.textAlign = TextAlign.center,
+    this.textId = 0,
   });
 }

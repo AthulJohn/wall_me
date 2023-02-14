@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wall_me/components/templates/template_1.dart';
+import 'package:wall_me/components/workshop/templates/template_1.dart';
 
 import '../../bloc/notes/notes_bloc.dart';
 
