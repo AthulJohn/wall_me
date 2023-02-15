@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:wall_me/global_functions.dart';
 
-import '../../bloc/workshop_ui/workshop_ui_cubit.dart';
+import '../../../logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 
 class PageOutline extends StatelessWidget {
   final bool isExpanded;

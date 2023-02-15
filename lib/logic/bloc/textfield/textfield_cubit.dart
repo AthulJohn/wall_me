@@ -8,6 +8,7 @@ class TextFieldCubit extends Cubit<TextFieldState> {
   TextFieldCubit() : super(TextFieldState(''));
 
   void changeText(String text) {
+    print("Changin test to $text");
     emit(TextFieldState(text));
   }
 }

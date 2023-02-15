@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wall_me/components/workshop/templates/template%20widgets/text_field.dart';
+import 'package:wall_me/presentation/components/workshop/templates/template%20widgets/text_field.dart';
 
-import '../../../../bloc/notes/notes_bloc.dart';
-import '../../../../models/workshop/text_component_model.dart';
+import '../../../../../logic/bloc/notes/notes_bloc.dart';
+import '../../../../../logic/models/workshop/text_component_model.dart';
 
 class TextColumn extends StatelessWidget {
   const TextColumn({super.key});

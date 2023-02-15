@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wall_me/screens/workshop.dart';
+import 'package:wall_me/presentation/screens/workshop.dart';
 
 void main() {
   runApp(const MyApp());

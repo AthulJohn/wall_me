@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wall_me/components/workshop/active_board.dart';
+import 'package:wall_me/presentation/components/workshop/active_board.dart';
 
-import '../../bloc/notes/notes_bloc.dart';
-import 'template_card.dart';
+import '../../../logic/bloc/notes/notes_bloc.dart';
+import 'template_panel/template_card.dart';
 
 class WorkshopBoard extends StatelessWidget {
   const WorkshopBoard({super.key});

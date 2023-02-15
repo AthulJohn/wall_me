@@ -6,11 +6,8 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wall_me/bloc/workshop_ui/workshop_ui_cubit.dart';
-
-import 'package:wall_me/main.dart';
+import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 
 void main() {
   group('Workshop UI', () {
@@ -24,17 +21,27 @@ void main() {
     });
 
     test('Initial state', () {
-      expect(workshopUiCubit.state, WorkshopUiState(true, true));
+      expect(workshopUiCubit.state, const WorkshopUiState());
     });
 
     blocTest('Toggling Notes Outline Panel',
         build: () => workshopUiCubit,
         act: (cubit) => cubit.toggleOutline(),
-        expect: () => [WorkshopUiState(false, true)]);
+        expect: () => [const WorkshopUiState(isOutlineOpen: false)]);
 
     blocTest('Toggling Templates Panel',
         build: () => workshopUiCubit,
         act: (cubit) => cubit.toggleTemplates(),
-        expect: () => [WorkshopUiState(true, false)]);
+        expect: () => [const WorkshopUiState(isTemplatesOpen: false)]);
+
+    blocTest('Toggling Text Edit Panel',
+        build: () => workshopUiCubit,
+        act: (cubit) => cubit.toggleTextEdit(),
+        expect: () => [const WorkshopUiState(isTextEditOpen: false)]);
+
+    blocTest('Toggling Image Edit Panel',
+        build: () => workshopUiCubit,
+        act: (cubit) => cubit.toggleImageEdit(),
+        expect: () => [const WorkshopUiState(isImageEditOpen: false)]);
   });
 }

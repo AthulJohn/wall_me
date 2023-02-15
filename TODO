@@ -1,4 +1,19 @@
 13/02/2023
-Layout of workshop board for template 1 is roughly done.
-Replace the placeholder images (Now showing bad state error) with image picker button.
-Add text input options 
+Layout of workshop board for template 1 is roughly done. 
+Replace the placeholder images (Now showing bad state error) with image picker button. [0]
+Add text input options [0]
+
+14/02/2023
+Added Rough Text Input.
+Now able to add and edit text
+todo:
+Fix TextField not reset bug [0]
+Add Styling Options to Image[0] and Text[ ]
+Add Relative sizing to window  // Can think of a round way
+
+15/02/2023
+Added Image Edit Panel, and Template Select Panel
+todo: 
+Add implementation to image panel [ ]
+Make add page to open template panel[ ]
+

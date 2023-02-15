@@ -1,10 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wall_me/bloc/notes/notes_bloc.dart';
-import 'package:wall_me/bloc/workshop_ui/workshop_ui_cubit.dart';
-
-import 'package:wall_me/main.dart';
+import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
 
 void main() {
   group('Notes Bloc', () {

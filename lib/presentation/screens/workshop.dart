@@ -2,16 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:wall_me/bloc/notes/notes_bloc.dart';
-import 'package:wall_me/bloc/workshop_ui/workshop_ui_cubit.dart';
-import 'package:wall_me/components/workshop/page_outline.dart';
-import 'package:wall_me/components/workshop/templates_panel.dart';
-import 'package:wall_me/components/workshop/workshop_board.dart';
-import 'package:wall_me/global_functions.dart';
+import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
+import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
+import 'package:wall_me/presentation/components/workshop/image_panel/image_panel.dart';
+import 'package:wall_me/presentation/components/workshop/page_outline.dart';
+import 'package:wall_me/presentation/components/workshop/template_panel/templates_panel.dart';
+import 'package:wall_me/presentation/components/workshop/workshop_board.dart';
 
-import '../bloc/textfield/textfield_cubit.dart';
-import '../components/workshop/template_card.dart';
+import '../../logic/bloc/textfield/textfield_cubit.dart';
+import '../components/workshop/close_button.dart';
 
 class WorkshopScreen extends StatelessWidget {
   const WorkshopScreen({super.key});
@@ -46,7 +45,9 @@ class WorkshopScreen extends StatelessWidget {
             children: const [
               PageOutline(),
               Expanded(child: WorkshopBoard()),
-              TemplatesPanel()
+              PanelCloseButton(),
+              TemplatesPanel(),
+              ImagePanel(),
             ],
           ),
         ));

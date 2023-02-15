@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wall_me/models/workshop/text_component_model.dart';
+import 'package:wall_me/logic/models/workshop/text_component_model.dart';
 
 import 'image_component_model.dart';
 

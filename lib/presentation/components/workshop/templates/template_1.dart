@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wall_me/bloc/notes/notes_bloc.dart';
-import 'package:wall_me/models/workshop/text_component_model.dart';
+import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
 
 import 'template widgets/image_widget.dart';
 import 'template widgets/text_column.dart';
@@ -12,7 +11,7 @@ import 'template widgets/text_column.dart';
 class Template1 extends StatelessWidget {
   /// Requires 1 image and 1 text component
   /// 2nd image is optional to be background image :- future implementation
-  ///
+
   const Template1({
     super.key,
   });
@@ -62,6 +61,11 @@ class Template1 extends StatelessWidget {
                                         .currentNote.imageComponents.isEmpty
                                     ? null
                                     : state.currentNote.imageComponents.first,
+                                borderRadius:
+                                    state.currentNote.templateId == 11 ||
+                                            state.currentNote.templateId == 17
+                                        ? 10
+                                        : 0,
                               ),
                             )
                           : state.currentNote.textComponents.isEmpty
@@ -93,6 +97,11 @@ class Template1 extends StatelessWidget {
                                         .currentNote.imageComponents.isEmpty
                                     ? null
                                     : state.currentNote.imageComponents.first,
+                                borderRadius:
+                                    state.currentNote.templateId == 12 ||
+                                            state.currentNote.templateId == 18
+                                        ? 10
+                                        : 0,
                               ),
                             )
                           : state.currentNote.textComponents.isEmpty

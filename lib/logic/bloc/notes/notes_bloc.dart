@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:wall_me/models/workshop/text_component_model.dart';
+import 'package:wall_me/logic/models/workshop/text_component_model.dart';
 
 import '../../data_providers/image_picker_provider.dart';
 import '../../models/workshop/singlenote_model.dart';
@@ -108,7 +108,9 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         break;
       }
       textComponents[state.currentTextCollectionIndex][state.currentTextIndex] =
-          TextComponent(text: event.text, textId: state.currentTextIndex);
+          textComponents[state.currentTextCollectionIndex]
+                  [state.currentTextIndex]
+              .copyWith(text: event.text, textId: state.currentTextIndex);
       notes[state.currentNoteIndex].textComponents = List.of(textComponents);
     } catch (e) {
       debugPrint("In the _addTextFunction function of NotesBloc, $e");
