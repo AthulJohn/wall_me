@@ -8,7 +8,12 @@ import '../../../../../logic/bloc/notes/notes_bloc.dart';
 class ImageWidget extends StatelessWidget {
   final ImageComponent? imageComponent;
   final double borderRadius;
-  const ImageWidget({super.key, this.imageComponent, this.borderRadius = 0});
+  final int imageIndex;
+  const ImageWidget(
+      {super.key,
+      required this.imageIndex,
+      this.imageComponent,
+      this.borderRadius = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +33,32 @@ class ImageWidget extends StatelessWidget {
               ),
             ),
             onTap: () {
-              BlocProvider.of<NotesBloc>(context).add(AddImage());
+              BlocProvider.of<NotesBloc>(context)
+                  .add(AddImage(index: imageIndex));
             },
           )
         : InkWell(
             onTap: () {
               BlocProvider.of<WorkshopUiCubit>(context).activateImagePanel();
+              BlocProvider.of<NotesBloc>(context)
+                  .add(ChangeCurrentImage(index: imageIndex));
             },
-            child: Image.network(
-              imageComponent!.url,
-              fit: BoxFit.cover,
+            child: BlocBuilder<NotesBloc, NotesState>(
+              builder: (context, state) {
+                return Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.network(
+                      imageComponent!.url,
+                      fit: state.currentImage!.fit,
+                    ),
+                    Container(
+                      color: state.currentImage!.overlayColor
+                          .withOpacity(state.currentImage!.overlayIntensity),
+                    )
+                  ],
+                );
+              },
             ),
           );
   }

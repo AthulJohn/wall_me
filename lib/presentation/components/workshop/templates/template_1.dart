@@ -16,6 +16,11 @@ class Template1 extends StatelessWidget {
     super.key,
   });
 
+  bool templateIsIn(NotesState state, List<int> templateId) {
+    /// Checks if the current template is in the list of templates
+    return templateId.contains(state.currentNote!.templateId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,79 +37,57 @@ class Template1 extends StatelessWidget {
               return Container(
                 color: Colors.white,
                 padding: EdgeInsets.all(
-                    [11, 12, 18, 17].contains(state.currentNote.templateId)
-                        ? 20
-                        : 0),
+                    templateIsIn(state, [11, 12, 18, 17]) ? 20 : 0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                      flex: (state.currentNote.templateId == 16 ||
-                              state.currentNote.templateId == 18)
-                          ? 3
-                          : 1,
-                      child: [11, 13, 16, 17].contains(state.currentNote
-                              .templateId) // If image is in the left side
+                      flex: templateIsIn(state, [16, 18]) ? 3 : 1,
+                      child: templateIsIn(state,
+                              [11, 13, 16, 17]) // If image is in the left side
                           ? FractionallySizedBox(
-                              widthFactor: state.currentNote.templateId == 11 ||
-                                      state.currentNote.templateId == 17
-                                  ? 0.85
-                                  : 1,
+                              widthFactor:
+                                  templateIsIn(state, [11, 17]) ? 0.85 : 1,
                               heightFactor:
-                                  state.currentNote.templateId == 11 ||
-                                          state.currentNote.templateId == 17
-                                      ? 0.85
-                                      : 1,
+                                  templateIsIn(state, [11, 17]) ? 0.85 : 1,
                               child: ImageWidget(
                                 imageComponent: state
-                                        .currentNote.imageComponents.isEmpty
+                                        .currentNote!.imageComponents.isEmpty
                                     ? null
-                                    : state.currentNote.imageComponents.first,
+                                    : state.currentNote!.imageComponents.first,
                                 borderRadius:
-                                    state.currentNote.templateId == 11 ||
-                                            state.currentNote.templateId == 17
-                                        ? 10
-                                        : 0,
+                                    templateIsIn(state, [11, 17]) ? 10 : 0,
+                                imageIndex: 0,
                               ),
                             )
-                          : state.currentNote.textComponents.isEmpty
+                          : state.currentNote!.textComponents.isEmpty
                               ? const Center(child: Text('An Error Occured!'))
-                              : TextColumn(
+                              : const TextColumn(
                                   // textComponents:
                                   //     state.currentNote.textComponents.first,
                                   ),
                     ),
                     Expanded(
-                      flex: (state.currentNote.templateId == 15 ||
-                              state.currentNote.templateId == 17)
-                          ? 3
-                          : 1,
-                      child: [12, 14, 15, 18].contains(state.currentNote
-                              .templateId) // If image is in the left side
+                      flex: templateIsIn(state, [15, 17]) ? 3 : 1,
+                      child: templateIsIn(state,
+                              [12, 14, 15, 18]) // If image is in the left side
                           ? FractionallySizedBox(
-                              widthFactor: state.currentNote.templateId == 12 ||
-                                      state.currentNote.templateId == 18
-                                  ? 0.85
-                                  : 1,
+                              widthFactor:
+                                  templateIsIn(state, [12, 18]) ? 0.85 : 1,
                               heightFactor:
-                                  state.currentNote.templateId == 12 ||
-                                          state.currentNote.templateId == 18
-                                      ? 0.85
-                                      : 1,
+                                  templateIsIn(state, [12, 18]) ? 0.85 : 1,
                               child: ImageWidget(
                                 imageComponent: state
-                                        .currentNote.imageComponents.isEmpty
+                                        .currentNote!.imageComponents.isEmpty
                                     ? null
-                                    : state.currentNote.imageComponents.first,
+                                    : state.currentNote!.imageComponents.first,
                                 borderRadius:
-                                    state.currentNote.templateId == 12 ||
-                                            state.currentNote.templateId == 18
-                                        ? 10
-                                        : 0,
+                                    templateIsIn(state, [12, 18]) ? 10 : 0,
+                                imageIndex: 0,
                               ),
                             )
-                          : state.currentNote.textComponents.isEmpty
+                          : state.currentNote!.textComponents.isEmpty
                               ? const Center(child: Text('An Error Occured!'))
                               : TextColumn(
                                   // textComponents:

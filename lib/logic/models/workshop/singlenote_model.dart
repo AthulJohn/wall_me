@@ -33,11 +33,14 @@ class SingleNote {
     );
   }
 
-  void addImage(String imagePath) {
+  void addImage(String imagePath, int index) {
     if (imageComponents.isEmpty) {
-      imageComponents = [ImageComponent(url: imagePath)];
-    } else {
-      imageComponents.add(ImageComponent(url: imagePath));
+      imageComponents = [ImageComponent(url: "")];
     }
+    while (imageComponents.length <= index) {
+      imageComponents.add(ImageComponent(url: ""));
+    }
+
+    imageComponents[index] = (imageComponents[index].copyWith(url: imagePath));
   }
 }

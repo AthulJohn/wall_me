@@ -9,7 +9,10 @@ enum TextStatus { loading, success, error, empty }
 class NotesState extends Equatable {
   final List<SingleNote> notes;
   final int notesCount;
-  final int currentNoteIndex, currentTextIndex, currentTextCollectionIndex;
+  final int currentNoteIndex,
+      currentTextIndex,
+      currentTextCollectionIndex,
+      currentImageIndex;
   final NotesStatus notesStatus;
   final ImageStatus imageStatus;
   final TextStatus textStatus;
@@ -22,7 +25,8 @@ class NotesState extends Equatable {
       this.imageStatus = ImageStatus.success,
       this.textStatus = TextStatus.empty,
       this.currentTextCollectionIndex = 0,
-      this.currentTextIndex = 0});
+      this.currentTextIndex = 0,
+      this.currentImageIndex = 0});
 
   @override
   List<Object?> get props => [
@@ -33,7 +37,8 @@ class NotesState extends Equatable {
         imageStatus,
         textStatus,
         currentTextCollectionIndex,
-        currentTextIndex
+        currentTextIndex,
+        currentImageIndex
       ];
 
   NotesState copyWith(
@@ -44,7 +49,8 @@ class NotesState extends Equatable {
       ImageStatus? imageStatus,
       TextStatus? textStatus,
       int? currentTextCollectionIndex,
-      int? currentTextIndex}) {
+      int? currentTextIndex,
+      int? currentImageIndex}) {
     return NotesState(
         notes: notes ?? this.notes,
         notesCount: notesCount ?? this.notesCount,
@@ -54,10 +60,20 @@ class NotesState extends Equatable {
         textStatus: textStatus ?? this.textStatus,
         currentTextCollectionIndex:
             currentTextCollectionIndex ?? this.currentTextCollectionIndex,
-        currentTextIndex: currentTextIndex ?? this.currentTextIndex);
+        currentTextIndex: currentTextIndex ?? this.currentTextIndex,
+        currentImageIndex: currentImageIndex ?? this.currentImageIndex);
   }
 
-  SingleNote get currentNote => notes[currentNoteIndex];
+  SingleNote? get currentNote {
+    if (notes.isEmpty) return null;
+    return notes[currentNoteIndex];
+  }
+
+  ImageComponent? get currentImage {
+    if (notes.isEmpty) return null;
+    if (currentNote!.imageComponents.isEmpty) return null;
+    return currentNote!.imageComponents[currentImageIndex];
+  }
 
   NotesState editCurrentNote(SingleNote singleNote) {
     notes[currentNoteIndex] = singleNote;
@@ -67,7 +83,7 @@ class NotesState extends Equatable {
   NotesState addImageToCurrentNote({
     required String imagePath,
   }) {
-    notes[currentNoteIndex].addImage(imagePath);
+    notes[currentNoteIndex].addImage(imagePath, currentImageIndex);
     return NotesState(
         notes: notes,
         notesCount: notesCount,

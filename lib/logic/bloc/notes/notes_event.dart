@@ -16,7 +16,13 @@ class PreviousPage extends NotesEvent {}
 
 class AddImage extends NotesEvent {
   // final List<ImageComponent> imageComponents;
-  AddImage();
+  final int? index;
+  AddImage({this.index});
+}
+
+class ChangeCurrentImage extends NotesEvent {
+  final int? index;
+  ChangeCurrentImage({this.index});
 }
 
 class AddText extends NotesEvent {
@@ -27,4 +33,19 @@ class AddText extends NotesEvent {
 class ChangeTextSelection extends NotesEvent {
   final int textIndex, textCollectionIndex;
   ChangeTextSelection(this.textCollectionIndex, this.textIndex);
+}
+
+class ChangeImageColor extends NotesEvent {
+  final Color color;
+  ChangeImageColor(this.color);
+}
+
+class ChangeImageColorOpacity extends NotesEvent {
+  final double value;
+  ChangeImageColorOpacity(this.value);
+}
+
+class ChangeImageFit extends NotesEvent {
+  final BoxFit fit;
+  ChangeImageFit(this.fit);
 }

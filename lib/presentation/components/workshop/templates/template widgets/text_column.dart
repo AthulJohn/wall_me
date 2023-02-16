@@ -14,7 +14,7 @@ class TextColumn extends StatelessWidget {
       widthFactor: 0.85,
       child: BlocBuilder<NotesBloc, NotesState>(builder: (context, state) {
         List<TextComponent> textComponents =
-            state.currentNote.textComponents.first;
+            state.currentNote!.textComponents.first;
         switch (state.textStatus) {
           case TextStatus.empty:
             return const Center(child: TextEnteringField());
@@ -41,7 +41,7 @@ class TextColumn extends StatelessWidget {
                           ),
                         ),
                 state.currentTextIndex ==
-                        state.currentNote.textComponents.first.length
+                        state.currentNote!.textComponents.first.length
                     ? const TextEnteringField()
                     : InkWell(
                         child: Container(
@@ -52,7 +52,7 @@ class TextColumn extends StatelessWidget {
                           BlocProvider.of<NotesBloc>(context).add(
                               ChangeTextSelection(
                                   0,
-                                  state.currentNote.textComponents.first
+                                  state.currentNote!.textComponents.first
                                       .length));
                         },
                       )
