@@ -50,11 +50,11 @@ class ImageWidget extends StatelessWidget {
                   children: [
                     Image.network(
                       imageComponent!.url,
-                      fit: state.currentImage!.fit,
+                      fit: imageComponent!.fit,
                     ),
                     Container(
-                      color: state.currentImage!.overlayColor
-                          .withOpacity(state.currentImage!.overlayIntensity),
+                      color: imageComponent!.overlayColor
+                          .withOpacity(imageComponent!.overlayIntensity),
                     )
                   ],
                 );

@@ -4,7 +4,7 @@ enum NotesStatus { loading, success, initial, error }
 
 enum ImageStatus { loading, success, error, empty }
 
-enum TextStatus { loading, success, error, empty }
+enum TextStatus { loading, success, error }
 
 class NotesState extends Equatable {
   final List<SingleNote> notes;
@@ -23,7 +23,7 @@ class NotesState extends Equatable {
       this.currentNoteIndex = 0,
       this.notesStatus = NotesStatus.initial,
       this.imageStatus = ImageStatus.success,
-      this.textStatus = TextStatus.empty,
+      this.textStatus = TextStatus.success,
       this.currentTextCollectionIndex = 0,
       this.currentTextIndex = 0,
       this.currentImageIndex = 0});
@@ -73,6 +73,17 @@ class NotesState extends Equatable {
     if (notes.isEmpty) return null;
     if (currentNote!.imageComponents.isEmpty) return null;
     return currentNote!.imageComponents[currentImageIndex];
+  }
+
+  TextComponent? get currentText {
+    if (notes.isEmpty) return null;
+    if (currentNote!.textComponents.length <= currentTextCollectionIndex) {
+      return null;
+    }
+    if (currentNote!.textComponents[currentTextCollectionIndex].length <=
+        currentTextIndex) return null;
+    return currentNote!.textComponents[currentTextCollectionIndex]
+        [currentTextIndex];
   }
 
   NotesState editCurrentNote(SingleNote singleNote) {

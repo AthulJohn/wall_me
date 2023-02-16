@@ -1,14 +1,14 @@
 part of 'textfield_cubit.dart';
 
 class TextFieldState extends Equatable {
-  const TextFieldState(this.text);
-  final String text;
+  const TextFieldState(this.textComponent);
+  final TextComponent textComponent;
 
   @override
-  List<Object> get props => [text];
+  List<Object> get props => [textComponent];
 
   TextEditingController getController() {
-    return TextEditingController(text: text);
+    return TextEditingController(text: textComponent.text);
   }
 }
 

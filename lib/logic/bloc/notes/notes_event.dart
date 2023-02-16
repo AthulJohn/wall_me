@@ -25,27 +25,17 @@ class ChangeCurrentImage extends NotesEvent {
   ChangeCurrentImage({this.index});
 }
 
-class AddText extends NotesEvent {
-  final String text;
-  AddText(this.text);
-}
-
 class ChangeTextSelection extends NotesEvent {
   final int textIndex, textCollectionIndex;
   ChangeTextSelection(this.textCollectionIndex, this.textIndex);
 }
 
-class ChangeImageColor extends NotesEvent {
-  final Color color;
-  ChangeImageColor(this.color);
+class ChangeImageStyle extends NotesEvent {
+  final ImageComponent imageComponent;
+  ChangeImageStyle(this.imageComponent);
 }
 
-class ChangeImageColorOpacity extends NotesEvent {
-  final double value;
-  ChangeImageColorOpacity(this.value);
-}
-
-class ChangeImageFit extends NotesEvent {
-  final BoxFit fit;
-  ChangeImageFit(this.fit);
+class ChangeText extends NotesEvent {
+  final TextComponent textComponent;
+  ChangeText(this.textComponent);
 }

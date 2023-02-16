@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../logic/bloc/notes/notes_bloc.dart';
+import '../../../../logic/models/workshop/image_component_model.dart';
 
 class ImageFitButton extends StatelessWidget {
   const ImageFitButton({super.key, required this.fit});
@@ -16,8 +17,9 @@ class ImageFitButton extends StatelessWidget {
             : Expanded(
                 child: InkWell(
                   onTap: () {
-                    BlocProvider.of<NotesBloc>(context)
-                        .add(ChangeImageFit(fit));
+                    BlocProvider.of<NotesBloc>(context).add(ChangeImageStyle(
+                        (state.currentImage ?? ImageComponent())
+                            .copyWith(fit: fit)));
                   },
                   child: Container(
                     decoration: BoxDecoration(

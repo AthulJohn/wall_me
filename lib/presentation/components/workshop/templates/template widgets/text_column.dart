@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wall_me/global_functions.dart';
+import 'package:wall_me/global_variables.dart';
+import 'package:wall_me/logic/bloc/textfield/textfield_cubit.dart';
+import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 import 'package:wall_me/presentation/components/workshop/templates/template%20widgets/text_field.dart';
 
 import '../../../../../logic/bloc/notes/notes_bloc.dart';
@@ -16,15 +20,16 @@ class TextColumn extends StatelessWidget {
         List<TextComponent> textComponents =
             state.currentNote!.textComponents.first;
         switch (state.textStatus) {
-          case TextStatus.empty:
-            return const Center(child: TextEnteringField());
           case TextStatus.success:
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (TextComponent tc in textComponents)
                   textComponents.indexOf(tc) == state.currentTextIndex
-                      ? TextEnteringField(initText: tc.text)
+                      ? TextEnteringField(
+                          initText: tc.text,
+                          templateId: state.currentNote!.templateId,
+                        )
                       : Padding(
                           padding: EdgeInsets.all(tc.fontSize / 2),
                           child: InkWell(
@@ -32,17 +37,39 @@ class TextColumn extends StatelessWidget {
                               BlocProvider.of<NotesBloc>(context).add(
                                   ChangeTextSelection(
                                       0, textComponents.indexOf(tc)));
+                              BlocProvider.of<TextFieldCubit>(context)
+                                  .setTextComponent(tc);
                             },
-                            child: Text(tc.text,
+                            child: LayoutBuilder(builder: (BuildContext context,
+                                BoxConstraints constraints) {
+                              return Text(
+                                tc.text,
                                 style: TextStyle(
-                                    fontSize: tc.fontSize,
-                                    fontWeight: FontWeight.bold,
-                                    color: tc.fontColor)),
+                                    fontSize: getFontSize(
+                                        tc.fontSize,
+                                        constraints.maxWidth,
+                                        state.currentNote!.templateId),
+                                    fontWeight: tc.isBold
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                                    color: tc.fontColor,
+                                    fontFamily: tc.fontFamily,
+                                    fontStyle: tc.isItalic
+                                        ? FontStyle.italic
+                                        : FontStyle.normal,
+                                    decoration: tc.isUnderlined
+                                        ? TextDecoration.underline
+                                        : TextDecoration.none),
+                                textAlign: tc.textAlign,
+                              );
+                            }),
                           ),
                         ),
                 state.currentTextIndex ==
                         state.currentNote!.textComponents.first.length
-                    ? const TextEnteringField()
+                    ? TextEnteringField(
+                        templateId: state.currentNote!.templateId,
+                      )
                     : InkWell(
                         child: Container(
                           decoration: BoxDecoration(border: Border.all()),
@@ -54,6 +81,14 @@ class TextColumn extends StatelessWidget {
                                   0,
                                   state.currentNote!.textComponents.first
                                       .length));
+                          BlocProvider.of<TextFieldCubit>(context)
+                              .setTextComponent(
+                                  BlocProvider.of<NotesBloc>(context)
+                                          .state
+                                          .currentText ??
+                                      TextComponent());
+                          BlocProvider.of<WorkshopUiCubit>(context)
+                              .activateTextPanel();
                         },
                       )
               ],

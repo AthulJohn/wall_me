@@ -18,25 +18,36 @@ class TemplatesPanel extends StatelessWidget {
     return BlocBuilder<WorkshopUiCubit, WorkshopUiState>(
         builder: (context, state) {
       return AnimatedContainer(
-        duration: const Duration(milliseconds: 500),
-        width: state.isTemplatesOpen ? max(180, getWidth(context) * 0.25) : 0,
-        child: Container(
-          color: Colors.blueAccent,
-          padding: EdgeInsets.all(8),
-          child: ListView(
-            children: [
-              const FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text("Templates Panel"),
-              ),
-              for (int i = 0; i < templateSetSizes.length; i++)
-                Column(
-                  children: [TemplateSet(id: i), Divider()],
-                )
-            ],
-          ),
-        ),
+        duration: const Duration(milliseconds: 100),
+        width: state.isTemplatesOpen ? max(180, getWidth(context) * 0.25) : 1,
+        child: const TemplatesPanelBody(),
       );
     });
+  }
+}
+
+class TemplatesPanelBody extends StatelessWidget {
+  const TemplatesPanelBody({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.blueAccent,
+      padding: const EdgeInsets.all(8),
+      child: ListView(
+        children: [
+          const FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text("Templates Panel"),
+          ),
+          for (int i = 0; i < templateSetSizes.length; i++)
+            Column(
+              children: [TemplateSet(id: i), const Divider()],
+            )
+        ],
+      ),
+    );
   }
 }

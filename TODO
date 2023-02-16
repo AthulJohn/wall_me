@@ -8,8 +8,8 @@ Added Rough Text Input.
 Now able to add and edit text
 todo:
 Fix TextField not reset bug [0]
-Add Styling Options to Image[0] and Text[ ]
-Add Relative sizing to window  // Can think of a round way
+Add Styling Options to Image[0] and Text[0]
+Add Relative sizing to window [ ] // Can think of a round way
 
 15/02/2023
 Added Image Edit Panel, and Template Select Panel
@@ -17,4 +17,11 @@ todo:
 Add implementation to image panel [0]
 Add Unsplash support [ ] not important
 Make add page to open template panel[ ]
+
+16/02/2023
+Added Sample Display Page, with image and test editing
+todo:
+Correct the text proportions[ ]
+MAke the paddings dynamic to size[ ]
+
 

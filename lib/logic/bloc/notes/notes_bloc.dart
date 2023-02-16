@@ -16,12 +16,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     on<NextPage>(_nextPageFunction);
     on<PreviousPage>(_previousPageFunction);
     on<AddImage>(_pickImageFunction);
-    on<AddText>(_addTextFunction);
+    on<ChangeText>(_changeTextFunction);
     on<ChangeCurrentImage>(_changeCurrentImageFunction);
     on<ChangeTextSelection>(_changeTextSelectionFunction);
-    on<ChangeImageColor>(_changeImageColorFunction);
-    on<ChangeImageColorOpacity>(_changeImageColorOpacityFunction);
-    on<ChangeImageFit>(_changeImageFitFunction);
+    on<ChangeImageStyle>(_changeImageStyleFunction);
   }
 
   void _addNotesFunction(event, emit) {
@@ -101,7 +99,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         notesStatus: NotesStatus.success, currentImageIndex: event.index));
   }
 
-  void _addTextFunction(event, emit) {
+  void _changeTextFunction(event, emit) {
     emit(state.copyWith(
         textStatus: TextStatus.loading, notesStatus: NotesStatus.loading));
     List<SingleNote> notes = state.notes;
@@ -120,12 +118,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         break;
       }
       textComponents[state.currentTextCollectionIndex][state.currentTextIndex] =
-          textComponents[state.currentTextCollectionIndex]
-                  [state.currentTextIndex]
-              .copyWith(text: event.text, textId: state.currentTextIndex);
+          event.textComponent;
       notes[state.currentNoteIndex].textComponents = List.of(textComponents);
     } catch (e) {
-      debugPrint("In the _addTextFunction function of NotesBloc, $e");
+      debugPrint("In the _changeTextFunction function of NotesBloc, $e");
     }
     emit(state.copyWith(
         notes: notes,
@@ -148,46 +144,12 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     }
   }
 
-  void _changeImageColorFunction(ChangeImageColor event, emit) {
+  void _changeImageStyleFunction(event, emit) {
     emit(state.copyWith(notesStatus: NotesStatus.loading));
     List<SingleNote> notes = state.notes;
     try {
       List<ImageComponent> imageComponents = state.currentNote!.imageComponents;
-      imageComponents[state.currentImageIndex] =
-          imageComponents[state.currentImageIndex]
-              .copyWith(overlayColor: (event.color));
-      notes[state.currentNoteIndex].imageComponents = List.of(imageComponents);
-      emit(state.copyWith(notes: notes, notesStatus: NotesStatus.success));
-    } catch (e) {
-      debugPrint("In function _changeImageColorFunction of NotesBloc, $e");
-      emit(state.copyWith(notesStatus: NotesStatus.error));
-    }
-  }
-
-  void _changeImageColorOpacityFunction(ChangeImageColorOpacity event, emit) {
-    emit(state.copyWith(notesStatus: NotesStatus.loading));
-    List<SingleNote> notes = state.notes;
-    try {
-      List<ImageComponent> imageComponents = state.currentNote!.imageComponents;
-      imageComponents[state.currentImageIndex] =
-          imageComponents[state.currentImageIndex]
-              .copyWith(overlayIntensity: (event.value));
-      notes[state.currentNoteIndex].imageComponents = List.of(imageComponents);
-      emit(state.copyWith(notes: notes, notesStatus: NotesStatus.success));
-    } catch (e) {
-      debugPrint(
-          "In function _changeImageColorOpacityFunction of NotesBloc, $e");
-      emit(state.copyWith(notesStatus: NotesStatus.error));
-    }
-  }
-
-  void _changeImageFitFunction(event, emit) {
-    emit(state.copyWith(notesStatus: NotesStatus.loading));
-    List<SingleNote> notes = state.notes;
-    try {
-      List<ImageComponent> imageComponents = state.currentNote!.imageComponents;
-      imageComponents[state.currentImageIndex] =
-          imageComponents[state.currentImageIndex].copyWith(fit: (event.fit));
+      imageComponents[state.currentImageIndex] = event.imageComponent;
       notes[state.currentNoteIndex].imageComponents = List.of(imageComponents);
       emit(state.copyWith(notes: notes, notesStatus: NotesStatus.success));
     } catch (e) {
