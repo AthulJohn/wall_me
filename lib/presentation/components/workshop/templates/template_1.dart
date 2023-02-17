@@ -89,7 +89,7 @@ class Template1 extends StatelessWidget {
                             )
                           : state.currentNote!.textComponents.isEmpty
                               ? const Center(child: Text('An Error Occured!'))
-                              : TextColumn(
+                              : const TextColumn(
                                   // textComponents:
                                   //     state.currentNote.textComponents.first,
                                   ),

@@ -8,7 +8,7 @@ enum TextStatus { loading, success, error }
 
 class NotesState extends Equatable {
   final List<SingleNote> notes;
-  final int notesCount;
+  // final int notesCount;
   final int currentNoteIndex,
       currentTextIndex,
       currentTextCollectionIndex,
@@ -19,7 +19,7 @@ class NotesState extends Equatable {
 
   const NotesState(
       {this.notes = const [],
-      this.notesCount = 0,
+      // this.notesCount = 0,
       this.currentNoteIndex = 0,
       this.notesStatus = NotesStatus.initial,
       this.imageStatus = ImageStatus.success,
@@ -31,7 +31,7 @@ class NotesState extends Equatable {
   @override
   List<Object?> get props => [
         notes,
-        notesCount,
+        // notesCount,
         currentNoteIndex,
         notesStatus,
         imageStatus,
@@ -53,7 +53,7 @@ class NotesState extends Equatable {
       int? currentImageIndex}) {
     return NotesState(
         notes: notes ?? this.notes,
-        notesCount: notesCount ?? this.notesCount,
+        // notesCount: notesCount ?? this.notesCount,
         currentNoteIndex: currentNoteIndex ?? this.currentNoteIndex,
         notesStatus: notesStatus ?? this.notesStatus,
         imageStatus: imageStatus ?? this.imageStatus,
@@ -97,7 +97,7 @@ class NotesState extends Equatable {
     notes[currentNoteIndex].addImage(imagePath, currentImageIndex);
     return NotesState(
         notes: notes,
-        notesCount: notesCount,
+        // notesCount: notesCount,
         currentNoteIndex: currentNoteIndex,
         notesStatus: NotesStatus.success);
   }

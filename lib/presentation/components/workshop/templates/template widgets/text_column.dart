@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wall_me/global_functions.dart';
-import 'package:wall_me/global_variables.dart';
 import 'package:wall_me/logic/bloc/textfield/textfield_cubit.dart';
 import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 import 'package:wall_me/presentation/components/workshop/templates/template%20widgets/text_field.dart';
@@ -30,19 +29,22 @@ class TextColumn extends StatelessWidget {
                           initText: tc.text,
                           templateId: state.currentNote!.templateId,
                         )
-                      : Padding(
-                          padding: EdgeInsets.all(tc.fontSize / 2),
-                          child: InkWell(
-                            onTap: () {
-                              BlocProvider.of<NotesBloc>(context).add(
-                                  ChangeTextSelection(
-                                      0, textComponents.indexOf(tc)));
-                              BlocProvider.of<TextFieldCubit>(context)
-                                  .setTextComponent(tc);
-                            },
-                            child: LayoutBuilder(builder: (BuildContext context,
-                                BoxConstraints constraints) {
-                              return Text(
+                      : InkWell(
+                          onTap: () {
+                            BlocProvider.of<NotesBloc>(context).add(
+                                ChangeTextSelection(
+                                    0, textComponents.indexOf(tc)));
+                            BlocProvider.of<TextFieldCubit>(context)
+                                .setTextComponent(tc);
+                          },
+                          child: LayoutBuilder(builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            return Padding(
+                              padding: EdgeInsets.all(getFontSize(
+                                  tc.fontSize,
+                                  constraints.maxWidth,
+                                  state.currentNote!.templateId)),
+                              child: Text(
                                 tc.text,
                                 style: TextStyle(
                                     fontSize: getFontSize(
@@ -61,9 +63,9 @@ class TextColumn extends StatelessWidget {
                                         ? TextDecoration.underline
                                         : TextDecoration.none),
                                 textAlign: tc.textAlign,
-                              );
-                            }),
-                          ),
+                              ),
+                            );
+                          }),
                         ),
                 state.currentTextIndex ==
                         state.currentNote!.textComponents.first.length
@@ -71,10 +73,20 @@ class TextColumn extends StatelessWidget {
                         templateId: state.currentNote!.templateId,
                       )
                     : InkWell(
-                        child: Container(
-                          decoration: BoxDecoration(border: Border.all()),
-                          height: 20,
-                        ),
+                        child: LayoutBuilder(builder:
+                            (BuildContext context, BoxConstraints constraints) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black12),
+                                borderRadius: BorderRadius.circular(5)),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 2),
+                            child: const Text(
+                              ' Click to add New Text ',
+                              style: TextStyle(color: Colors.black26),
+                            ),
+                          );
+                        }),
                         onTap: () {
                           BlocProvider.of<NotesBloc>(context).add(
                               ChangeTextSelection(

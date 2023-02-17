@@ -9,14 +9,17 @@ class TemplateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Image.asset(
-        "assets/images/components/T1$templateIndex.png",
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: InkWell(
+        child: Image.asset(
+          "assets/images/components/T1$templateIndex.png",
+        ),
+        onTap: () {
+          BlocProvider.of<NotesBloc>(context)
+              .add(SetTemplate(templateIndex: 10 + templateIndex));
+        },
       ),
-      onTap: () {
-        BlocProvider.of<NotesBloc>(context)
-            .add(AddNotes(templateIndex: 10 + templateIndex));
-      },
     );
   }
 }

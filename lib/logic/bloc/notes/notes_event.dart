@@ -10,9 +10,19 @@ class AddNotes extends NotesEvent {
   AddNotes({this.templateIndex = 11});
 }
 
+class SetTemplate extends NotesEvent {
+  final int templateIndex;
+  SetTemplate({this.templateIndex = 11});
+}
+
 class NextPage extends NotesEvent {}
 
 class PreviousPage extends NotesEvent {}
+
+class GoToPage extends NotesEvent {
+  final int index;
+  GoToPage({this.index = 11});
+}
 
 class AddImage extends NotesEvent {
   // final List<ImageComponent> imageComponents;

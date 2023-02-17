@@ -8,7 +8,6 @@ import 'package:wall_me/logic/models/workshop/image_component_model.dart';
 
 import '../../../../logic/bloc/notes/notes_bloc.dart';
 import '../../../../logic/bloc/workshop_ui/workshop_ui_cubit.dart';
-import '../close_button.dart';
 import 'image_fit_buttons.dart';
 
 class ImagePanel extends StatelessWidget {

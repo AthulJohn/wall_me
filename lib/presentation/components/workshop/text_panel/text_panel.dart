@@ -6,12 +6,8 @@ import 'dart:math';
 import 'package:wall_me/global_functions.dart';
 import 'package:wall_me/global_variables.dart';
 import 'package:wall_me/logic/bloc/textfield/textfield_cubit.dart';
-import 'package:wall_me/presentation/components/workshop/template_panel/template_card.dart';
 
-import '../../../../logic/bloc/notes/notes_bloc.dart';
 import '../../../../logic/bloc/workshop_ui/workshop_ui_cubit.dart';
-import '../../../../logic/models/workshop/text_component_model.dart';
-import '../close_button.dart';
 import 'text_align_buttons.dart';
 import 'text_style_buttons.dart';
 
@@ -111,8 +107,8 @@ class TextPanelBody extends StatelessWidget {
                   onChanged: (value) {
                     BlocProvider.of<TextFieldCubit>(context).changeSize(value);
                   },
-                  min: 10,
-                  max: 50,
+                  min: 20,
+                  max: 100,
                 );
               },
             ),

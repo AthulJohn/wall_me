@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -43,7 +43,6 @@ class TextFieldCubit extends Cubit<TextFieldState> {
   }
 
   void setTextComponent(TextComponent text) {
-    print('setted to ${text.text}');
     emit(TextFieldState(text));
   }
 }

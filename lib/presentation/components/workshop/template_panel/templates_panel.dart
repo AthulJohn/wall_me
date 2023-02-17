@@ -4,10 +4,8 @@ import 'dart:math';
 
 import 'package:wall_me/global_functions.dart';
 import 'package:wall_me/global_variables.dart';
-import 'package:wall_me/presentation/components/workshop/template_panel/template_card.dart';
 
 import '../../../../logic/bloc/workshop_ui/workshop_ui_cubit.dart';
-import '../close_button.dart';
 import 'template_set.dart';
 
 class TemplatesPanel extends StatelessWidget {

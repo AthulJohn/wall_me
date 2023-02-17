@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wall_me/logic/bloc/textfield/textfield_cubit.dart';
 
-import '../../../../logic/bloc/notes/notes_bloc.dart';
-import '../../../../logic/models/workshop/text_component_model.dart';
-
 enum EditStyle { bold, italics, underline }
 
 class TextEditButton extends StatelessWidget {

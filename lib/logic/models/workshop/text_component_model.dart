@@ -12,7 +12,7 @@ class TextComponent {
   TextComponent({
     this.text = "Sample Text",
     this.fontFamily = "Poppins",
-    this.fontSize = 20,
+    this.fontSize = 40,
     this.fontColor = Colors.black,
     this.isBold = false,
     this.isUnderlined = false,

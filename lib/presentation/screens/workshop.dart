@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wall_me/global_functions.dart';
+import 'package:wall_me/color_pallette.dart';
 import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
 import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 import 'package:wall_me/presentation/components/workshop/image_panel/image_panel.dart';
@@ -12,6 +10,7 @@ import 'package:wall_me/presentation/components/workshop/workshop_board.dart';
 import 'package:wall_me/presentation/screens/display.dart';
 
 import '../../logic/bloc/textfield/textfield_cubit.dart';
+import '../components/workshop/buttons.dart';
 import '../components/workshop/close_button.dart';
 import '../components/workshop/notes_outline/outline_panel.dart';
 
@@ -33,8 +32,13 @@ class WorkshopScreen extends StatelessWidget {
           ),
         ],
         child: Scaffold(
+          backgroundColor: CustomColor.backgroundColor,
           appBar: AppBar(
-            title: const Text('Wall Note Workshop'),
+            backgroundColor: CustomColor.primaryColor,
+            title: const Text(
+              'Wall Note Workshop',
+              // style: TextStyle(fontFamily: 'Cool Crayon'),
+            ),
             elevation: 0,
             leading: Builder(
               builder: (context) {
@@ -47,23 +51,36 @@ class WorkshopScreen extends StatelessWidget {
               },
             ),
             actions: [
-              Builder(
-                builder: (context) {
-                  return Container(
-                    color: Colors.green,
-                    child: TextButton(
-                      child: const Text('Share'),
+              Center(
+                child: Builder(
+                  builder: (context) {
+                    return CustomElevatedButton(
+                      text: 'Share',
+                      icon: Icons.upload,
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (newcontext) => DisplayScreen(
-                                BlocProvider.of<NotesBloc>(context)
-                                    .state
-                                    .notes)));
+                        if (BlocProvider.of<NotesBloc>(context)
+                            .state
+                            .notes
+                            .isNotEmpty) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (newcontext) => DisplayScreen(
+                                  BlocProvider.of<NotesBloc>(context)
+                                      .state
+                                      .notes)));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text(
+                                      'Add Atleast 1 page to share your site')));
+                        }
                       },
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
+              const SizedBox(
+                width: 20,
+              )
             ],
           ),
           body: Row(

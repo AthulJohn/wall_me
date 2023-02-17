@@ -13,3 +13,7 @@ getHeight(context) {
 double getFontSize(size, maxWidth, id) {
   return size * maxWidth / (1500 * (textRatios[id] ?? 0.425));
 }
+
+double getRelativeHeight(size, maxWidth) {
+  return size * maxWidth / (1500);
+}

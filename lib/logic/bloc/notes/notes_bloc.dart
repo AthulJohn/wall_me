@@ -13,8 +13,10 @@ part 'notes_state.dart';
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
   NotesBloc() : super(const NotesState()) {
     on<AddNotes>(_addNotesFunction);
+    on<SetTemplate>(_setNoteTemplate);
     on<NextPage>(_nextPageFunction);
     on<PreviousPage>(_previousPageFunction);
+    on<GoToPage>(_goToPageFunction);
     on<AddImage>(_pickImageFunction);
     on<ChangeText>(_changeTextFunction);
     on<ChangeCurrentImage>(_changeCurrentImageFunction);
@@ -36,10 +38,31 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             SingleNote(templateId: event.templateIndex, noteid: notes.length));
       }
       emit(NotesState(
-          notesStatus: NotesStatus.success,
-          notes: notes,
-          currentNoteIndex: notes.length - 1,
-          notesCount: notes.length));
+        notesStatus: NotesStatus.success,
+        notes: notes,
+        currentNoteIndex: notes.length - 1,
+        // notesCount: notes.length
+      ));
+    } catch (e) {
+      debugPrint("In function _addNotesFunction of NotesBloc, $e");
+      emit(state.copyWith(notesStatus: NotesStatus.error));
+    }
+  }
+
+  void _setNoteTemplate(event, emit) {
+    emit(state.copyWith(notesStatus: NotesStatus.loading));
+    try {
+      //CAll the API here
+      List<SingleNote> notes = state.notes;
+      if (notes.isEmpty) {
+        notes = [
+          SingleNote(templateId: event.templateIndex, noteid: notes.length)
+        ];
+      } else {
+        notes[state.currentNoteIndex] = SingleNote(
+            templateId: event.templateIndex, noteid: state.currentNoteIndex);
+      }
+      emit(state.copyWith(notesStatus: NotesStatus.success, notes: notes));
     } catch (e) {
       debugPrint("In function _addNotesFunction of NotesBloc, $e");
       emit(state.copyWith(notesStatus: NotesStatus.error));
@@ -50,10 +73,17 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     emit(state.copyWith(notesStatus: NotesStatus.loading));
     try {
       if (state.currentNoteIndex < state.notes.length - 1) {
+        int nextTextIndex = 0;
+        if (state.notes[state.currentNoteIndex + 1].textComponents.isNotEmpty) {
+          nextTextIndex = state
+              .notes[state.currentNoteIndex + 1].textComponents.first.length;
+        }
         emit(NotesState(
             notes: state.notes,
             notesStatus: NotesStatus.success,
-            currentNoteIndex: state.currentNoteIndex + 1));
+            currentNoteIndex: state.currentNoteIndex + 1,
+            currentTextCollectionIndex: 0,
+            currentTextIndex: nextTextIndex));
       } else {
         add(AddNotes());
       }
@@ -66,14 +96,42 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   void _previousPageFunction(event, emit) {
     emit(state.copyWith(notesStatus: NotesStatus.loading));
     try {
+      int nextTextIndex = 0;
+      if (state.notes[state.currentNoteIndex - 1].textComponents.isNotEmpty) {
+        nextTextIndex =
+            state.notes[state.currentNoteIndex - 1].textComponents.first.length;
+      }
       if (state.currentNoteIndex > 0) {
         emit(NotesState(
             notes: state.notes,
             currentNoteIndex: state.currentNoteIndex - 1,
-            notesStatus: NotesStatus.success));
+            notesStatus: NotesStatus.success,
+            currentTextCollectionIndex: 0,
+            currentTextIndex: nextTextIndex));
       }
     } catch (e) {
       debugPrint("In function _previousPageFunction of NotesBloc, $e");
+      emit(state.copyWith(notesStatus: NotesStatus.error));
+    }
+  }
+
+  void _goToPageFunction(event, emit) {
+    emit(state.copyWith(notesStatus: NotesStatus.loading));
+    try {
+      int nextTextIndex = 0;
+      if (state.notes[event.index].textComponents.isNotEmpty) {
+        nextTextIndex = state.notes[event.index].textComponents.first.length;
+      }
+      if (event.index < state.notes.length) {
+        emit(state.copyWith(
+          currentNoteIndex: event.index,
+          currentTextCollectionIndex: 0,
+          currentTextIndex: nextTextIndex,
+          notesStatus: NotesStatus.success,
+        ));
+      }
+    } catch (e) {
+      debugPrint("In function _gotoPageFunction of NotesBloc, $e");
       emit(state.copyWith(notesStatus: NotesStatus.error));
     }
   }

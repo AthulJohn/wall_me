@@ -16,13 +16,14 @@ class DisplayScreen extends StatelessWidget {
           child: ListView(
             children: [
               for (SingleNote note in notes)
-                AspectRatio(
-                  aspectRatio: MediaQuery.of(context).size.width /
-                      MediaQuery.of(context).size.height,
-                  child: ViewTemplate1(
-                    note: note,
+                if (note.templateId != -1)
+                  AspectRatio(
+                    aspectRatio: MediaQuery.of(context).size.width /
+                        MediaQuery.of(context).size.height,
+                    child: ViewTemplate1(
+                      note: note,
+                    ),
                   ),
-                ),
             ],
           ),
         ),
