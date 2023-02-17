@@ -5,6 +5,7 @@ import 'package:wall_me/presentation/components/workshop/select_template_note.da
 import 'package:wall_me/presentation/components/workshop/templates/template_1.dart';
 
 import '../../../logic/bloc/notes/notes_bloc.dart';
+import 'buttons.dart';
 
 class ActiveBoard extends StatelessWidget {
   final NotesState state;
@@ -22,42 +23,22 @@ class ActiveBoard extends StatelessWidget {
                 height: 30,
               ),
             if (state.currentNoteIndex > 0)
-              ElevatedButton(
+              CustomCircleButton(
                   onPressed: () {
                     BlocProvider.of<NotesBloc>(context).add(PreviousPage());
                   },
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      shape: MaterialStateProperty.all<StadiumBorder>(
-                          const StadiumBorder()),
-                      padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 15))),
-                  child: const Text('Previous Page')),
+                  icon: Icons.keyboard_arrow_up),
             const Spacer(),
             (state.currentNote ?? SingleNote(templateId: -1)).templateId == -1
                 ? const SelectTemplateNote()
                 : const AspectRatio(aspectRatio: 16 / 9, child: Template1()),
             const Spacer(),
             if (state.currentNoteIndex < state.notes.length - 1)
-              ElevatedButton(
+              CustomCircleButton(
                   onPressed: () {
                     BlocProvider.of<NotesBloc>(context).add(NextPage());
                   },
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      shape: MaterialStateProperty.all<StadiumBorder>(
-                          const StadiumBorder()),
-                      padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 15))),
-                  child: const Text('Next Page')),
+                  icon: Icons.keyboard_arrow_down),
             const SizedBox(
               height: 30,
             )

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:wall_me/presentation/components/workshop/active_board.dart';
 import 'package:wall_me/presentation/components/workshop/select_template_note.dart';
 

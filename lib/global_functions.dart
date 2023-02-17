@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import 'global_variables.dart';
+import 'constants/global_variables.dart';
 
 getWidth(context) {
   return MediaQuery.of(context).size.width;

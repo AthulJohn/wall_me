@@ -4,7 +4,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'dart:math';
 
 import 'package:wall_me/global_functions.dart';
-import 'package:wall_me/global_variables.dart';
+import 'package:wall_me/constants/global_variables.dart';
 import 'package:wall_me/logic/bloc/textfield/textfield_cubit.dart';
 
 import '../../../../logic/bloc/workshop_ui/workshop_ui_cubit.dart';

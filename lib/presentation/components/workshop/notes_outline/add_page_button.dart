@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../color_pallette.dart';
+import '../../../../constants/color_pallette.dart';
 import '../../../../logic/bloc/notes/notes_bloc.dart';
 
 class AddPageButton extends StatelessWidget {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wall_me/color_pallette.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wall_me/constants/color_pallette.dart';
+import 'package:wall_me/constants/routes.dart';
 import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
 import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 import 'package:wall_me/presentation/components/workshop/image_panel/image_panel.dart';
@@ -62,11 +64,7 @@ class WorkshopScreen extends StatelessWidget {
                             .state
                             .notes
                             .isNotEmpty) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (newcontext) => DisplayScreen(
-                                  BlocProvider.of<NotesBloc>(context)
-                                      .state
-                                      .notes)));
+                          context.go(previewRoute);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(

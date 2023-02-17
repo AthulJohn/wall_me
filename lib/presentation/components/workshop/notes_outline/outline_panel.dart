@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wall_me/color_pallette.dart';
+import 'package:wall_me/constants/color_pallette.dart';
 import 'dart:math';
 
 import 'package:wall_me/global_functions.dart';
@@ -20,7 +20,7 @@ class PageOutline extends StatelessWidget {
     return BlocBuilder<WorkshopUiCubit, WorkshopUiState>(
       builder: (context, state) {
         return AnimatedContainer(
-            color: CustomColor.ambientColor,
+            color: CustomColor.darkblue,
             duration: const Duration(milliseconds: 100),
             width: state.isOutlineOpen ? max(180, getWidth(context) * 0.15) : 0,
             child: const PageOutlineBody());
@@ -44,17 +44,40 @@ class PageOutlineBody extends StatelessWidget {
             return ListView.separated(
               itemBuilder: (context, index) {
                 if (index < state.notes.length) {
-                  return InkWell(
-                    child: state.notes[index].templateId == -1
-                        ? NonSelectedTemplateOutline()
-                        : AspectRatio(
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: Text(
+                          "${index + 1}",
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      Expanded(
+                        child: AspectRatio(
                             aspectRatio: 16 / 9,
-                            child: ViewTemplate1(
-                                note: state.notes[index], isOutline: true)),
-                    onTap: () {
-                      BlocProvider.of<NotesBloc>(context)
-                          .add(GoToPage(index: index));
-                    },
+                            child: Container(
+                              decoration: state.currentNoteIndex == index
+                                  ? BoxDecoration(
+                                      border: Border.all(
+                                          color: CustomColor.tertiaryColor,
+                                          width: 2))
+                                  : null,
+                              child: InkWell(
+                                child: state.notes[index].templateId == -1
+                                    ? const NonSelectedTemplateOutline()
+                                    : ViewTemplate1(
+                                        note: state.notes[index],
+                                        isOutline: true),
+                                onTap: () {
+                                  BlocProvider.of<NotesBloc>(context)
+                                      .add(GoToPage(index: index));
+                                },
+                              ),
+                            )),
+                      ),
+                    ],
                   );
                 } else {
                   return const AddPageButton();
