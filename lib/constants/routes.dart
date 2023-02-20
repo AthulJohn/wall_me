@@ -1,3 +1,4 @@
 const String homeRoute = '/',
     workshopRoute = '/workshop',
-    previewRoute = '/preview';
+    previewRoute = '/preview',
+    siteRoute = '/site/:siteUrl';

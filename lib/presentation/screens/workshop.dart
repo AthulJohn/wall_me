@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -5,12 +7,14 @@ import 'package:wall_me/constants/color_pallette.dart';
 import 'package:wall_me/constants/routes.dart';
 import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
 import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
+import 'package:wall_me/logic/data_cleaning/put_functions.dart';
 import 'package:wall_me/presentation/components/workshop/image_panel/image_panel.dart';
 import 'package:wall_me/presentation/components/workshop/template_panel/templates_panel.dart';
 import 'package:wall_me/presentation/components/workshop/text_panel/text_panel.dart';
 import 'package:wall_me/presentation/components/workshop/workshop_board.dart';
 import 'package:wall_me/presentation/screens/display.dart';
 
+import '../../global_functions.dart';
 import '../../logic/bloc/textfield/textfield_cubit.dart';
 import '../components/workshop/buttons.dart';
 import '../components/workshop/close_button.dart';
@@ -21,13 +25,11 @@ class WorkshopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    testInit();
     return MultiBlocProvider(
         providers: [
           BlocProvider<WorkshopUiCubit>(
             create: ((context) => WorkshopUiCubit()),
-          ),
-          BlocProvider<NotesBloc>(
-            create: ((context) => NotesBloc()),
           ),
           BlocProvider<TextFieldCubit>(
             create: ((context) => TextFieldCubit()),
@@ -59,12 +61,16 @@ class WorkshopScreen extends StatelessWidget {
                     return CustomElevatedButton(
                       text: 'Share',
                       icon: Icons.upload,
-                      onPressed: () {
+                      onPressed: () async {
                         if (BlocProvider.of<NotesBloc>(context)
                             .state
                             .notes
                             .isNotEmpty) {
-                          context.go(previewRoute);
+                          // bool result = await SendFunctions.sendSiteCleanData(
+                          //     'count',
+                          //     BlocProvider.of<NotesBloc>(context).state.notes);
+                          // print(result);
+                          context.push('/workshop/preview');
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -78,7 +84,34 @@ class WorkshopScreen extends StatelessWidget {
               ),
               const SizedBox(
                 width: 20,
-              )
+              ),
+              Center(
+                child: Builder(
+                  builder: (context) {
+                    return CustomElevatedButton(
+                      text: 'Publish',
+                      icon: Icons.upload,
+                      onPressed: () async {
+                        if (BlocProvider.of<NotesBloc>(context)
+                            .state
+                            .notes
+                            .isNotEmpty) {
+                          context.push('/workshop/selectUrl');
+                          // context.push('/workshop/preview');
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text(
+                                      'Add Atleast 1 page to share your site')));
+                        }
+                      },
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
             ],
           ),
           body: Row(

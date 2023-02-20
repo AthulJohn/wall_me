@@ -5,21 +5,37 @@ import 'package:wall_me/presentation/screens/display.dart';
 import 'package:wall_me/presentation/screens/home_screen.dart';
 import 'package:wall_me/presentation/screens/workshop.dart';
 
+import 'presentation/screens/preview.dart';
+import 'presentation/screens/selectUrl.dart';
+
 abstract class CustomRouter {
   static GoRouter router = GoRouter(routes: [
     GoRoute(
       path: '/',
-      pageBuilder: (context, state) => MaterialPage(child: const HomeScreen()),
+      pageBuilder: (context, state) => const MaterialPage(child: HomeScreen()),
     ),
     GoRoute(
       path: workshopRoute,
       pageBuilder: (context, state) =>
-          MaterialPage(child: const WorkshopScreen()),
+          const MaterialPage(child: WorkshopScreen()),
+      routes: [
+        GoRoute(
+          path: 'preview',
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: PreviewScreen()),
+        ),
+        GoRoute(
+          path: 'selectUrl',
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: SelectUrlScreen()),
+        ),
+      ],
     ),
     GoRoute(
-      path: previewRoute,
-      pageBuilder: (context, state) =>
-          MaterialPage(child: const DisplayScreen()),
+      path: siteRoute,
+      builder: (context, state) => DisplayScreen(
+        siteUrl: state.params['siteUrl'],
+      ),
     ),
   ]);
 }
