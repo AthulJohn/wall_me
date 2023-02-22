@@ -15,18 +15,12 @@ class ImageDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return imageComponent == null
         ? Container()
-        : Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.network(
-                imageComponent!.url,
-                fit: imageComponent!.fit,
-              ),
-              Container(
-                color: imageComponent!.overlayColor
-                    .withOpacity(imageComponent!.overlayIntensity),
-              )
-            ],
+        : Image.network(
+            imageComponent!.url,
+            fit: imageComponent!.fit,
+            color: imageComponent!.overlayColor
+                .withOpacity(imageComponent!.overlayIntensity),
+            colorBlendMode: BlendMode.darken,
           );
   }
 }

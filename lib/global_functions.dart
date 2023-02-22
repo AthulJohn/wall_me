@@ -19,11 +19,3 @@ double getFontSize(size, maxWidth, id) {
 double getRelativeHeight(size, maxWidth) {
   return size * maxWidth / (1500);
 }
-
-void testInit() async {
-  if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  }
-}

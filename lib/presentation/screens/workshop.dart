@@ -25,7 +25,6 @@ class WorkshopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    testInit();
     return MultiBlocProvider(
         providers: [
           BlocProvider<WorkshopUiCubit>(

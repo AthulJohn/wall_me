@@ -17,7 +17,6 @@ class DisplayScreen extends StatelessWidget {
     // final List<SingleNote> notes =
     //     BlocProvider.of<NotesBloc>(context).state.notes;
 
-    testInit();
     return Scaffold(
       body: SafeArea(
         child: BlocProvider<SitedataCubit>(
