@@ -54,7 +54,7 @@ class ViewTemplate1 extends StatelessWidget {
                                   templateIsIn(note.templateId, [11, 17])
                                       ? 10
                                       : 0,
-                              imageIndex: 0,
+                              // imageIndex: 0,
                             ),
                     )
                   : note.textComponents.first.isEmpty
@@ -87,7 +87,7 @@ class ViewTemplate1 extends StatelessWidget {
                                   templateIsIn(note.templateId, [12, 18])
                                       ? 10
                                       : 0,
-                              imageIndex: 0,
+                              // imageIndex: 0,
                             ),
                     )
                   : note.textComponents.first.isEmpty

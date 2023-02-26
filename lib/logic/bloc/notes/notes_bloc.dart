@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wall_me/logic/models/workshop/image_component_model.dart';
 import 'package:wall_me/logic/models/workshop/text_component_model.dart';
 
@@ -140,12 +141,13 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     emit(state.copyWith(
         notesStatus: NotesStatus.loading, currentImageIndex: event.index));
     try {
-      String? imagePath = await ImagePickerProvider.pickImage();
-      if (imagePath == null) {
+      XFile? image = await ImagePickerProvider.pickImage();
+      if (image == null) {
         emit(state.copyWith(notesStatus: NotesStatus.error));
         return;
       }
-      emit(state.addImageToCurrentNote(imagePath: imagePath));
+      emit(state.addImageToCurrentNote(
+          imagePath: image.path, mimeType: image.mimeType ?? "image/jpeg"));
     } catch (e) {
       debugPrint(e.toString());
       emit(state.copyWith(notesStatus: NotesStatus.error));

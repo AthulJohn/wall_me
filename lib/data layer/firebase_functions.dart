@@ -45,9 +45,16 @@ class FirebaseFunctions {
     return db.collection(collection).doc(docId).delete();
   }
 
-  static Future<QuerySnapshot<Map<String, dynamic>>?> firebaseGetSite(
-      String siteUrl) async {
+  static Future<Map<String, dynamic>> firebaseGetSite(String siteUrl) async {
+    /*return a map with the following structure:
+    {
+      "data":QuerySnapshot<Map<String, dynamic>>?,
+      "status": String
+    }
+    */
     QuerySnapshot<Map<String, dynamic>>? data;
+    String status = '';
+
     try {
       await db.runTransaction((transaction) async {
         final snapshot =
@@ -58,11 +65,14 @@ class FirebaseFunctions {
 
           transaction.update(db.collection('sites').doc(siteUrl),
               {"views": snapshot.data()!["views"] + 1});
+          status = 'Success';
+        } else {
+          status = '404: No site Found in the Url';
         }
       });
     } catch (e) {
-      print(e);
+      status = e.toString();
     }
-    return data;
+    return {'data': data, 'status': status};
   }
 }

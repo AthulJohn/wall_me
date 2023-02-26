@@ -9,13 +9,19 @@ import '../models/workshop/image_component_model.dart';
 import '../models/workshop/singlenote_model.dart';
 
 class FetchFunctions {
-  static Future<List<SingleNote>> fetchSiteCleanData(String url) async {
-    QuerySnapshot<Map<String, dynamic>>? rawData =
+  static Future<Map<String, dynamic>> fetchSiteCleanData(String url) async {
+    /*return a map with the following structure:
+    {
+      "data": List<SingleNote>?,
+      "status": String
+    }
+    */
+    Map<String, dynamic> rawResult =
         await FirebaseFunctions.firebaseGetSite(url);
+    QuerySnapshot<Map<String, dynamic>>? rawData = rawResult['data'];
 
-    if (rawData == null) return [];
-    print("rawData: ${rawData.docs.length}");
-    List<SingleNote> notes = [];
+    if (rawData == null) return {'data': null, 'status': rawResult['status']};
+    List<SingleNote>? notes = [];
     for (var note in rawData.docs) {
       {
         SingleNote singNote = SingleNote(
@@ -31,7 +37,7 @@ class FetchFunctions {
               textComponents[i].add(TextComponent(
                 text: singleText['text'],
                 fontSize: singleText['size'],
-                // fontColor: Color((singleText['color']as String).)),
+                fontColor: Color(singleText['color'] ?? 0),
                 fontFamily: singleText['fontFamily'],
                 textAlign: singleText['align'] == 0
                     ? TextAlign.left
@@ -52,20 +58,20 @@ class FetchFunctions {
           for (dynamic image in note["images"]) {
             images.add(ImageComponent(
                 url: image["url"],
+                mimeType: image["mime"],
                 fit: image["fit"] == 0
                     ? BoxFit.contain
                     : image['fit'] == 1
                         ? BoxFit.cover
                         : BoxFit.fill,
-                // overlayColor: image["overlayColor"],
-                overlayIntensity: 0.4));
+                overlayColor: Color(image["overlayColor"] ?? 0),
+                overlayIntensity: image["overlayIntensity"]));
           }
         }
         singNote.imageComponents = images;
         notes.add(singNote);
       }
     }
-    print("sending ${notes.length} notes");
-    return notes;
+    return {'data': notes, 'status': rawResult['status']};
   }
 }

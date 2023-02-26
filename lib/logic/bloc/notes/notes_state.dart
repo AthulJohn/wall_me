@@ -93,8 +93,9 @@ class NotesState extends Equatable {
 
   NotesState addImageToCurrentNote({
     required String imagePath,
+    required String mimeType,
   }) {
-    notes[currentNoteIndex].addImage(imagePath, currentImageIndex);
+    notes[currentNoteIndex].addImage(imagePath, mimeType, currentImageIndex);
     return NotesState(
         notes: notes,
         // notesCount: notesCount,

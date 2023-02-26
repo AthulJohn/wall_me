@@ -1,8 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:wall_me/data%20layer/image_upload.dart';
 import 'package:wall_me/logic/data_cleaning/get_functions.dart';
 import 'package:wall_me/logic/data_cleaning/put_functions.dart';
 import 'package:wall_me/logic/models/workshop/singlenote_model.dart';
+
+import '../../models/workshop/image_component_model.dart';
 
 part 'sitedata_state.dart';
 
@@ -11,11 +14,16 @@ class SitedataCubit extends Cubit<SitedataState> {
 
   void loadSiteData(String siteUrl) async {
     emit(const SitedataLoading());
-    List<SingleNote> notes = [];
+    Map<String, dynamic>? rawSiteData = {};
+    List<SingleNote>? notes = [];
     try {
-      notes = await FetchFunctions.fetchSiteCleanData(siteUrl);
-
-      emit(SitedataSuccess(siteUrl, notes));
+      rawSiteData = await FetchFunctions.fetchSiteCleanData(siteUrl);
+      notes = rawSiteData["notes"];
+      if (notes == null) {
+        emit(SitedataError(rawSiteData["status"].toString()));
+      } else {
+        emit(SitedataSuccess(siteUrl, notes));
+      }
     } catch (e) {
       emit(SitedataError(e.toString()));
     }
@@ -24,6 +32,20 @@ class SitedataCubit extends Cubit<SitedataState> {
   void publishNote(String siteUrl, List<SingleNote> notes) async {
     emit(const SitedataLoading());
     try {
+      int index = 1;
+
+      for (int j = 0; j < notes.length; j++) {
+        if (notes[j].imageComponents.isNotEmpty) {
+          emit(ImageUploading(siteUrl, index));
+          for (int i = 0; i < notes[j].imageComponents.length; i++) {
+            notes[j].imageComponents[i].url = await ImageUploder.uploadImage(
+                siteUrl, notes[j].imageComponents[i], notes[j].noteid, i);
+            index++;
+          }
+        }
+      }
+
+      emit(const SitedataLoading());
       await SendFunctions.sendSiteCleanData(siteUrl, notes);
 
       emit(SiteSendSuccess(siteUrl));

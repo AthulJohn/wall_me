@@ -43,13 +43,14 @@ class SendFunctions {
       for (ImageComponent image in note.imageComponents) {
         images.add({
           "url": image.url,
+          "mime": image.mimeType,
           "fit": image.fit == BoxFit.contain
               ? 0
               : image.fit == BoxFit.cover
                   ? 1
                   : 2,
-          "overlayColor":
-              image.overlayColor.withOpacity(image.overlayIntensity).value,
+          "overlayColor": image.overlayColor.value,
+          "overlayIntensity": image.overlayIntensity,
         });
       }
       notesList.add({

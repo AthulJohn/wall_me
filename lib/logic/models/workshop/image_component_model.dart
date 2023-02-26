@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ImageComponent {
   String url;
+  String mimeType;
   double width;
   double height;
   BoxFit fit;
@@ -10,6 +11,7 @@ class ImageComponent {
 
   ImageComponent({
     this.url = "https://picsum.photos/200",
+    this.mimeType = "image/jpeg",
     this.width = 200,
     this.height = 200,
     this.fit = BoxFit.cover,
@@ -24,6 +26,7 @@ class ImageComponent {
     BoxFit? fit,
     double? overlayIntensity,
     Color? overlayColor,
+    String? mimeType,
   }) {
     return ImageComponent(
       url: url ?? this.url,
@@ -32,6 +35,7 @@ class ImageComponent {
       fit: fit ?? this.fit,
       overlayIntensity: overlayIntensity ?? this.overlayIntensity,
       overlayColor: overlayColor ?? this.overlayColor,
+      mimeType: mimeType ?? this.mimeType,
     );
   }
 }

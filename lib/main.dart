@@ -6,7 +6,7 @@ import 'package:wall_me/presentation/screens/workshop.dart';
 import 'global_functions.dart';
 import 'logic/bloc/notes/notes_bloc.dart';
 import 'navigator_generator.dart';
-import 'presentation/screens/home_screen.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -14,6 +14,7 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

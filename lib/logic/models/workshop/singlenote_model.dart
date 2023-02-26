@@ -33,7 +33,7 @@ class SingleNote {
     );
   }
 
-  void addImage(String imagePath, int index) {
+  void addImage(String imagePath, String mimeType, int index) {
     if (imageComponents.isEmpty) {
       imageComponents = [ImageComponent(url: "")];
     }
@@ -41,6 +41,7 @@ class SingleNote {
       imageComponents.add(ImageComponent(url: ""));
     }
 
-    imageComponents[index] = (imageComponents[index].copyWith(url: imagePath));
+    imageComponents[index] =
+        (imageComponents[index].copyWith(url: imagePath, mimeType: mimeType));
   }
 }

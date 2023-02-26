@@ -5,6 +5,7 @@ import 'package:wall_me/logic/models/workshop/image_component_model.dart';
 
 import '../../../../../constants/color_pallette.dart';
 import '../../../../../logic/bloc/notes/notes_bloc.dart';
+import 'image_widget_display.dart';
 
 class ImageWidget extends StatelessWidget {
   final ImageComponent? imageComponent;
@@ -60,7 +61,7 @@ class ImageWidget extends StatelessWidget {
                             border: Border.all(
                                 color: CustomColor.tertiaryColor, width: 2))
                         : null,
-                    child: ImageContent(imageComponent: imageComponent),
+                    child: ImageDisplay(imageComponent: imageComponent),
                   );
                 });
               },

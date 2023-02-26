@@ -12,7 +12,6 @@ import 'package:wall_me/presentation/components/workshop/image_panel/image_panel
 import 'package:wall_me/presentation/components/workshop/template_panel/templates_panel.dart';
 import 'package:wall_me/presentation/components/workshop/text_panel/text_panel.dart';
 import 'package:wall_me/presentation/components/workshop/workshop_board.dart';
-import 'package:wall_me/presentation/screens/display.dart';
 
 import '../../global_functions.dart';
 import '../../logic/bloc/textfield/textfield_cubit.dart';

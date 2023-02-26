@@ -22,6 +22,11 @@ class SitedataSuccess extends SitedataState {
       : super(siteUrl, notes);
 }
 
+class ImageUploading extends SitedataState {
+  const ImageUploading(String siteUrl, this.index) : super(siteUrl, const []);
+  final int index;
+}
+
 class SiteSendSuccess extends SitedataState {
   const SiteSendSuccess(String siteUrl) : super(siteUrl, const []);
 }
