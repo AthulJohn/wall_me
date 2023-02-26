@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import '../logic/models/workshop/image_component_model.dart';
 
 class ImageUploder {
-  static FirebaseStorage _storage = FirebaseStorage.instance;
+  static final FirebaseStorage _storage = FirebaseStorage.instance;
   static Future<String> uploadImage(
       String url, ImageComponent image, int noteIndex, int imageIndex) async {
     Uint8List bytes = await XFile(image.url).readAsBytes();
