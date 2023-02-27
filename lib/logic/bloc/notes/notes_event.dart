@@ -35,6 +35,8 @@ class ChangeCurrentImage extends NotesEvent {
   ChangeCurrentImage({this.index});
 }
 
+class ActivateBackgroundImagePanel extends NotesEvent {}
+
 class ChangeTextSelection extends NotesEvent {
   final int textIndex, textCollectionIndex;
   ChangeTextSelection(this.textCollectionIndex, this.textIndex);

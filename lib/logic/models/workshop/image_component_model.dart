@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wall_me/constants/global_variables.dart';
 
 class ImageComponent {
   String url;
@@ -10,7 +11,7 @@ class ImageComponent {
   Color overlayColor;
 
   ImageComponent({
-    this.url = "https://picsum.photos/200",
+    this.url = '',
     this.mimeType = "image/jpeg",
     this.width = 200,
     this.height = 200,

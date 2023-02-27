@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wall_me/logic/models/workshop/text_component_model.dart';
 
 import '../../../../../global_functions.dart';
 import '../../../../../logic/bloc/notes/notes_bloc.dart';
@@ -31,6 +34,9 @@ class TextEnteringField extends StatelessWidget {
                   controller: tec,
                   maxLines: 6,
                   minLines: 1,
+
+                  // maxLength:
+                  //     (200000 / (pow(state.textComponent.fontSize, 2))).round(),
                   textAlignVertical: TextAlignVertical.center,
                   style: TextStyle(
                       fontSize: getFontSize(state.textComponent.fontSize,
@@ -49,7 +55,9 @@ class TextEnteringField extends StatelessWidget {
                   textAlign: state.textComponent.textAlign,
                   decoration: InputDecoration(
                       hintText: 'Enter some text',
-                      hintStyle: const TextStyle(color: Colors.black26),
+                      hintStyle: TextStyle(color: Colors.grey[400]),
+                      // fillColor: Colors.white,
+                      // filled: true,
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
                           borderSide: const BorderSide(color: Colors.black12)),
@@ -68,15 +76,19 @@ class TextEnteringField extends StatelessWidget {
                 ),
               ),
               if (state.textComponent.text.isNotEmpty)
-                IconButton(
-                  icon: const Icon(Icons.check),
-                  onPressed: () {
-                    BlocProvider.of<NotesBloc>(context)
-                        .add(ChangeText(state.textComponent));
-                    BlocProvider.of<TextFieldCubit>(context).changeText('');
+                Container(
+                  color: Colors.orange,
+                  child: IconButton(
+                    icon: const Icon(Icons.check),
+                    onPressed: () {
+                      BlocProvider.of<NotesBloc>(context)
+                          .add(ChangeText(state.textComponent));
+                      BlocProvider.of<TextFieldCubit>(context)
+                          .setTextComponent(TextComponent());
 
-                    tec.clear();
-                  },
+                      tec.clear();
+                    },
+                  ),
                 )
             ],
             // ),

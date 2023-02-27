@@ -83,6 +83,18 @@ class ImagePanelBody extends StatelessWidget {
                     pickerColor: ((notestate.currentImage ??
                             ImageComponent(overlayColor: Colors.black))
                         .overlayColor),
+                    availableColors: const [
+                      Colors.black,
+                      Colors.grey,
+                      Colors.white,
+                      Colors.red,
+                      Colors.green,
+                      Colors.blue,
+                      Colors.yellow,
+                      Colors.orange,
+                      Colors.purple,
+                      Colors.pink
+                    ],
                     onColorChanged: (color) {
                       BlocProvider.of<NotesBloc>(context).add(ChangeImageStyle(
                           (notestate.currentImage ?? ImageComponent())

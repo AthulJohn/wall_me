@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:linkfy_text/linkfy_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wall_me/constants/routes.dart';
 import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
 import 'package:wall_me/logic/bloc/site_data/sitedata_cubit.dart';
@@ -39,8 +41,17 @@ class SelectUrlScreen extends StatelessWidget {
                 );
               } else if (publishstate is SitedataError) {
                 return Text("Error: ${publishstate.errorText}");
-              } else if (publishstate is SitedataSuccess) {
-                return const Text("Success");
+              } else if (publishstate is SiteSendSuccess) {
+                return LinkifyText(
+                  "Your Web Poster is now available at https://wallme.web.app/${publishstate.siteUrl}",
+                  textAlign: TextAlign.center,
+                  linkStyle: TextStyle(color: Colors.blue),
+                  onTap: (link) {
+                    launchUrl(Uri.tryParse(link.value ?? "") ??
+                        Uri.parse(
+                            "https://wallme.web.app/${publishstate.siteUrl}"));
+                  },
+                );
               } else {
                 return TextButton(
                   child: const Text('Publish'),

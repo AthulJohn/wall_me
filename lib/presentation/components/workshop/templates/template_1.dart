@@ -2,8 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wall_me/constants/global_variables.dart';
 import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
+import 'package:wall_me/presentation/components/workshop/templates/template%20widgets/decoration_image_component.dart';
 
+import '../../../../logic/models/workshop/image_component_model.dart';
 import 'template widgets/image_widget.dart';
 import 'template widgets/text_column.dart';
 
@@ -33,9 +36,26 @@ class Template1 extends StatelessWidget {
             case NotesStatus.error:
               return const Center(child: Text("Error"));
             case NotesStatus.success:
-              // case NotesStatus.empty:
+              ImageComponent? backgroundImage = state
+                          .currentNote!.imageComponents.length >
+                      (totalImagesPerTemplate[state.currentNote!.templateId] ??
+                          1)
+                  ? state.currentNote!.imageComponents[
+                      (totalImagesPerTemplate[state.currentNote!.templateId] ??
+                          1)]
+                  : null;
               return Container(
-                color: Colors.white,
+                decoration: backgroundImage != null
+                    ? BoxDecoration(
+                        color: backgroundImage.url != ''
+                            ? null
+                            : backgroundImage.overlayColor
+                                .withOpacity(backgroundImage.overlayIntensity),
+                        image: backgroundImage.url != ''
+                            ? getDecorationImage(backgroundImage)
+                            : null,
+                      )
+                    : null,
                 padding: EdgeInsets.all(
                     templateIsIn(state, [11, 12, 18, 17]) ? 20 : 0),
                 child: Row(

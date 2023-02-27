@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wall_me/constants/global_variables.dart';
 import 'package:wall_me/logic/models/workshop/text_component_model.dart';
 
 import 'image_component_model.dart';
@@ -35,12 +36,11 @@ class SingleNote {
 
   void addImage(String imagePath, String mimeType, int index) {
     if (imageComponents.isEmpty) {
-      imageComponents = [ImageComponent(url: "")];
+      imageComponents = [ImageComponent(url: '')];
     }
     while (imageComponents.length <= index) {
-      imageComponents.add(ImageComponent(url: ""));
+      imageComponents.add(ImageComponent(url: ''));
     }
-
     imageComponents[index] =
         (imageComponents[index].copyWith(url: imagePath, mimeType: mimeType));
   }

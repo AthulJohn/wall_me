@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wall_me/constants/global_variables.dart';
 import 'package:wall_me/logic/models/workshop/image_component_model.dart';
 import 'package:wall_me/logic/models/workshop/text_component_model.dart';
 
@@ -21,6 +22,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     on<AddImage>(_pickImageFunction);
     on<ChangeText>(_changeTextFunction);
     on<ChangeCurrentImage>(_changeCurrentImageFunction);
+    on<ActivateBackgroundImagePanel>(_activateBackgroundImagePanelFunction);
     on<ChangeTextSelection>(_changeTextSelectionFunction);
     on<ChangeImageStyle>(_changeImageStyleFunction);
   }
@@ -157,6 +159,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   void _changeCurrentImageFunction(event, emit) {
     emit(state.copyWith(
         notesStatus: NotesStatus.success, currentImageIndex: event.index));
+  }
+
+  void _activateBackgroundImagePanelFunction(event, emit) {
+    emit(state.addBackgroundImageToCurrentNote());
   }
 
   void _changeTextFunction(event, emit) {

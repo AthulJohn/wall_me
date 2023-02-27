@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wall_me/constants/global_variables.dart';
 import 'package:wall_me/global_functions.dart';
 import 'package:wall_me/logic/bloc/textfield/textfield_cubit.dart';
 import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
@@ -67,42 +68,44 @@ class TextColumn extends StatelessWidget {
                             );
                           }),
                         ),
-                state.currentTextIndex ==
-                        state.currentNote!.textComponents.first.length
-                    ? TextEnteringField(
-                        templateId: state.currentNote!.templateId,
-                      )
-                    : InkWell(
-                        child: LayoutBuilder(builder:
-                            (BuildContext context, BoxConstraints constraints) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black12),
-                                borderRadius: BorderRadius.circular(5)),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 2),
-                            child: const Text(
-                              ' Click to add New Text ',
-                              style: TextStyle(color: Colors.black26),
-                            ),
-                          );
-                        }),
-                        onTap: () {
-                          BlocProvider.of<NotesBloc>(context).add(
-                              ChangeTextSelection(
-                                  0,
-                                  state.currentNote!.textComponents.first
-                                      .length));
-                          BlocProvider.of<TextFieldCubit>(context)
-                              .setTextComponent(
-                                  BlocProvider.of<NotesBloc>(context)
-                                          .state
-                                          .currentText ??
-                                      TextComponent());
-                          BlocProvider.of<WorkshopUiCubit>(context)
-                              .activateTextPanel();
-                        },
-                      )
+                if (state.currentNote!.textComponents.first.length <
+                    textLimitPerNote)
+                  state.currentTextIndex ==
+                          state.currentNote!.textComponents.first.length
+                      ? TextEnteringField(
+                          templateId: state.currentNote!.templateId,
+                        )
+                      : InkWell(
+                          child: LayoutBuilder(builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black12),
+                                  borderRadius: BorderRadius.circular(5)),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 2),
+                              child: const Text(
+                                ' Click to add New Text ',
+                                style: TextStyle(color: Colors.black26),
+                              ),
+                            );
+                          }),
+                          onTap: () {
+                            BlocProvider.of<NotesBloc>(context).add(
+                                ChangeTextSelection(
+                                    0,
+                                    state.currentNote!.textComponents.first
+                                        .length));
+                            BlocProvider.of<TextFieldCubit>(context)
+                                .setTextComponent(
+                                    BlocProvider.of<NotesBloc>(context)
+                                            .state
+                                            .currentText ??
+                                        TextComponent());
+                            BlocProvider.of<WorkshopUiCubit>(context)
+                                .activateTextPanel();
+                          },
+                        )
               ],
             );
           case TextStatus.loading:

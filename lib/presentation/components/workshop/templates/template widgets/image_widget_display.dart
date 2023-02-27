@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wall_me/logic/models/workshop/image_component_model.dart';
+import 'package:wall_me/presentation/components/workshop/templates/template%20widgets/decoration_image_component.dart';
 
 class ImageDisplay extends StatelessWidget {
   final ImageComponent? imageComponent;
@@ -18,12 +19,6 @@ class ImageDisplay extends StatelessWidget {
         : Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(borderRadius),
-                image: DecorationImage(
-                    image: NetworkImage(imageComponent!.url),
-                    colorFilter: ColorFilter.mode(
-                        imageComponent!.overlayColor
-                            .withOpacity(imageComponent!.overlayIntensity),
-                        BlendMode.darken),
-                    fit: imageComponent!.fit)));
+                image: getDecorationImage(imageComponent!)));
   }
 }

@@ -57,8 +57,8 @@ class WorkshopScreen extends StatelessWidget {
                 child: Builder(
                   builder: (context) {
                     return CustomElevatedButton(
-                      text: 'Share',
-                      icon: Icons.upload,
+                      text: 'Preview',
+                      icon: Icons.play_arrow,
                       onPressed: () async {
                         if (BlocProvider.of<NotesBloc>(context)
                             .state

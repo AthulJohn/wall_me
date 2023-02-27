@@ -19,7 +19,7 @@ class ImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return imageComponent == null
+    return imageComponent == null || imageComponent!.url == ''
         ? InkWell(
             child: Container(
               decoration: BoxDecoration(

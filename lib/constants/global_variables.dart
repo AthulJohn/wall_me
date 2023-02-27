@@ -18,3 +18,16 @@ const Map<int, double> textRatios = {
   17: 0.6375,
   18: 0.6375
 };
+
+const Map<int, int> totalImagesPerTemplate = {
+  11: 1,
+  12: 1,
+  13: 1,
+  14: 1,
+  15: 1,
+  16: 1,
+  17: 1,
+  18: 1
+};
+
+const int textLimitPerNote = 4;

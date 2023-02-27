@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 import 'package:wall_me/logic/models/workshop/singlenote_model.dart';
 import 'package:wall_me/presentation/components/workshop/select_template_note.dart';
 import 'package:wall_me/presentation/components/workshop/templates/template_1.dart';
@@ -33,6 +34,14 @@ class ActiveBoard extends StatelessWidget {
                 ? const SelectTemplateNote()
                 : const AspectRatio(aspectRatio: 16 / 9, child: Template1()),
             const Spacer(),
+            CustomCircleButton(
+                onPressed: () {
+                  BlocProvider.of<NotesBloc>(context)
+                      .add(ActivateBackgroundImagePanel());
+                  BlocProvider.of<WorkshopUiCubit>(context)
+                      .activateImagePanel();
+                },
+                icon: Icons.imagesearch_roller_rounded),
             if (state.currentNoteIndex < state.notes.length - 1)
               CustomCircleButton(
                   onPressed: () {

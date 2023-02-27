@@ -85,6 +85,18 @@ class TextPanelBody extends StatelessWidget {
                   height: 400,
                   child: BlockPicker(
                     pickerColor: state.textComponent.fontColor,
+                    availableColors: const [
+                      Colors.black,
+                      Colors.grey,
+                      Colors.white,
+                      Colors.red,
+                      Colors.green,
+                      Colors.blue,
+                      Colors.yellow,
+                      Colors.orange,
+                      Colors.purple,
+                      Colors.pink
+                    ],
                     onColorChanged: (color) {
                       BlocProvider.of<TextFieldCubit>(context)
                           .changeColor(color);

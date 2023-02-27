@@ -96,10 +96,21 @@ class NotesState extends Equatable {
     required String mimeType,
   }) {
     notes[currentNoteIndex].addImage(imagePath, mimeType, currentImageIndex);
-    return NotesState(
+    return copyWith(
         notes: notes,
         // notesCount: notesCount,
-        currentNoteIndex: currentNoteIndex,
+
+        notesStatus: NotesStatus.success);
+  }
+
+  NotesState addBackgroundImageToCurrentNote() {
+    notes[currentNoteIndex].addImage('', 'image/png',
+        totalImagesPerTemplate[notes[currentNoteIndex].templateId] ?? 1);
+    return copyWith(
+        notes: notes,
+        // notesCount: notesCount,
+        currentImageIndex:
+            (totalImagesPerTemplate[notes[currentNoteIndex].templateId] ?? 1),
         notesStatus: NotesStatus.success);
   }
 }
