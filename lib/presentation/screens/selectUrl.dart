@@ -14,60 +14,72 @@ class SelectUrlScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child:
-        BlocBuilder<TextFieldCubit, TextFieldState>(builder: (context, state) {
-      return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(
-              height: 40,
-              child: TextField(
-                onChanged: (val) {
-                  context.read<TextFieldCubit>().changeText(val);
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Select Url'),
+          backgroundColor: Colors.white,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.go(homeRoute);
                 },
-              ),
-            ),
+                icon: const Icon(Icons.home))
+          ],
+        ),
+        body: Center(child: BlocBuilder<TextFieldCubit, TextFieldState>(
+            builder: (context, state) {
+          return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  height: 40,
+                  child: TextField(
+                    onChanged: (val) {
+                      context.read<TextFieldCubit>().changeText(val);
+                    },
+                  ),
+                ),
 
-            BlocBuilder<SitedataCubit, SitedataState>(
-                builder: (context, publishstate) {
-              if (publishstate is ImageUploading) {
-                return Center(
-                  child: Text('Uploading Image ${publishstate.index}'),
-                );
-              } else if (publishstate is SitedataLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (publishstate is SitedataError) {
-                return Text("Error: ${publishstate.errorText}");
-              } else if (publishstate is SiteSendSuccess) {
-                return LinkifyText(
-                  "Your Web Poster is now available at https://wallme.web.app/${publishstate.siteUrl}",
-                  textAlign: TextAlign.center,
-                  linkStyle: TextStyle(color: Colors.blue),
-                  onTap: (link) {
-                    launchUrl(Uri.tryParse(link.value ?? "") ??
-                        Uri.parse(
-                            "https://wallme.web.app/${publishstate.siteUrl}"));
-                  },
-                );
-              } else {
-                return TextButton(
-                  child: const Text('Publish'),
-                  onPressed: () {
-                    context.read<SitedataCubit>().publishNote(
-                        state.textComponent.text,
-                        BlocProvider.of<NotesBloc>(context).state.notes);
-                  },
-                );
-              }
-            })
-            //   ],
-            // ),
-            //) ;
-            //}),), //),
-          ]);
-    })));
+                BlocBuilder<SitedataCubit, SitedataState>(
+                    builder: (context, publishstate) {
+                  if (publishstate is ImageUploading) {
+                    return const Center(
+                      child: Text('Uploading Images'),
+                    );
+                  } else if (publishstate is SitedataLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (publishstate is SitedataError) {
+                    return Text("Error: ${publishstate.errorText}");
+                  } else if (publishstate is SiteSendSuccess) {
+                    return LinkifyText(
+                      "Your Web Poster is now available at https://wallme.web.app/${publishstate.siteUrl}",
+                      textAlign: TextAlign.center,
+                      linkStyle: TextStyle(color: Colors.blue),
+                      onTap: (link) {
+                        launchUrl(Uri.tryParse(link.value ?? "") ??
+                            Uri.parse(
+                                "https://wallme.web.app/${publishstate.siteUrl}"));
+                      },
+                    );
+                  } else {
+                    return TextButton(
+                      child: const Text('Publish'),
+                      onPressed: () {
+                        context.read<SitedataCubit>().publishNote(
+                            state.textComponent.text,
+                            BlocProvider.of<NotesBloc>(context).state.notes);
+                      },
+                    );
+                  }
+                })
+                //   ],
+                // ),
+                //) ;
+                //}),), //),
+              ]);
+        })));
   }
 }

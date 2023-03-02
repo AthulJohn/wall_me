@@ -39,10 +39,12 @@ dependencies:
   equatable: ^2.0.5
   
   image_picker: ^0.8.6+1
+  image_compression: ^1.0.3
   flutter_colorpicker: ^1.0.3
   linkfy_text: ^1.1.5
   url_launcher: ^6.1.10
   go_router: ^6.0.8
+  async: ^2.10.0
   
   #firebase
   firebase_core: ^2.6.1

@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:wall_me/data%20layer/image_upload.dart';
@@ -33,18 +34,30 @@ class SitedataCubit extends Cubit<SitedataState> {
     emit(const SitedataLoading());
     try {
       int index = 1;
+      var futures = FutureGroup<String>();
 
+      emit(ImageUploading(siteUrl, index));
       for (int j = 0; j < notes.length; j++) {
         if (notes[j].imageComponents.isNotEmpty) {
-          emit(ImageUploading(siteUrl, index));
           for (int i = 0; i < notes[j].imageComponents.length; i++) {
-            notes[j].imageComponents[i].url = await ImageUploder.uploadImage(
-                siteUrl, notes[j].imageComponents[i], notes[j].noteid, i);
+            futures.add(ImageUploder.uploadImage(
+                siteUrl, notes[j].imageComponents[i], notes[j].noteid, i));
             index++;
           }
         }
       }
-
+      futures.close();
+      index = 0;
+      await futures.future.then((value) {
+        for (int j = 0; j < notes.length; j++) {
+          if (notes[j].imageComponents.isNotEmpty) {
+            for (int i = 0; i < notes[j].imageComponents.length; i++) {
+              notes[j].imageComponents[i].url = value[index];
+              index++;
+            }
+          }
+        }
+      });
       emit(const SitedataLoading());
       await SendFunctions.sendSiteCleanData(siteUrl, notes);
 

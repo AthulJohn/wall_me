@@ -36,10 +36,10 @@ class SingleNote {
 
   void addImage(String imagePath, String mimeType, int index) {
     if (imageComponents.isEmpty) {
-      imageComponents = [ImageComponent(url: '')];
+      imageComponents = [ImageComponent()];
     }
     while (imageComponents.length <= index) {
-      imageComponents.add(ImageComponent(url: ''));
+      imageComponents.add(ImageComponent());
     }
     imageComponents[index] =
         (imageComponents[index].copyWith(url: imagePath, mimeType: mimeType));

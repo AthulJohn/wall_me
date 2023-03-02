@@ -8,6 +8,6 @@ DecorationImage getDecorationImage(ImageComponent imageComponent) {
       colorFilter: ColorFilter.mode(
           imageComponent.overlayColor
               .withOpacity(imageComponent.overlayIntensity),
-          BlendMode.darken),
+          BlendMode.hardLight),
       fit: imageComponent.fit);
 }

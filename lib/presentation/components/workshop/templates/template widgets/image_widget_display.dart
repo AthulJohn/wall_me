@@ -14,7 +14,7 @@ class ImageDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return imageComponent == null
+    return imageComponent == null || imageComponent!.url.isEmpty
         ? Container()
         : Container(
             decoration: BoxDecoration(

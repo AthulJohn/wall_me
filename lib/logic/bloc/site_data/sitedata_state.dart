@@ -6,7 +6,7 @@ abstract class SitedataState extends Equatable {
   final String siteUrl;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [notes, siteUrl];
 }
 
 class SitedataInitial extends SitedataState {
@@ -24,6 +24,9 @@ class SitedataSuccess extends SitedataState {
 
 class ImageUploading extends SitedataState {
   const ImageUploading(String siteUrl, this.index) : super(siteUrl, const []);
+
+  @override
+  List<Object> get props => [notes, siteUrl, index];
   final int index;
 }
 

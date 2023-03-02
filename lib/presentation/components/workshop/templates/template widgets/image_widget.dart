@@ -45,28 +45,31 @@ class ImageWidget extends StatelessWidget {
               BlocProvider.of<NotesBloc>(context)
                   .add(ChangeCurrentImage(index: imageIndex));
             },
-            child: BlocBuilder<NotesBloc, NotesState>(
-              builder: (context, state) {
-                return BlocBuilder<WorkshopUiCubit, WorkshopUiState>(
-                    builder: (context, state) {
-                  return Container(
-                    decoration: BlocProvider.of<WorkshopUiCubit>(context)
-                                .state
-                                .isImageEditOpen &&
-                            BlocProvider.of<NotesBloc>(context)
-                                    .state
-                                    .currentImageIndex ==
-                                imageIndex
-                        ? BoxDecoration(
-                            border: Border.all(
-                                color: CustomColor.tertiaryColor, width: 2))
-                        : null,
-                    child: ImageDisplay(imageComponent: imageComponent),
-                  );
-                });
-              },
-            ),
-          );
+            child: // BlocBuilder<NotesBloc, NotesState>(
+                //   builder: (context, state) {
+                //     return BlocBuilder<WorkshopUiCubit, WorkshopUiState>(
+                //         builder: (context, state) {
+                //       return
+                Container(
+              decoration: BlocProvider.of<WorkshopUiCubit>(context)
+                          .state
+                          .isImageEditOpen &&
+                      BlocProvider.of<NotesBloc>(context)
+                              .state
+                              .currentImageIndex ==
+                          imageIndex
+                  ? BoxDecoration(
+                      border: Border.all(
+                          color: CustomColor.tertiaryColor, width: 2))
+                  : null,
+              child: ImageContent(imageComponent: imageComponent!),
+            )
+
+            ///;
+            //     });
+            //   },
+            // ),
+            );
   }
 }
 
@@ -76,7 +79,7 @@ class ImageContent extends StatelessWidget {
     required this.imageComponent,
   });
 
-  final ImageComponent? imageComponent;
+  final ImageComponent imageComponent;
 
   @override
   Widget build(BuildContext context) {
@@ -84,12 +87,12 @@ class ImageContent extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         Image.network(
-          imageComponent!.url,
-          fit: imageComponent!.fit,
+          imageComponent.url,
+          fit: imageComponent.fit,
         ),
         Container(
-          color: imageComponent!.overlayColor
-              .withOpacity(imageComponent!.overlayIntensity),
+          color: imageComponent.overlayColor
+              .withOpacity(imageComponent.overlayIntensity),
         )
       ],
     );
