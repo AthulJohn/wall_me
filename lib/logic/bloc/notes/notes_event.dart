@@ -10,44 +10,30 @@ class AddNotes extends NotesEvent {
   AddNotes({this.templateIndex = 11});
 }
 
-class SetTemplate extends NotesEvent {
-  final int templateIndex;
-  SetTemplate({this.templateIndex = 11});
+class SetSingleNote extends NotesEvent {
+  final SingleNote note;
+  SetSingleNote(this.note);
 }
 
-class NextPage extends NotesEvent {}
+class SetTemplate extends NotesEvent {
+  final int templateIndex;
+  final SinglenoteBloc singlenoteBloc;
+  SetTemplate({this.templateIndex = 11, required this.singlenoteBloc});
+}
 
-class PreviousPage extends NotesEvent {}
+class NextPage extends NotesEvent {
+  final SinglenoteBloc singlenoteBloc;
+  NextPage(this.singlenoteBloc);
+}
+
+class PreviousPage extends NotesEvent {
+  final SinglenoteBloc singlenoteBloc;
+  PreviousPage(this.singlenoteBloc);
+}
 
 class GoToPage extends NotesEvent {
   final int index;
-  GoToPage({this.index = 11});
-}
 
-class AddImage extends NotesEvent {
-  // final List<ImageComponent> imageComponents;
-  final int? index;
-  AddImage({this.index});
-}
-
-class ChangeCurrentImage extends NotesEvent {
-  final int? index;
-  ChangeCurrentImage({this.index});
-}
-
-class ActivateBackgroundImagePanel extends NotesEvent {}
-
-class ChangeTextSelection extends NotesEvent {
-  final int textIndex, textCollectionIndex;
-  ChangeTextSelection(this.textCollectionIndex, this.textIndex);
-}
-
-class ChangeImageStyle extends NotesEvent {
-  final ImageComponent imageComponent;
-  ChangeImageStyle(this.imageComponent);
-}
-
-class ChangeText extends NotesEvent {
-  final TextComponent textComponent;
-  ChangeText(this.textComponent);
+  final SinglenoteBloc singlenoteBloc;
+  GoToPage({this.index = 11, required this.singlenoteBloc});
 }

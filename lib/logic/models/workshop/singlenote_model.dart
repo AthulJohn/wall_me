@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wall_me/constants/global_variables.dart';
+import 'package:wall_me/logic/bloc/singlenote/singlenote_bloc.dart';
 import 'package:wall_me/logic/models/workshop/text_component_model.dart';
 
 import 'image_component_model.dart';
@@ -43,5 +44,12 @@ class SingleNote {
     }
     imageComponents[index] =
         (imageComponents[index].copyWith(url: imagePath, mimeType: mimeType));
+  }
+
+  void addBackgroundImage() {
+    int backgroundIndex = totalImagesPerTemplate[templateId] ?? 1;
+    if (imageComponents.length <= backgroundIndex) {
+      addImage('', 'image/png', backgroundIndex);
+    }
   }
 }

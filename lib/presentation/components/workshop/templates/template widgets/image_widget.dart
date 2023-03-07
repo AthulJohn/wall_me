@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wall_me/logic/bloc/singlenote/singlenote_bloc.dart';
 import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 import 'package:wall_me/logic/models/workshop/image_component_model.dart';
 
@@ -35,14 +36,14 @@ class ImageWidget extends StatelessWidget {
               ),
             ),
             onTap: () {
-              BlocProvider.of<NotesBloc>(context)
+              BlocProvider.of<SinglenoteBloc>(context)
                   .add(AddImage(index: imageIndex));
             },
           )
         : InkWell(
             onTap: () {
               BlocProvider.of<WorkshopUiCubit>(context).activateImagePanel();
-              BlocProvider.of<NotesBloc>(context)
+              BlocProvider.of<SinglenoteBloc>(context)
                   .add(ChangeCurrentImage(index: imageIndex));
             },
             child: // BlocBuilder<NotesBloc, NotesState>(
@@ -54,7 +55,7 @@ class ImageWidget extends StatelessWidget {
               decoration: BlocProvider.of<WorkshopUiCubit>(context)
                           .state
                           .isImageEditOpen &&
-                      BlocProvider.of<NotesBloc>(context)
+                      BlocProvider.of<SinglenoteBloc>(context)
                               .state
                               .currentImageIndex ==
                           imageIndex

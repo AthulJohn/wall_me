@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wall_me/logic/bloc/singlenote/singlenote_bloc.dart';
 
 import '../../../../logic/bloc/notes/notes_bloc.dart';
 import '../../../../logic/models/workshop/image_component_model.dart';
@@ -10,16 +11,17 @@ class ImageFitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NotesBloc, NotesState>(
+    return BlocBuilder<SinglenoteBloc, SinglenoteState>(
       builder: (context, state) {
         return state.currentImage == null
             ? Container()
             : Expanded(
                 child: InkWell(
                   onTap: () {
-                    BlocProvider.of<NotesBloc>(context).add(ChangeImageStyle(
-                        (state.currentImage ?? ImageComponent())
-                            .copyWith(fit: fit)));
+                    BlocProvider.of<SinglenoteBloc>(context).add(
+                        ChangeImageStyle(
+                            (state.currentImage ?? ImageComponent())
+                                .copyWith(fit: fit)));
                   },
                   child: Container(
                     decoration: BoxDecoration(

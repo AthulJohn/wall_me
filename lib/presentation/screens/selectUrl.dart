@@ -18,6 +18,7 @@ class SelectUrlScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Select Url'),
           backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
           actions: [
             IconButton(
                 onPressed: () {

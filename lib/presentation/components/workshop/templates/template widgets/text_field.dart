@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wall_me/logic/bloc/singlenote/singlenote_bloc.dart';
 import 'package:wall_me/logic/models/workshop/text_component_model.dart';
 
 import '../../../../../global_functions.dart';
@@ -81,7 +82,7 @@ class TextEnteringField extends StatelessWidget {
                   child: IconButton(
                     icon: const Icon(Icons.check),
                     onPressed: () {
-                      BlocProvider.of<NotesBloc>(context)
+                      BlocProvider.of<SinglenoteBloc>(context)
                           .add(ChangeText(state.textComponent));
                       BlocProvider.of<TextFieldCubit>(context)
                           .setTextComponent(TextComponent());

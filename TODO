@@ -15,7 +15,6 @@ Add Relative sizing to window [0] // Can think of a round way
 Added Image Edit Panel, and Template Select Panel
 todo: 
 Add implementation to image panel [0]
-Add Unsplash support [ ] not important
 Make add page to open template panel[0]
 
 16/02/2023
@@ -27,8 +26,16 @@ Correct the text proportions[0]
 Removed Compression Function, as it increased size.
 Added Future group to make uploading synchronous.
 
+
+7/3/2023
+
+Make a bloc for a single page [o] 
+Fixed some bugs
+
+
 todo:
-Make a bloc for a single page [ ]
+
+Add Unsplash support [ ] not important
 MAke the paddings dynamic to size[ ]
 Change UI[ ]
 DEcide something on text column overflow[ ]

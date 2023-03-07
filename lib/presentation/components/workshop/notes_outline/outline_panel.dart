@@ -9,7 +9,9 @@ import 'package:wall_me/presentation/components/workshop/notes_outline/add_page_
 import 'package:wall_me/presentation/components/workshop/notes_outline/non_selected_template.dart';
 import 'package:wall_me/presentation/components/workshop/templates/template_1_display.dart';
 
+import '../../../../logic/bloc/singlenote/singlenote_bloc.dart';
 import '../../../../logic/bloc/workshop_ui/workshop_ui_cubit.dart';
+import '../../../../logic/models/workshop/singlenote_model.dart';
 
 class PageOutline extends StatelessWidget {
   final bool isExpanded;
@@ -33,6 +35,12 @@ class PageOutlineBody extends StatelessWidget {
   const PageOutlineBody({
     super.key,
   });
+  void changePage(context, int ind) {
+    BlocProvider.of<NotesBloc>(context).add(
+        SetSingleNote(BlocProvider.of<SinglenoteBloc>(context).state.note));
+    BlocProvider.of<NotesBloc>(context).add(GoToPage(
+        index: ind, singlenoteBloc: BlocProvider.of<SinglenoteBloc>(context)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +75,19 @@ class PageOutlineBody extends StatelessWidget {
                               child: InkWell(
                                 child: state.notes[index].templateId == -1
                                     ? const NonSelectedTemplateOutline()
-                                    : ViewTemplate1(
-                                        note: state.notes[index],
-                                        isOutline: true),
+                                    : index == state.currentNoteIndex
+                                        ? BlocBuilder<SinglenoteBloc,
+                                                SinglenoteState>(
+                                            builder: (context, state) {
+                                            return ViewTemplate1(
+                                                note: state.note,
+                                                isOutline: true);
+                                          })
+                                        : ViewTemplate1(
+                                            note: state.notes[index],
+                                            isOutline: true),
                                 onTap: () {
-                                  BlocProvider.of<NotesBloc>(context)
-                                      .add(GoToPage(index: index));
+                                  changePage(context, index);
                                 },
                               ),
                             )),

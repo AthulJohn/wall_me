@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TextColumnPreview extends StatelessWidget {
+// A placeholder for the text column widget
+
   const TextColumnPreview({super.key});
 
   @override

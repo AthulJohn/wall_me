@@ -14,6 +14,7 @@ import 'package:wall_me/presentation/components/workshop/text_panel/text_panel.d
 import 'package:wall_me/presentation/components/workshop/workshop_board.dart';
 
 import '../../global_functions.dart';
+import '../../logic/bloc/singlenote/singlenote_bloc.dart';
 import '../../logic/bloc/textfield/textfield_cubit.dart';
 import '../components/workshop/buttons.dart';
 import '../components/workshop/close_button.dart';
@@ -31,6 +32,9 @@ class WorkshopScreen extends StatelessWidget {
           ),
           BlocProvider<TextFieldCubit>(
             create: ((context) => TextFieldCubit()),
+          ),
+          BlocProvider<SinglenoteBloc>(
+            create: ((context) => SinglenoteBloc()),
           ),
         ],
         child: Scaffold(
@@ -60,6 +64,10 @@ class WorkshopScreen extends StatelessWidget {
                       text: 'Preview',
                       icon: Icons.play_arrow,
                       onPressed: () async {
+                        BlocProvider.of<NotesBloc>(context).add(SetSingleNote(
+                            BlocProvider.of<SinglenoteBloc>(context)
+                                .state
+                                .note));
                         if (BlocProvider.of<NotesBloc>(context)
                             .state
                             .notes
@@ -90,6 +98,10 @@ class WorkshopScreen extends StatelessWidget {
                       text: 'Publish',
                       icon: Icons.upload,
                       onPressed: () async {
+                        BlocProvider.of<NotesBloc>(context).add(SetSingleNote(
+                            BlocProvider.of<SinglenoteBloc>(context)
+                                .state
+                                .note));
                         if (BlocProvider.of<NotesBloc>(context)
                             .state
                             .notes

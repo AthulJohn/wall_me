@@ -7,6 +7,7 @@ import 'package:wall_me/global_functions.dart';
 import 'package:wall_me/logic/models/workshop/image_component_model.dart';
 
 import '../../../../logic/bloc/notes/notes_bloc.dart';
+import '../../../../logic/bloc/singlenote/singlenote_bloc.dart';
 import '../../../../logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 import 'image_fit_buttons.dart';
 
@@ -49,7 +50,7 @@ class ImagePanelBody extends StatelessWidget {
             child: TextButton(
               child: const Text('Change Image'),
               onPressed: () {
-                BlocProvider.of<NotesBloc>(context).add(AddImage());
+                BlocProvider.of<SinglenoteBloc>(context).add(AddImage());
               },
             ),
           ),
@@ -74,7 +75,7 @@ class ImagePanelBody extends StatelessWidget {
           ),
           FittedBox(
             fit: BoxFit.scaleDown,
-            child: BlocBuilder<NotesBloc, NotesState>(
+            child: BlocBuilder<SinglenoteBloc, SinglenoteState>(
               builder: (context, notestate) {
                 return SizedBox(
                   // width: 150,
@@ -96,9 +97,10 @@ class ImagePanelBody extends StatelessWidget {
                       Colors.pink
                     ],
                     onColorChanged: (color) {
-                      BlocProvider.of<NotesBloc>(context).add(ChangeImageStyle(
-                          (notestate.currentImage ?? ImageComponent())
-                              .copyWith(overlayColor: color)));
+                      BlocProvider.of<SinglenoteBloc>(context).add(
+                          ChangeImageStyle(
+                              (notestate.currentImage ?? ImageComponent())
+                                  .copyWith(overlayColor: color)));
                     },
                     useInShowDialog: false,
                   ),
@@ -111,13 +113,13 @@ class ImagePanelBody extends StatelessWidget {
               fit: BoxFit.scaleDown, child: Text("Overlay Opacity")),
           FittedBox(
             fit: BoxFit.scaleDown,
-            child: BlocBuilder<NotesBloc, NotesState>(
+            child: BlocBuilder<SinglenoteBloc, SinglenoteState>(
               builder: (context, notestate) {
                 return Slider(
                   value: (notestate.currentImage ?? ImageComponent())
                       .overlayIntensity,
                   onChanged: (value) {
-                    BlocProvider.of<NotesBloc>(context).add(
+                    BlocProvider.of<SinglenoteBloc>(context).add(
                       ChangeImageStyle(
                         (notestate.currentImage ?? ImageComponent())
                             .copyWith(overlayIntensity: value),
