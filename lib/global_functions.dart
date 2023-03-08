@@ -16,6 +16,10 @@ double getFontSize(size, maxWidth, id) {
   return size * maxWidth / (1500 * (textRatios[id] ?? 0.425));
 }
 
-double getRelativeHeight(size, maxWidth) {
+double getRelativeHeight(double size, maxWidth) {
   return size * maxWidth / (1500);
+}
+
+double getRelSize(double size, BuildContext context) {
+  return size * getWidth(context) / (1500);
 }

@@ -51,13 +51,19 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   void _setSingleNoteFunction(SetSingleNote event, emit) {
     emit(state.copyWith(notesStatus: NotesStatus.loading));
     try {
-      List<SingleNote> notes = state.notes;
-      notes[event.note.noteid] = event.note;
-      emit(NotesState(
-        notesStatus: NotesStatus.success,
-        notes: notes,
-        currentNoteIndex: event.note.noteid,
-      ));
+      if (event.note.noteid < state.notes.length) {
+        List<SingleNote> notes = state.notes;
+        notes[event.note.noteid] = event.note;
+        emit(NotesState(
+          notesStatus: NotesStatus.success,
+          notes: notes,
+          currentNoteIndex: event.note.noteid,
+        ));
+      } else {
+        emit(const NotesState(
+          notesStatus: NotesStatus.success,
+        ));
+      }
     } catch (e) {
       debugPrint("In function _setSingleNoteFunction of NotesBloc, $e");
       emit(state.copyWith(notesStatus: NotesStatus.error));

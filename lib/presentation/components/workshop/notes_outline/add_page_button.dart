@@ -30,11 +30,13 @@ class AddPageButton extends StatelessWidget {
               decoration: BoxDecoration(
                   color: CustomColor.secondaryColor.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(10)),
-              child: Icon(
-                Icons.add,
-                color: CustomColor.tertiaryColor,
-                size: 30,
-              )),
+              child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Icon(
+                    Icons.add,
+                    color: CustomColor.tertiaryColor,
+                    size: 30,
+                  ))),
         ),
       ),
     );

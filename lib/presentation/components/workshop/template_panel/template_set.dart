@@ -18,7 +18,7 @@ class TemplateSet extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             'Template ${id + 1}',
-            style: TextStyle(fontSize: 15, color: CustomColor.darkblue),
+            style: TextStyle(fontSize: 15, color: Colors.black),
           ),
         ),
         for (int i = 1; i < templateSetSizes[id] + 1; i += 2)

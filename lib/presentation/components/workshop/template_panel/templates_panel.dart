@@ -17,9 +17,9 @@ class TemplatesPanel extends StatelessWidget {
     return BlocBuilder<WorkshopUiCubit, WorkshopUiState>(
         builder: (context, state) {
       return AnimatedContainer(
-        color: CustomColor.ambientColor,
+        color: Colors.white,
         duration: const Duration(milliseconds: 100),
-        width: state.isTemplatesOpen ? max(180, getWidth(context) * 0.25) : 1,
+        width: state.isTemplatesOpen ? max(180, getWidth(context) * 0.2) : 1,
         child: const TemplatesPanelBody(),
       );
     });
@@ -41,7 +41,7 @@ class TemplatesPanelBody extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: Text(
               "Templates Panel",
-              style: TextStyle(fontSize: 20, color: CustomColor.darkblue),
+              style: TextStyle(fontSize: 20, color: Colors.black),
             ),
           ),
           const SizedBox(

@@ -22,9 +22,10 @@ class PageOutline extends StatelessWidget {
     return BlocBuilder<WorkshopUiCubit, WorkshopUiState>(
       builder: (context, state) {
         return AnimatedContainer(
-            color: CustomColor.darkblue,
+            color: Colors.white,
+            // color: CustomColor.darkblue,
             duration: const Duration(milliseconds: 100),
-            width: state.isOutlineOpen ? max(180, getWidth(context) * 0.15) : 0,
+            width: state.isOutlineOpen ? max(210, getWidth(context) * 0.15) : 0,
             child: const PageOutlineBody());
       },
     );
@@ -46,62 +47,96 @@ class PageOutlineBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         // color: Colors.blue,
-        padding: const EdgeInsets.all(8),
-        child: BlocBuilder<NotesBloc, NotesState>(
-          builder: (context, state) {
-            return ListView.separated(
-              itemBuilder: (context, index) {
-                if (index < state.notes.length) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 5),
-                        child: Text(
-                          "${index + 1}",
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      Expanded(
-                        child: AspectRatio(
-                            aspectRatio: 16 / 9,
-                            child: Container(
-                              decoration: state.currentNoteIndex == index
-                                  ? BoxDecoration(
-                                      border: Border.all(
-                                          color: CustomColor.tertiaryColor,
-                                          width: 2))
-                                  : null,
-                              child: InkWell(
-                                child: state.notes[index].templateId == -1
-                                    ? const NonSelectedTemplateOutline()
-                                    : index == state.currentNoteIndex
-                                        ? BlocBuilder<SinglenoteBloc,
-                                                SinglenoteState>(
-                                            builder: (context, state) {
-                                            return ViewTemplate1(
-                                                note: state.note,
-                                                isOutline: true);
-                                          })
-                                        : ViewTemplate1(
-                                            note: state.notes[index],
-                                            isOutline: true),
-                                onTap: () {
-                                  changePage(context, index);
-                                },
+        padding: EdgeInsets.symmetric(
+            vertical: getRelSize(25, context),
+            horizontal: getRelSize(15, context)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "WallMe",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                    fontFamily: "Montserrat"),
+              ),
+            ),
+            const Divider(),
+            const FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Design",
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
+            Expanded(
+              child: BlocBuilder<NotesBloc, NotesState>(
+                builder: (context, state) {
+                  return ListView.separated(
+                    itemBuilder: (context, index) {
+                      if (index < state.notes.length) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: Text(
+                                "${index + 1}",
+                                style: const TextStyle(color: Colors.white),
                               ),
-                            )),
-                      ),
-                    ],
+                            ),
+                            Expanded(
+                              child: AspectRatio(
+                                  aspectRatio: 16 / 9,
+                                  child: Container(
+                                    decoration: state.currentNoteIndex == index
+                                        ? BoxDecoration(
+                                            border: Border.all(
+                                                color:
+                                                    CustomColor.tertiaryColor,
+                                                width: 2))
+                                        : null,
+                                    child: InkWell(
+                                      child: state.notes[index].templateId == -1
+                                          ? const NonSelectedTemplateOutline()
+                                          : index == state.currentNoteIndex
+                                              ? BlocBuilder<SinglenoteBloc,
+                                                      SinglenoteState>(
+                                                  builder: (context, state) {
+                                                  return ViewTemplate1(
+                                                      note: state.note,
+                                                      isOutline: true);
+                                                })
+                                              : ViewTemplate1(
+                                                  note: state.notes[index],
+                                                  isOutline: true),
+                                      onTap: () {
+                                        changePage(context, index);
+                                      },
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return const AddPageButton();
+                      }
+                    },
+                    separatorBuilder: (context, ind) => Divider(),
+                    itemCount: state.notes.length + 1,
                   );
-                } else {
-                  return const AddPageButton();
-                }
-              },
-              separatorBuilder: (context, ind) => Divider(),
-              itemCount: state.notes.length + 1,
-            );
-          },
+                },
+              ),
+            ),
+          ],
         ));
   }
 }

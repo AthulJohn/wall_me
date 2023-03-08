@@ -29,11 +29,10 @@ class PanelCloseButton extends StatelessWidget {
               },
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.horizontal(
-                    left: Radius.circular(5),
-                  ),
-                  color: CustomColor.darkblue,
-                ),
+                    borderRadius: const BorderRadius.horizontal(
+                      left: Radius.circular(5),
+                    ),
+                    color: CustomColor.tertiaryColor),
                 width: 15,
                 height: 60,
                 child: Center(
@@ -56,7 +55,7 @@ class PanelCloseButton extends StatelessWidget {
           }),
         ),
         Container(
-          color: CustomColor.darkblue,
+          color: CustomColor.tertiaryColor,
           width: 2,
         )
       ],
