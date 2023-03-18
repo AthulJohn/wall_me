@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -22,6 +24,7 @@ class SinglenoteBloc extends Bloc<SinglenoteEvent, SinglenoteState> {
     on<ActivateBackgroundImagePanel>(_activateBackgroundImagePanelFunction);
     on<ChangeTextSelection>(_changeTextSelectionFunction);
     on<ChangeImageStyle>(_changeImageStyleFunction);
+    on<ChangeImageColor>(_changeImageColorFunction);
   }
   void _setNoteFunction(event, emit) async {
     emit(SinglenoteState(event.note));
@@ -29,15 +32,19 @@ class SinglenoteBloc extends Bloc<SinglenoteEvent, SinglenoteState> {
 
   void _pickImageFunction(event, emit) async {
     emit(state.copyWith(
-        imageStatus: LoadingStatus.loading, currentImageIndex: event.index));
+        imageStatus: LoadingStatus.loading,
+        currentImageIndex: event.index ?? state.currentImageIndex));
     try {
       XFile? image = await ImagePickerProvider.pickImage();
+      print(image);
       if (image == null) {
         emit(state.copyWith(imageStatus: LoadingStatus.error));
         return;
       }
       emit(state.addImageToCurrentNote(
-          imagePath: image.path, mimeType: image.mimeType ?? "image/jpeg"));
+          imagePath: image.path,
+          mimeType: image.mimeType ?? "image/jpeg",
+          imageindex: state.currentImageIndex));
     } catch (e) {
       debugPrint(e.toString());
       emit(state.copyWith(imageStatus: LoadingStatus.error));
@@ -50,6 +57,7 @@ class SinglenoteBloc extends Bloc<SinglenoteEvent, SinglenoteState> {
   }
 
   void _activateBackgroundImagePanelFunction(event, emit) {
+    print("Activating BG");
     emit(state.addBackgroundImageToCurrentNote());
   }
 
@@ -104,6 +112,24 @@ class SinglenoteBloc extends Bloc<SinglenoteEvent, SinglenoteState> {
       emit(state.copyWith(
           note: state.note.copyWith(imageComponents: List.of(imageComponents)),
           imageStatus: LoadingStatus.success));
+    } catch (e) {
+      debugPrint("In function _changeImageFitFunction of NotesBloc, $e");
+      emit(state.copyWith(imageStatus: LoadingStatus.error));
+    }
+  }
+
+  void _changeImageColorFunction(event, emit) {
+    emit(state.copyWith(imageStatus: LoadingStatus.loading));
+    try {
+      if (state.currentImage != null) {
+        List<ImageComponent> imageComponents = state.note.imageComponents;
+        imageComponents[state.currentImageIndex] =
+            state.currentImage!.copyWith(overlayColor: event.color);
+        emit(state.copyWith(
+            note:
+                state.note.copyWith(imageComponents: List.of(imageComponents)),
+            imageStatus: LoadingStatus.success));
+      }
     } catch (e) {
       debugPrint("In function _changeImageFitFunction of NotesBloc, $e");
       emit(state.copyWith(imageStatus: LoadingStatus.error));

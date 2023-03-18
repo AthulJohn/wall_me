@@ -1,6 +1,7 @@
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:wall_me/constants/color_pallette.dart';
 import 'package:wall_me/constants/text_styles.dart';
 import 'dart:math';
@@ -10,6 +11,8 @@ import 'package:wall_me/constants/global_variables.dart';
 import 'package:wall_me/logic/bloc/textfield/textfield_cubit.dart';
 
 import '../../../../logic/bloc/workshop_ui/workshop_ui_cubit.dart';
+import '../../color_picker/color_Picker_text.dart';
+import '../../color_picker/color_picker.dart';
 import 'text_align_buttons.dart';
 import 'text_style_buttons.dart';
 
@@ -49,11 +52,13 @@ class TextPanelBody extends StatelessWidget {
             ),
           ),
           Container(
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey[300]!),
                 borderRadius: BorderRadius.circular(5),
                 color: Colors.grey[100]),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 BlocBuilder<TextFieldCubit, TextFieldState>(
                   builder: (context, state) {
@@ -75,6 +80,7 @@ class TextPanelBody extends StatelessWidget {
                     );
                   },
                 ),
+                const SizedBox(height: 10),
                 Row(
                   children: const [
                     TextBoldButton(),
@@ -88,76 +94,33 @@ class TextPanelBody extends StatelessWidget {
                     TextUnderlineButton(),
                   ],
                 ),
+                const SizedBox(height: 10),
+                const FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.topLeft,
+                    child: Text('Font Color')),
                 FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: BlocBuilder<TextFieldCubit, TextFieldState>(
-                    builder: (context, state) {
-                      return Container(
-                        // width: 150,
-                        width: 100,
-                        height: 100,
-                        child: Row(
-                          children: [
-                            ColorPickerInput(
-                              state.textComponent.fontColor,
-                              // availableColors: const [
-                              //   Colors.black,
-                              //   Colors.grey,
-                              //   Colors.white,
-                              //   Colors.red,
-                              //   Colors.green,
-                              //   Colors.blue,
-                              //   Colors.yellow,
-                              //   Colors.orange,
-                              // ],
-                              // itemBuilder: (color, isCurrentColor, changeColor) {
-                              //   return Container(
-                              //     decoration: BoxDecoration(
-                              //       borderRadius: BorderRadius.circular(2),
-                              //       color: color,
-                              //       border: isCurrentColor
-                              //           ? Border.all(
-                              //               color: CustomColor.tertiaryColor,
-                              //             )
-                              //           : null,
-                              //     ),
-                              //     constraints: BoxConstraints.tight(Size(10, 10)),
-                              //   );
-                              // },
-                              (color) {
-                                BlocProvider.of<TextFieldCubit>(context)
-                                    .changeColor(color);
-                              },
-                              // useInShowDialog: false,
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                  child: ColorPickerWithText(),
                 ),
                 const SizedBox(height: 10),
                 const FittedBox(
-                    fit: BoxFit.scaleDown, child: Text("Overlay Opacity")),
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text("Font Size")),
                 FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: BlocBuilder<TextFieldCubit, TextFieldState>(
-                    builder: (context, state) {
-                      return Slider(
-                        value: state.textComponent.fontSize,
-                        onChanged: (value) {
-                          BlocProvider.of<TextFieldCubit>(context)
-                              .changeSize(value);
-                        },
-                        min: 20,
-                        max: 100,
-                      );
-                    },
-                  ),
+                  child: SizeSlider(),
                 ),
               ],
             ),
           ),
+          const SizedBox(height: 10),
+          const FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text("Text Alignment")),
+          const SizedBox(height: 5),
           Row(
             children: const [
               TextAlignLeftButton(),
@@ -173,6 +136,65 @@ class TextPanelBody extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class SizeSlider extends StatelessWidget {
+  SizeSlider({
+    super.key,
+  });
+  TextEditingController _controller = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TextFieldCubit, TextFieldState>(
+      builder: (context, state) {
+        return Row(
+          children: [
+            SizedBox(
+              width: 36,
+              height: 30,
+              child: TextField(
+                controller: _controller,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                onChanged: (value) {
+                  double size =
+                      double.tryParse(value) ?? state.textComponent.fontSize;
+                  BlocProvider.of<TextFieldCubit>(context).changeSize(
+                    size > 100
+                        ? 100
+                        : size < 20
+                            ? 20
+                            : size,
+                  );
+                },
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: state.textComponent.fontSize.toString(),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 2, vertical: 1),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Slider(
+              value: state.textComponent.fontSize,
+              thumbColor: CustomColor.tertiaryColor,
+              activeColor: CustomColor.tertiaryColor,
+              inactiveColor: Colors.grey,
+              autofocus: true,
+              onChanged: (value) {
+                BlocProvider.of<TextFieldCubit>(context).changeSize(value);
+                _controller =
+                    TextEditingController(text: value.toStringAsFixed(0));
+              },
+              min: 20,
+              max: 100,
+            ),
+          ],
+        );
+      },
     );
   }
 }

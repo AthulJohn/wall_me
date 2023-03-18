@@ -29,47 +29,71 @@ class ActiveBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
-        widthFactor: 0.85,
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (state.currentNoteIndex > 0)
-              const SizedBox(
-                height: 30,
-              ),
-            if (state.currentNoteIndex > 0)
-              CustomCircleButton(
-                  onPressed: () {
-                    changePage(context, NavDirection.up);
-                  },
-                  icon: Icons.keyboard_arrow_up),
-            const Spacer(),
-            (state.currentNote ?? SingleNote(templateId: -1)).templateId == -1
-                ? const SelectTemplateNote()
-                : const AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: Template1(),
-                  ),
-            const Spacer(),
-            CustomCircleButton(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (state.currentNoteIndex > 0)
+          const SizedBox(
+            height: 30,
+          ),
+        if (state.currentNoteIndex > 0)
+          Tooltip(
+            message: "Previous Page",
+            child: CustomCircleButton(
                 onPressed: () {
-                  BlocProvider.of<SinglenoteBloc>(context)
-                      .add(ActivateBackgroundImagePanel());
-                  BlocProvider.of<WorkshopUiCubit>(context)
-                      .activateImagePanel();
+                  changePage(context, NavDirection.up);
                 },
-                icon: Icons.imagesearch_roller_rounded),
-            if (state.currentNoteIndex < state.notes.length - 1)
-              CustomCircleButton(
-                  onPressed: () {
-                    changePage(context, NavDirection.down);
-                  },
-                  icon: Icons.keyboard_arrow_down),
-            const SizedBox(
-              height: 30,
-            )
-          ],
-        ));
+                icon: Icons.keyboard_arrow_up),
+          ),
+        const Spacer(),
+        FractionallySizedBox(
+          widthFactor: 0.85,
+          child:
+              (state.currentNote ?? SingleNote(templateId: -1)).templateId == -1
+                  ? const SelectTemplateNote()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              const Spacer(),
+                              Tooltip(
+                                message: "Edit Background",
+                                child: CustomCircleButton(
+                                    onPressed: () {
+                                      BlocProvider.of<SinglenoteBloc>(context)
+                                          .add(ActivateBackgroundImagePanel());
+                                      BlocProvider.of<WorkshopUiCubit>(context)
+                                          .activateBGImagePanel();
+                                    },
+                                    icon: Icons.imagesearch_roller_rounded),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const AspectRatio(
+                          aspectRatio: 16 / 9,
+                          child: Template1(),
+                        ),
+                      ],
+                    ),
+        ),
+        const Spacer(),
+        if (state.currentNoteIndex < state.notes.length - 1)
+          Tooltip(
+            message: "Next Page",
+            child: CustomCircleButton(
+                onPressed: () {
+                  changePage(context, NavDirection.down);
+                },
+                icon: Icons.keyboard_arrow_down),
+          ),
+        const SizedBox(
+          height: 30,
+        )
+      ],
+    );
   }
 }

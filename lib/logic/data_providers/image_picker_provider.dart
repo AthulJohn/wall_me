@@ -6,7 +6,6 @@ class ImagePickerProvider {
   static Future<XFile?> pickImage() async {
     final XFile? pickedFile =
         await picker.pickImage(source: ImageSource.gallery);
-
     return pickedFile;
   }
 }

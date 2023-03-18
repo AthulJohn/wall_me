@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wall_me/constants/color_pallette.dart';
 import 'package:wall_me/logic/bloc/singlenote/singlenote_bloc.dart';
 
 import '../../../../logic/bloc/notes/notes_bloc.dart';
@@ -26,19 +27,21 @@ class ImageFitButton extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                         color: state.currentImage!.fit == fit
-                            ? Colors.pink
+                            ? CustomColor.tertiaryColor
                             : Colors.white,
-                        shape: BoxShape.circle),
+                        borderRadius: BorderRadius.circular(20)),
                     child: Center(
-                      child: Icon(
+                      child: Text(
                         fit == BoxFit.contain
-                            ? Icons.abc
+                            ? 'Contain'
                             : fit == BoxFit.cover
-                                ? Icons.g_translate_rounded
-                                : Icons.image,
-                        color: state.currentImage!.fit == fit
-                            ? Colors.white
-                            : Colors.black,
+                                ? 'Cover'
+                                : 'Fill',
+                        style: TextStyle(
+                          color: state.currentImage!.fit == fit
+                              ? Colors.white
+                              : Colors.black,
+                        ),
                       ),
                     ),
                   ),

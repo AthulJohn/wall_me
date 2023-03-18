@@ -50,15 +50,21 @@ class SinglenoteState extends Equatable {
         textStatus: textStatus ?? this.textStatus);
   }
 
-  SinglenoteState addImageToCurrentNote({
-    required String imagePath,
-    required String mimeType,
-  }) {
-    note.addImage(imagePath, mimeType, currentImageIndex);
+  bool get imageIsBackground {
+    print(
+        " $currentImageIndex with ${totalImagesPerTemplate[note.templateId]}");
+    return currentImageIndex == (totalImagesPerTemplate[note.templateId] ?? 1);
+  }
+
+  SinglenoteState addImageToCurrentNote(
+      {required String imagePath,
+      required String mimeType,
+      required int imageindex}) {
+    note.addImage(imagePath, mimeType, imageindex);
     return copyWith(
         note: note,
         // notesCount: notesCount,
-
+        currentImageIndex: imageindex,
         imageStatus: LoadingStatus.success);
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wall_me/logic/bloc/singlenote/singlenote_bloc.dart';
 import 'package:wall_me/logic/models/workshop/text_component_model.dart';
+import 'package:wall_me/presentation/components/workshop/buttons.dart';
 
 import '../../../../../global_functions.dart';
 import '../../../../../logic/bloc/notes/notes_bloc.dart';
@@ -76,21 +77,22 @@ class TextEnteringField extends StatelessWidget {
                   },
                 ),
               ),
+              SizedBox(width: 10),
               if (state.textComponent.text.isNotEmpty)
-                Container(
-                  color: Colors.orange,
-                  child: IconButton(
-                    icon: const Icon(Icons.check),
-                    onPressed: () {
-                      BlocProvider.of<SinglenoteBloc>(context)
-                          .add(ChangeText(state.textComponent));
-                      BlocProvider.of<TextFieldCubit>(context)
-                          .setTextComponent(TextComponent());
+                CustomCircleButton(
+                  icon: Icons.check,
+                  onPressed: () {
+                    BlocProvider.of<SinglenoteBloc>(context)
+                        .add(ChangeText(state.textComponent));
+                    BlocProvider.of<TextFieldCubit>(context)
+                        .setTextComponent(TextComponent(
+                      text: "",
+                      textId: state.textComponent.textId + 1,
+                    ));
 
-                      tec.clear();
-                    },
-                  ),
-                )
+                    tec.clear();
+                  },
+                ),
             ],
             // ),
           );

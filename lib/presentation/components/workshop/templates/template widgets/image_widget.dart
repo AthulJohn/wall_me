@@ -36,6 +36,7 @@ class ImageWidget extends StatelessWidget {
               ),
             ),
             onTap: () {
+              BlocProvider.of<WorkshopUiCubit>(context).activateImagePanel();
               BlocProvider.of<SinglenoteBloc>(context)
                   .add(AddImage(index: imageIndex));
             },
@@ -63,7 +64,10 @@ class ImageWidget extends StatelessWidget {
                       border: Border.all(
                           color: CustomColor.tertiaryColor, width: 2))
                   : null,
-              child: ImageContent(imageComponent: imageComponent!),
+              child: ImageDisplay(
+                imageComponent: imageComponent!,
+                borderRadius: borderRadius,
+              ),
             )
 
             ///;
@@ -74,28 +78,28 @@ class ImageWidget extends StatelessWidget {
   }
 }
 
-class ImageContent extends StatelessWidget {
-  const ImageContent({
-    super.key,
-    required this.imageComponent,
-  });
+// class ImageContent extends StatelessWidget {
+//   const ImageContent({
+//     super.key,
+//     required this.imageComponent,
+//   });
 
-  final ImageComponent imageComponent;
+//   final ImageComponent imageComponent;
 
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Image.network(
-          imageComponent.url,
-          fit: imageComponent.fit,
-        ),
-        Container(
-          color: imageComponent.overlayColor
-              .withOpacity(imageComponent.overlayIntensity),
-        )
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       fit: StackFit.expand,
+//       children: [
+//         Image.network(
+//           imageComponent.url,
+//           fit: imageComponent.fit,
+//         ),
+//         Container(
+//           color: imageComponent.overlayColor
+//               .withOpacity(imageComponent.overlayIntensity),
+//         )
+//       ],
+//     );
+//   }
+// }

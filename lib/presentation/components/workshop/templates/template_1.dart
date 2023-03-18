@@ -78,22 +78,17 @@ class Template1 extends StatelessWidget {
                                 heightFactor: templateIsIn(state.note, [11, 17])
                                     ? 0.85
                                     : 1,
-                                child: state.imageStatus ==
-                                        LoadingStatus.loading
-                                    ? const Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : ImageWidget(
-                                        imageComponent: state
-                                                .note.imageComponents.isEmpty
-                                            ? null
-                                            : state.note.imageComponents.first,
-                                        borderRadius:
-                                            templateIsIn(state.note, [11, 17])
-                                                ? 10
-                                                : 0,
-                                        imageIndex: 0,
-                                      ),
+                                child: ImageWidget(
+                                  imageComponent:
+                                      state.note.imageComponents.isEmpty
+                                          ? null
+                                          : state.note.imageComponents.first,
+                                  borderRadius:
+                                      templateIsIn(state.note, [11, 17])
+                                          ? 10
+                                          : 0,
+                                  imageIndex: 0,
+                                ),
                               )
                             : state.note.textComponents.isEmpty
                                 ? const Center(child: Text('An Error Occured'))
@@ -117,22 +112,17 @@ class Template1 extends StatelessWidget {
                                 heightFactor: templateIsIn(state.note, [12, 18])
                                     ? 0.85
                                     : 1,
-                                child: state.imageStatus ==
-                                        LoadingStatus.loading
-                                    ? const Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : ImageWidget(
-                                        imageComponent: state
-                                                .note.imageComponents.isEmpty
-                                            ? null
-                                            : state.note.imageComponents.first,
-                                        borderRadius:
-                                            templateIsIn(state.note, [12, 18])
-                                                ? 10
-                                                : 0,
-                                        imageIndex: 0,
-                                      ),
+                                child: ImageWidget(
+                                  imageComponent:
+                                      state.note.imageComponents.isEmpty
+                                          ? null
+                                          : state.note.imageComponents.first,
+                                  borderRadius:
+                                      templateIsIn(state.note, [12, 18])
+                                          ? 10
+                                          : 0,
+                                  imageIndex: 0,
+                                ),
                               )
                             : state.note.textComponents.isEmpty
                                 ? const Center(child: Text('An Error Occured!'))

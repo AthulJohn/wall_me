@@ -38,6 +38,8 @@ class TextColumn extends StatelessWidget {
                                     0, textComponents.indexOf(tc)));
                             BlocProvider.of<TextFieldCubit>(context)
                                 .setTextComponent(tc);
+                            BlocProvider.of<WorkshopUiCubit>(context)
+                                .activateTextPanel();
                           },
                           child: LayoutBuilder(builder: (BuildContext context,
                               BoxConstraints constraints) {
@@ -97,7 +99,12 @@ class TextColumn extends StatelessWidget {
                                     BlocProvider.of<SinglenoteBloc>(context)
                                             .state
                                             .currentText ??
-                                        TextComponent());
+                                        TextComponent(
+                                            textId:
+                                                BlocProvider.of<SinglenoteBloc>(
+                                                        context)
+                                                    .state
+                                                    .currentTextIndex));
                             BlocProvider.of<WorkshopUiCubit>(context)
                                 .activateTextPanel();
                           },

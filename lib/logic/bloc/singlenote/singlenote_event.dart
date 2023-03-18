@@ -35,6 +35,11 @@ class ChangeImageStyle extends SinglenoteEvent {
   const ChangeImageStyle(this.imageComponent);
 }
 
+class ChangeImageColor extends SinglenoteEvent {
+  final Color color;
+  const ChangeImageColor(this.color);
+}
+
 class ChangeText extends SinglenoteEvent {
   final TextComponent textComponent;
   const ChangeText(this.textComponent);

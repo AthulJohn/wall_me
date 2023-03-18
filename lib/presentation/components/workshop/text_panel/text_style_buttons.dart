@@ -28,6 +28,7 @@ class TextEditButton extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 0.5),
                   color:
                       (style == EditStyle.bold && state.textComponent.isBold) ||
                               (style == EditStyle.italics &&

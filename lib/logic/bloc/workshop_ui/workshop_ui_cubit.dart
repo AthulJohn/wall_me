@@ -25,6 +25,16 @@ class WorkshopUiCubit extends Cubit<WorkshopUiState> {
     emit(state.copyWith(
         activeComponent: ActiveComponent.image,
         isImageEditOpen: true,
+        isBackground: false,
+        isTemplatesOpen: false,
+        isTextEditOpen: false));
+  }
+
+  void activateBGImagePanel() {
+    emit(state.copyWith(
+        activeComponent: ActiveComponent.image,
+        isImageEditOpen: true,
+        isBackground: true,
         isTemplatesOpen: false,
         isTextEditOpen: false));
   }

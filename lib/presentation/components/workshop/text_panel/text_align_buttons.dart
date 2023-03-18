@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wall_me/constants/color_pallette.dart';
 import 'package:wall_me/logic/bloc/textfield/textfield_cubit.dart';
 
 class TextAlignButton extends StatelessWidget {
@@ -16,9 +17,10 @@ class TextAlignButton extends StatelessWidget {
             BlocProvider.of<TextFieldCubit>(context).changeAlignment(align);
           },
           child: Container(
+            padding: const EdgeInsets.all(3),
             decoration: BoxDecoration(
                 color: (align == state.textComponent.textAlign)
-                    ? Colors.pink
+                    ? CustomColor.tertiaryColor
                     : Colors.white,
                 shape: BoxShape.circle),
             child: Center(

@@ -6,20 +6,27 @@ class CustomElevatedButton extends StatelessWidget {
     super.key,
     this.icon,
     this.text,
+    this.hasPadding = false,
     required this.onPressed,
   });
   final String? text;
   final IconData? icon;
+  final bool hasPadding;
   final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(CustomColor.tertiaryColor),
-          shape: MaterialStateProperty.all(const StadiumBorder())),
+        backgroundColor: MaterialStateProperty.all(CustomColor.tertiaryColor),
+        shape: MaterialStateProperty.all(const StadiumBorder()),
+        padding: hasPadding
+            ? const MaterialStatePropertyAll(
+                EdgeInsets.symmetric(horizontal: 30, vertical: 20))
+            : null,
+      ),
       onPressed: onPressed,
-      child: Row(children: [
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
         if (text != null) Text(text!),
         if (icon != null) Icon(icon)
       ]),
@@ -41,12 +48,13 @@ class CustomCircleButton extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(CustomColor.tertiaryColor),
-          shape: MaterialStateProperty.all(const CircleBorder())),
+          shape: MaterialStateProperty.all(const CircleBorder()),
+          padding: MaterialStatePropertyAll(EdgeInsets.all(5))),
       onPressed: onPressed,
       child: Icon(
         icon,
         color: Colors.white,
-        size: 30,
+        size: 20,
       ),
     );
   }

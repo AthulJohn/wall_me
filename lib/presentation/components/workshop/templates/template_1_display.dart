@@ -60,14 +60,14 @@ class ViewTemplate1 extends StatelessWidget {
                             templateIsIn(note.templateId, [11, 17]) ? 0.85 : 1,
                         heightFactor:
                             templateIsIn(note.templateId, [11, 17]) ? 0.85 : 1,
-                        child: isOutline && note.imageComponents.isEmpty
+                        child: isOutline &&
+                                (note.imageComponents.isEmpty ||
+                                    note.imageComponents[0].url == '')
                             ? Container(
                                 color: Colors.grey[400],
                               )
                             : ImageDisplay(
-                                imageComponent: note.imageComponents.isEmpty
-                                    ? null
-                                    : note.imageComponents.first,
+                                imageComponent: note.imageComponents.first,
                                 borderRadius:
                                     templateIsIn(note.templateId, [11, 17])
                                         ? 10
