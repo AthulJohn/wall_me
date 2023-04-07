@@ -5,11 +5,11 @@ import 'package:wall_me/global_functions.dart';
 import 'package:wall_me/presentation/components/workshop/templates/template%20widgets/text_column_display.dart';
 import 'package:wall_me/presentation/components/workshop/templates/template%20widgets/text_column_preview.dart';
 
-import '../../../../constants/global_variables.dart';
-import '../../../../logic/models/workshop/image_component_model.dart';
-import '../../../../logic/models/workshop/singlenote_model.dart';
-import 'template widgets/decoration_image_component.dart';
-import 'template widgets/image_widget_display.dart';
+import '../../../../../constants/global_variables.dart';
+import '../../../../../logic/models/workshop/image_component_model.dart';
+import '../../../../../logic/models/workshop/singlenote_model.dart';
+import '../template widgets/decoration_image_component.dart';
+import '../template widgets/image_widget_display.dart';
 
 // Refer Template Varient Sheet for more details on how changes are done in the template
 class ViewTemplate1 extends StatelessWidget {

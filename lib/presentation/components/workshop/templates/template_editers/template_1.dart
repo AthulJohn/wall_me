@@ -6,11 +6,11 @@ import 'package:wall_me/constants/global_variables.dart';
 import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
 import 'package:wall_me/presentation/components/workshop/templates/template%20widgets/decoration_image_component.dart';
 
-import '../../../../logic/bloc/singlenote/singlenote_bloc.dart';
-import '../../../../logic/models/workshop/image_component_model.dart';
-import '../../../../logic/models/workshop/singlenote_model.dart';
-import 'template widgets/image_widget.dart';
-import 'template widgets/text_column.dart';
+import '../../../../../logic/bloc/singlenote/singlenote_bloc.dart';
+import '../../../../../logic/models/workshop/image_component_model.dart';
+import '../../../../../logic/models/workshop/singlenote_model.dart';
+import '../template widgets/image_widget.dart';
+import '../template widgets/text_column.dart';
 
 // Refer Template Varient Sheet for more details on how changes are done in the template
 class Template1 extends StatelessWidget {

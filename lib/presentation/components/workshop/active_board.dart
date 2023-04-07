@@ -4,10 +4,13 @@ import 'package:wall_me/logic/bloc/singlenote/singlenote_bloc.dart';
 import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 import 'package:wall_me/logic/models/workshop/singlenote_model.dart';
 import 'package:wall_me/presentation/components/workshop/select_template_note.dart';
-import 'package:wall_me/presentation/components/workshop/templates/template_1.dart';
+import 'package:wall_me/presentation/components/workshop/templates/template_editers/template_1.dart';
 
 import '../../../logic/bloc/notes/notes_bloc.dart';
 import 'buttons.dart';
+import 'templates/template_editers/template_0.dart';
+import 'templates/template_editers/template_2.dart';
+import 'templates/template_editers/template_3.dart';
 
 enum NavDirection { up, down }
 
@@ -24,6 +27,22 @@ class ActiveBoard extends StatelessWidget {
     } else {
       BlocProvider.of<NotesBloc>(context)
           .add(NextPage(BlocProvider.of<SinglenoteBloc>(context)));
+    }
+  }
+
+  Widget chooseTemplate(int templateId) {
+    print((templateId / 10).floor());
+    switch ((templateId / 10).floor()) {
+      case 0:
+        return const Template0();
+      case 1:
+        return const Template1();
+      case 2:
+        return const Template2();
+      case 3:
+        return const Template3();
+      default:
+        return const Template1();
     }
   }
 
@@ -73,9 +92,13 @@ class ActiveBoard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const AspectRatio(
+                        AspectRatio(
                           aspectRatio: 16 / 9,
-                          child: Template1(),
+                          child: chooseTemplate(
+                              BlocProvider.of<SinglenoteBloc>(context)
+                                  .state
+                                  .note
+                                  .templateId),
                         ),
                       ],
                     ),

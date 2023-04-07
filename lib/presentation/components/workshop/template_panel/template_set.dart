@@ -27,16 +27,18 @@ class TemplateSet extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TemplateCard(templateIndex: i),
+                  child: TemplateCard(templateSet: id, templateIndex: i),
                 ),
               ),
-              if (i + 1 < templateSetSizes[id] + 1)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TemplateCard(templateIndex: i + 1),
-                  ),
-                ),
+              (i + 1 < templateSetSizes[id] + 1)
+                  ? Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child:
+                            TemplateCard(templateSet: id, templateIndex: i + 1),
+                      ),
+                    )
+                  : const Spacer()
             ],
           )
       ],

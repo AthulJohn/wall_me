@@ -22,12 +22,14 @@ class SelectTemplateNote extends StatelessWidget {
             children: const [
               Expanded(
                 child: TemplateCard(
+                  templateSet: 1,
                   templateIndex: 1,
                 ),
               ),
               SizedBox(width: 20),
               Expanded(
                 child: TemplateCard(
+                  templateSet: 1,
                   templateIndex: 2,
                 ),
               ),
@@ -41,12 +43,14 @@ class SelectTemplateNote extends StatelessWidget {
             children: const [
               Expanded(
                 child: TemplateCard(
+                  templateSet: 1,
                   templateIndex: 3,
                 ),
               ),
               SizedBox(width: 20),
               Expanded(
                 child: TemplateCard(
+                  templateSet: 1,
                   templateIndex: 4,
                 ),
               ),

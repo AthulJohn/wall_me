@@ -8,6 +8,7 @@ import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
 import 'package:wall_me/logic/bloc/site_data/sitedata_cubit.dart';
 
 import '../../logic/bloc/textfield/textfield_cubit.dart';
+import '../components/workshop/buttons.dart';
 
 class SelectUrlScreen extends StatelessWidget {
   const SelectUrlScreen({super.key});
@@ -35,10 +36,13 @@ class SelectUrlScreen extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 40,
+                  width: 300,
                   child: TextField(
                     onChanged: (val) {
                       context.read<TextFieldCubit>().changeText(val);
                     },
+                    decoration:
+                        const InputDecoration(border: OutlineInputBorder()),
                   ),
                 ),
 
@@ -66,8 +70,8 @@ class SelectUrlScreen extends StatelessWidget {
                       },
                     );
                   } else {
-                    return TextButton(
-                      child: const Text('Publish'),
+                    return CustomElevatedButton(
+                      text: 'Publish',
                       onPressed: () {
                         context.read<SitedataCubit>().publishNote(
                             state.textComponent.text,

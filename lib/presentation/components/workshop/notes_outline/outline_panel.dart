@@ -7,7 +7,8 @@ import 'package:wall_me/global_functions.dart';
 import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
 import 'package:wall_me/presentation/components/workshop/notes_outline/add_page_button.dart';
 import 'package:wall_me/presentation/components/workshop/notes_outline/non_selected_template.dart';
-import 'package:wall_me/presentation/components/workshop/templates/template_1_display.dart';
+import 'package:wall_me/presentation/components/workshop/templates/template_displays/template_0_display.dart';
+import 'package:wall_me/presentation/components/workshop/templates/template_displays/template_1_display.dart';
 
 import '../../../../logic/bloc/singlenote/singlenote_bloc.dart';
 import '../../../../logic/bloc/workshop_ui/workshop_ui_cubit.dart';
@@ -41,6 +42,21 @@ class PageOutlineBody extends StatelessWidget {
         SetSingleNote(BlocProvider.of<SinglenoteBloc>(context).state.note));
     BlocProvider.of<NotesBloc>(context).add(GoToPage(
         index: ind, singlenoteBloc: BlocProvider.of<SinglenoteBloc>(context)));
+  }
+
+  Widget chooseTemplate(int templateId, SingleNote note) {
+    switch ((templateId / 10).floor()) {
+      case 0:
+        return ViewTemplate0(note: note, isOutline: true);
+      case 1:
+        return ViewTemplate1(note: note, isOutline: true);
+      case 2:
+      // return  ViewTemplate2(note:note,isOutline:true);
+      case 3:
+      // return  ViewTemplate3(note:note,isOutline:true);
+      default:
+        return ViewTemplate1(note: note, isOutline: true);
+    }
   }
 
   @override
@@ -111,13 +127,13 @@ class PageOutlineBody extends StatelessWidget {
                                               ? BlocBuilder<SinglenoteBloc,
                                                       SinglenoteState>(
                                                   builder: (context, state) {
-                                                  return ViewTemplate1(
-                                                      note: state.note,
-                                                      isOutline: true);
+                                                  return chooseTemplate(
+                                                      state.note.templateId,
+                                                      state.note);
                                                 })
-                                              : ViewTemplate1(
-                                                  note: state.notes[index],
-                                                  isOutline: true),
+                                              : chooseTemplate(
+                                                  state.notes[index].templateId,
+                                                  state.notes[index]),
                                       onTap: () {
                                         changePage(context, index);
                                       },
