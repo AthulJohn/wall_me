@@ -6,6 +6,7 @@ import 'package:wall_me/logic/models/workshop/image_component_model.dart';
 
 import '../../../../../constants/color_pallette.dart';
 import '../../../../../logic/bloc/notes/notes_bloc.dart';
+import '../../../../../logic/bloc/textfield/textfield_cubit.dart';
 import 'image_widget_display.dart';
 
 class ImageWidget extends StatelessWidget {

@@ -19,7 +19,22 @@ class TextEnteringField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController tec = TextEditingController(text: initText);
+    TextEditingController tec = TextEditingController();
+
+    if (BlocProvider.of<TextFieldCubit>(context, listen: false)
+            .state
+            .textComponent
+            .text
+            .isNotEmpty &&
+        initText.isEmpty) {
+      tec = TextEditingController(
+          text: BlocProvider.of<TextFieldCubit>(context, listen: false)
+              .state
+              .textComponent
+              .text);
+    } else {
+      tec = TextEditingController(text: initText);
+    }
     return BlocBuilder<TextFieldCubit, TextFieldState>(
       builder: (context, state) {
         return LayoutBuilder(
