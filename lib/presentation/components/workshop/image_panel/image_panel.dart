@@ -102,41 +102,6 @@ class ImagePanelBody extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Text("Overlay Color"),
                 ),
-                // FittedBox(
-                //   fit: BoxFit.scaleDown,
-                //   child: BlocBuilder<SinglenoteBloc, SinglenoteState>(
-                //     builder: (context, notestate) {
-                //       return SizedBox(
-                //         // width: 150,
-                //         height: 400,
-                //         child: ColorIndicator(
-                //           color: ((notestate.currentImage ??
-                //                   ImageComponent(overlayColor: Colors.black))
-                //               .overlayColor),
-                // availableColors: const [
-                //   Colors.black,
-                //   Colors.grey,
-                //   Colors.white,
-                //   Colors.red,
-                //   Colors.green,
-                //   Colors.blue,
-                //   Colors.yellow,
-                //   Colors.orange,
-                //   Colors.purple,
-                //   Colors.pink
-                // ],
-                // onColorChanged: (color) {
-                //   BlocProvider.of<SinglenoteBloc>(context).add(
-                //       ChangeImageStyle(
-                //           (notestate.currentImage ?? ImageComponent())
-                //               .copyWith(overlayColor: color)));
-                // },
-                // useInShowDialog: false,
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   child: ColorPickerWithText(

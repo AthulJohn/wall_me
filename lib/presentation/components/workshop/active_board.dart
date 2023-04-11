@@ -31,7 +31,6 @@ class ActiveBoard extends StatelessWidget {
   }
 
   Widget chooseTemplate(int templateId) {
-    print((templateId / 10).floor());
     switch ((templateId / 10).floor()) {
       case 0:
         return const Template0();

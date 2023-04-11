@@ -11,7 +11,8 @@ import '../../../../../logic/bloc/singlenote/singlenote_bloc.dart';
 import '../../../../../logic/models/workshop/text_component_model.dart';
 
 class TextColumn extends StatelessWidget {
-  const TextColumn({super.key});
+  const TextColumn({super.key, this.textColumnindex = 0});
+  final int textColumnindex;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +20,18 @@ class TextColumn extends StatelessWidget {
       widthFactor: 0.85,
       child: BlocBuilder<SinglenoteBloc, SinglenoteState>(
           builder: (context, state) {
-        List<TextComponent> textComponents = state.note.textComponents.first;
+        List<TextComponent> textComponents =
+            state.note.textComponents.length > textColumnindex
+                ? state.note.textComponents[textColumnindex]
+                : [];
         switch (state.textStatus) {
           case LoadingStatus.success:
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (TextComponent tc in textComponents)
-                  textComponents.indexOf(tc) == state.currentTextIndex
+                  textComponents.indexOf(tc) == state.currentTextIndex &&
+                          textColumnindex == state.currentTextCollectionIndex
                       ? TextEnteringField(
                           initText: tc.text,
                           templateId: state.note.templateId,
@@ -34,8 +39,8 @@ class TextColumn extends StatelessWidget {
                       : InkWell(
                           onTap: () {
                             BlocProvider.of<SinglenoteBloc>(context).add(
-                                ChangeTextSelection(
-                                    0, textComponents.indexOf(tc)));
+                                ChangeTextSelection(textColumnindex,
+                                    textComponents.indexOf(tc)));
                             BlocProvider.of<TextFieldCubit>(context)
                                 .setTextComponent(tc);
                             BlocProvider.of<WorkshopUiCubit>(context)
@@ -68,10 +73,11 @@ class TextColumn extends StatelessWidget {
                               ),
                             );
                           }),
-                        ),
-                if (state.note.textComponents.first.length < textLimitPerNote)
-                  state.currentTextIndex ==
-                          state.note.textComponents.first.length
+                        ), // Here text column 2 makes index problems. Fix it either using bloc, or directly.
+
+                if (textComponents.length < textLimitPerNote)
+                  state.currentTextIndex == textComponents.length &&
+                          textColumnindex == state.currentTextCollectionIndex
                       ? TextEnteringField(
                           templateId: state.note.templateId,
                         )
@@ -93,7 +99,7 @@ class TextColumn extends StatelessWidget {
                           onTap: () {
                             BlocProvider.of<SinglenoteBloc>(context).add(
                                 ChangeTextSelection(
-                                    0, state.note.textComponents.first.length));
+                                    textColumnindex, textComponents.length));
                             BlocProvider.of<TextFieldCubit>(context)
                                 .setTextComponent(
                                     BlocProvider.of<SinglenoteBloc>(context)

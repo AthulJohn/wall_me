@@ -55,8 +55,6 @@ class Template2 extends StatelessWidget {
                       )
                     : null,
                 child: Container(
-                  padding: EdgeInsets.all(
-                      templateIsIn(state.note, [11, 12, 18, 17]) ? 20 : 0),
                   color: backgroundImage?.overlayColor
                       .withOpacity(backgroundImage.overlayIntensity),
                   child: Row(
@@ -64,18 +62,13 @@ class Template2 extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
-                        flex: templateIsIn(state.note, [16, 18]) ? 3 : 1,
-                        child: templateIsIn(state.note, [
-                          11,
-                          13,
-                          16,
-                          17
-                        ]) // If image is in the left side
+                        child: templateIsIn(state.note,
+                                [21, 23, 24, 25]) // If Left Side contains image
                             ? FractionallySizedBox(
-                                widthFactor: templateIsIn(state.note, [11, 17])
+                                widthFactor: templateIsIn(state.note, [21, 24])
                                     ? 0.85
                                     : 1,
-                                heightFactor: templateIsIn(state.note, [11, 17])
+                                heightFactor: templateIsIn(state.note, [21, 24])
                                     ? 0.85
                                     : 1,
                                 child: ImageWidget(
@@ -84,13 +77,14 @@ class Template2 extends StatelessWidget {
                                           ? null
                                           : state.note.imageComponents.first,
                                   borderRadius:
-                                      templateIsIn(state.note, [11, 17])
+                                      templateIsIn(state.note, [21, 24])
                                           ? 10
                                           : 0,
                                   imageIndex: 0,
                                 ),
                               )
-                            : state.note.textComponents.isEmpty
+                            : //Left Side has Text
+                            state.note.textComponents.isEmpty
                                 ? const Center(child: Text('An Error Occured'))
                                 : const TextColumn(
                                     // textComponents:
@@ -98,38 +92,34 @@ class Template2 extends StatelessWidget {
                                     ),
                       ),
                       Expanded(
-                        flex: templateIsIn(state.note, [15, 17]) ? 3 : 1,
-                        child: templateIsIn(state.note, [
-                          12,
-                          14,
-                          15,
-                          18
-                        ]) // If image is in the right side
+                        child: templateIsIn(state.note,
+                                [21, 23, 24, 25]) // If Right Side has image
                             ? FractionallySizedBox(
-                                widthFactor: templateIsIn(state.note, [12, 18])
+                                widthFactor: templateIsIn(state.note, [21, 25])
                                     ? 0.85
                                     : 1,
-                                heightFactor: templateIsIn(state.note, [12, 18])
+                                heightFactor: templateIsIn(state.note, [21, 25])
                                     ? 0.85
                                     : 1,
                                 child: ImageWidget(
                                   imageComponent:
-                                      state.note.imageComponents.isEmpty
+                                      state.note.imageComponents.length < 2
                                           ? null
-                                          : state.note.imageComponents.first,
+                                          : state.note.imageComponents[1],
                                   borderRadius:
-                                      templateIsIn(state.note, [12, 18])
+                                      templateIsIn(state.note, [21, 25])
                                           ? 10
                                           : 0,
-                                  imageIndex: 0,
+                                  imageIndex: 1,
                                 ),
                               )
                             : state.note.textComponents.isEmpty
                                 ? const Center(child: Text('An Error Occured!'))
                                 : const TextColumn(
+                                    textColumnindex: 1,
                                     // textComponents:
                                     //     state.currentNote.textComponents.first,
-                                    ),
+                                  ),
                       ),
                     ],
                   ),

@@ -51,8 +51,6 @@ class SinglenoteState extends Equatable {
   }
 
   bool get imageIsBackground {
-    print(
-        " $currentImageIndex with ${totalImagesPerTemplate[note.templateId]}");
     return currentImageIndex == (totalImagesPerTemplate[note.templateId] ?? 1);
   }
 
@@ -78,7 +76,7 @@ class SinglenoteState extends Equatable {
   }
 
   ImageComponent? get currentImage {
-    if (note.imageComponents.isEmpty) return null;
+    if (note.imageComponents.length <= currentImageIndex) return null;
     return note.imageComponents[currentImageIndex];
   }
 

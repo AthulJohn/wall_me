@@ -36,7 +36,6 @@ class SinglenoteBloc extends Bloc<SinglenoteEvent, SinglenoteState> {
         currentImageIndex: event.index ?? state.currentImageIndex));
     try {
       XFile? image = await ImagePickerProvider.pickImage();
-      print(image);
       if (image == null) {
         emit(state.copyWith(imageStatus: LoadingStatus.error));
         return;
