@@ -5,14 +5,19 @@ import '../../../../../logic/models/workshop/text_component_model.dart';
 
 class TextColumnDisplay extends StatelessWidget {
   const TextColumnDisplay(
-      {super.key, required this.textComponents, required this.templateId});
+      {super.key,
+      required this.textComponents,
+      required this.templateId,
+      this.alignment = Alignment.center});
   final List<TextComponent> textComponents;
+  final Alignment alignment;
   final int templateId;
 
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
       widthFactor: 0.85,
+      alignment: alignment,
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         for (TextComponent tc in textComponents)
           LayoutBuilder(builder: (context, BoxConstraints constraints) {

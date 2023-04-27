@@ -7,6 +7,7 @@ import '../../logic/bloc/notes/notes_bloc.dart';
 import '../../logic/bloc/site_data/sitedata_cubit.dart';
 import '../components/workshop/templates/template_displays/template_1_display.dart';
 import '../components/workshop/templates/template_displays/template_2_display.dart';
+import '../components/workshop/templates/template_displays/template_3_display.dart';
 
 class PreviewScreen extends StatelessWidget {
   const PreviewScreen({super.key, this.siteUrl});
@@ -21,7 +22,7 @@ class PreviewScreen extends StatelessWidget {
       case 2:
         return ViewTemplate2(note: note);
       case 3:
-      // return  ViewTemplate3(note:note);
+        return ViewTemplate3(note: note);
       default:
         return ViewTemplate1(note: note);
     }

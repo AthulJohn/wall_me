@@ -11,13 +11,16 @@ import '../../../../../logic/bloc/singlenote/singlenote_bloc.dart';
 import '../../../../../logic/models/workshop/text_component_model.dart';
 
 class TextColumn extends StatelessWidget {
-  const TextColumn({super.key, this.textColumnindex = 0});
+  const TextColumn(
+      {super.key, this.textColumnindex = 0, this.alignment = Alignment.center});
   final int textColumnindex;
+  final Alignment alignment;
 
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
       widthFactor: 0.85,
+      alignment: alignment,
       child: BlocBuilder<SinglenoteBloc, SinglenoteState>(
           builder: (context, state) {
         List<TextComponent> textComponents =

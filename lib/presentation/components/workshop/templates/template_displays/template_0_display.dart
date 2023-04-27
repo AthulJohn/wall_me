@@ -59,23 +59,36 @@ class ViewTemplate0 extends StatelessWidget {
                 : FractionallySizedBox(
                     widthFactor: 0.85,
                     heightFactor: 0.85,
-                    child: AspectRatio(
-                      aspectRatio: note.templateId == 2 ? 1 : 16 / 9,
-                      child: isOutline &&
-                              (note.imageComponents.isEmpty ||
-                                  note.imageComponents[0].url == '')
-                          ? Container(
-                              color: Colors.grey[400],
+                    child: Center(
+                      child: note.templateId == 2
+                          ? AspectRatio(
+                              aspectRatio: 1,
+                              child: isOutline &&
+                                      (note.imageComponents.isEmpty ||
+                                          note.imageComponents[0].url == '')
+                                  ? Container(
+                                      color: Colors.grey[400],
+                                    )
+                                  : ImageDisplay(
+                                      imageComponent:
+                                          note.imageComponents.first,
+                                      borderRadius: 10
+                                      // imageIndex: 0,
+                                      ),
                             )
-                          : ImageDisplay(
-                              imageComponent: note.imageComponents.first,
-                              borderRadius:
-                                  templateIsIn(note.templateId, [11, 17])
-                                      ? 10
-                                      : 0,
-                              // imageIndex: 0,
-                            ),
-                    ))),
+                          : isOutline &&
+                                  (note.imageComponents.isEmpty ||
+                                      note.imageComponents[0].url == '')
+                              ? Container(
+                                  color: Colors.grey[400],
+                                )
+                              : ImageDisplay(
+                                  imageComponent: note.imageComponents.first,
+                                  borderRadius: 10,
+                                  // imageIndex: 0,
+                                ),
+                    ),
+                  )),
       );
     });
   }

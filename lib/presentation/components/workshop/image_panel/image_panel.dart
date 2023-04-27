@@ -23,7 +23,7 @@ class ImagePanel extends StatelessWidget {
         builder: (context, state) {
       return AnimatedContainer(
         duration: const Duration(milliseconds: 100),
-        width: state.isImageEditOpen ? max(180, getWidth(context) * 0.2) : 0,
+        width: state.isImageEditOpen ? max(220, getWidth(context) * 0.2) : 0,
         child: const ImagePanelBody(),
       );
     });

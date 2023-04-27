@@ -7,7 +7,8 @@ class WorkshopUiState extends Equatable {
       isTemplatesOpen,
       isTextEditOpen,
       isImageEditOpen,
-      isBackground;
+      isBackground,
+      isPublishOpen;
   final ActiveComponent activeComponent;
   const WorkshopUiState(
       {this.isOutlineOpen = true,
@@ -15,6 +16,7 @@ class WorkshopUiState extends Equatable {
       this.isImageEditOpen = false,
       this.isTextEditOpen = false,
       this.isBackground = false,
+      this.isPublishOpen = false,
       this.activeComponent = ActiveComponent.template});
 
   @override
@@ -24,7 +26,8 @@ class WorkshopUiState extends Equatable {
         isImageEditOpen,
         isTextEditOpen,
         activeComponent,
-        isBackground
+        isBackground,
+        isPublishOpen
       ];
 
   WorkshopUiState copyWith({
@@ -33,15 +36,16 @@ class WorkshopUiState extends Equatable {
     bool? isTextEditOpen,
     bool? isImageEditOpen,
     bool? isBackground,
+    bool? isPublishOpen,
     ActiveComponent? activeComponent,
   }) {
     return WorkshopUiState(
-      isOutlineOpen: isOutlineOpen ?? this.isOutlineOpen,
-      isTemplatesOpen: isTemplatesOpen ?? this.isTemplatesOpen,
-      isImageEditOpen: isImageEditOpen ?? this.isImageEditOpen,
-      isTextEditOpen: isTextEditOpen ?? this.isTextEditOpen,
-      activeComponent: activeComponent ?? this.activeComponent,
-      isBackground: isBackground ?? this.isBackground,
-    );
+        isOutlineOpen: isOutlineOpen ?? this.isOutlineOpen,
+        isTemplatesOpen: isTemplatesOpen ?? this.isTemplatesOpen,
+        isImageEditOpen: isImageEditOpen ?? this.isImageEditOpen,
+        isTextEditOpen: isTextEditOpen ?? this.isTextEditOpen,
+        activeComponent: activeComponent ?? this.activeComponent,
+        isBackground: isBackground ?? this.isBackground,
+        isPublishOpen: isPublishOpen ?? this.isPublishOpen);
   }
 }

@@ -6,6 +6,7 @@ import 'package:wall_me/logic/data_cleaning/get_functions.dart';
 import 'package:wall_me/logic/data_cleaning/put_functions.dart';
 import 'package:wall_me/logic/models/workshop/singlenote_model.dart';
 
+import '../../../constants/global_variables.dart';
 import '../../models/workshop/image_component_model.dart';
 
 part 'sitedata_state.dart';
@@ -23,7 +24,7 @@ class SitedataCubit extends Cubit<SitedataState> {
       if (notes == null) {
         emit(SitedataError(rawSiteData["status"].toString()));
       } else {
-        emit(SitedataSuccess(siteUrl, notes));
+        emit(SitedataSuccess(siteUrl, notes, siteDomain + siteUrl));
       }
     } catch (e) {
       emit(SitedataError(e.toString()));

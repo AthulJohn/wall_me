@@ -31,16 +31,19 @@ class ImageFitButton extends StatelessWidget {
                             : Colors.white,
                         borderRadius: BorderRadius.circular(20)),
                     child: Center(
-                      child: Text(
-                        fit == BoxFit.contain
-                            ? 'Contain'
-                            : fit == BoxFit.cover
-                                ? 'Cover'
-                                : 'Fill',
-                        style: TextStyle(
-                          color: state.currentImage!.fit == fit
-                              ? Colors.white
-                              : Colors.black,
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: Text(
+                          fit == BoxFit.contain
+                              ? 'Contain'
+                              : fit == BoxFit.cover
+                                  ? 'Cover'
+                                  : 'Fill',
+                          style: TextStyle(
+                            color: state.currentImage!.fit == fit
+                                ? Colors.white
+                                : Colors.black,
+                          ),
                         ),
                       ),
                     ),

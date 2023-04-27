@@ -66,20 +66,29 @@ class Template0 extends StatelessWidget {
                           : FractionallySizedBox(
                               widthFactor: 0.85,
                               heightFactor: 0.85,
-                              child: AspectRatio(
-                                aspectRatio: 1,
-                                child: ImageWidget(
-                                  imageComponent:
-                                      state.note.imageComponents.isEmpty
+                              child: state.note.templateId == 2
+                                  ? Center(
+                                      child: AspectRatio(
+                                        aspectRatio: 1,
+                                        child: ImageWidget(
+                                          imageComponent:
+                                              state.note.imageComponents.isEmpty
+                                                  ? null
+                                                  : state.note.imageComponents
+                                                      .first,
+                                          borderRadius: 10,
+                                          imageIndex: 0,
+                                        ),
+                                      ),
+                                    )
+                                  : ImageWidget(
+                                      imageComponent: state
+                                              .note.imageComponents.isEmpty
                                           ? null
                                           : state.note.imageComponents.first,
-                                  borderRadius:
-                                      templateIsIn(state.note, [11, 17])
-                                          ? 10
-                                          : 0,
-                                  imageIndex: 0,
-                                ),
-                              ),
+                                      borderRadius: 10,
+                                      imageIndex: 0,
+                                    ),
                             )));
           }
         },

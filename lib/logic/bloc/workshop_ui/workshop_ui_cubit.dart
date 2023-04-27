@@ -21,6 +21,14 @@ class WorkshopUiCubit extends Cubit<WorkshopUiState> {
         isTemplatesOpen: false, isTextEditOpen: false, isImageEditOpen: false));
   }
 
+  void openPublishPanel() {
+    emit(state.copyWith(isPublishOpen: true));
+  }
+
+  void closePublishPanel() {
+    emit(state.copyWith(isPublishOpen: false));
+  }
+
   void activateImagePanel() {
     emit(state.copyWith(
         activeComponent: ActiveComponent.image,

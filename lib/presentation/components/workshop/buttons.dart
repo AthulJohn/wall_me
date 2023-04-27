@@ -12,7 +12,7 @@ class CustomElevatedButton extends StatelessWidget {
   final String? text;
   final IconData? icon;
   final bool hasPadding;
-  final void Function() onPressed;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {

@@ -26,6 +26,16 @@ class Template3 extends StatelessWidget {
     return templateId.contains(state.templateId);
   }
 
+  Widget getImageComponent(SinglenoteState state, List<int> bordertemplates) {
+    return ImageWidget(
+      imageComponent: state.note.imageComponents.isEmpty
+          ? null
+          : state.note.imageComponents.first,
+      borderRadius: templateIsIn(state.note, bordertemplates) ? 10 : 0,
+      imageIndex: 0,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,81 +65,72 @@ class Template3 extends StatelessWidget {
                       )
                     : null,
                 child: Container(
-                  padding: EdgeInsets.all(
-                      templateIsIn(state.note, [11, 12, 18, 17]) ? 20 : 0),
                   color: backgroundImage?.overlayColor
                       .withOpacity(backgroundImage.overlayIntensity),
-                  child: Row(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
-                        flex: templateIsIn(state.note, [16, 18]) ? 3 : 1,
-                        child: templateIsIn(state.note, [
-                          11,
-                          13,
-                          16,
-                          17
-                        ]) // If image is in the left side
+                        flex: templateIsIn(state.note, [31, 33, 35]) ? 3 : 1,
+                        child: templateIsIn(state.note,
+                                [31, 33, 35]) // If image is in the top
                             ? FractionallySizedBox(
-                                widthFactor: templateIsIn(state.note, [11, 17])
+                                alignment: Alignment.bottomCenter,
+                                widthFactor: templateIsIn(
+                                        state.note, [31, 32, 33, 34, 36])
                                     ? 0.85
                                     : 1,
-                                heightFactor: templateIsIn(state.note, [11, 17])
-                                    ? 0.85
+                                heightFactor: templateIsIn(
+                                        state.note, [31, 32, 33, 34, 36])
+                                    ? 0.93
                                     : 1,
-                                child: ImageWidget(
-                                  imageComponent:
-                                      state.note.imageComponents.isEmpty
-                                          ? null
-                                          : state.note.imageComponents.first,
-                                  borderRadius:
-                                      templateIsIn(state.note, [11, 17])
-                                          ? 10
-                                          : 0,
-                                  imageIndex: 0,
-                                ),
-                              )
+                                child: state.note.templateId == 31
+                                    ? Center(
+                                        child: AspectRatio(
+                                            aspectRatio: 1,
+                                            child: getImageComponent(
+                                                state, [31, 33])),
+                                      )
+                                    : getImageComponent(state, [31, 33]))
                             : state.note.textComponents.isEmpty
                                 ? const Center(child: Text('An Error Occured'))
                                 : const TextColumn(
+                                    alignment: Alignment.bottomCenter,
                                     // textComponents:
                                     //     state.note.textComponents.first,
-                                    ),
+                                  ),
                       ),
                       Expanded(
-                        flex: templateIsIn(state.note, [15, 17]) ? 3 : 1,
-                        child: templateIsIn(state.note, [
-                          12,
-                          14,
-                          15,
-                          18
-                        ]) // If image is in the right side
+                        flex: templateIsIn(state.note, [32, 34, 36]) ? 3 : 1,
+                        child: templateIsIn(state.note,
+                                [32, 34, 36]) // If image is in the bottom
                             ? FractionallySizedBox(
-                                widthFactor: templateIsIn(state.note, [12, 18])
+                                alignment: Alignment.topCenter,
+                                widthFactor: templateIsIn(
+                                        state.note, [31, 32, 33, 34, 35])
                                     ? 0.85
                                     : 1,
-                                heightFactor: templateIsIn(state.note, [12, 18])
-                                    ? 0.85
+                                heightFactor: templateIsIn(
+                                        state.note, [31, 32, 33, 34, 35])
+                                    ? 0.93
                                     : 1,
-                                child: ImageWidget(
-                                  imageComponent:
-                                      state.note.imageComponents.isEmpty
-                                          ? null
-                                          : state.note.imageComponents.first,
-                                  borderRadius:
-                                      templateIsIn(state.note, [12, 18])
-                                          ? 10
-                                          : 0,
-                                  imageIndex: 0,
-                                ),
+                                child: state.note.templateId == 32
+                                    ? Center(
+                                        child: AspectRatio(
+                                            aspectRatio: 1,
+                                            child: getImageComponent(
+                                                state, [32, 34])),
+                                      )
+                                    : getImageComponent(state, [32, 34]),
                               )
                             : state.note.textComponents.isEmpty
                                 ? const Center(child: Text('An Error Occured!'))
                                 : const TextColumn(
+                                    alignment: Alignment.topCenter,
                                     // textComponents:
                                     //     state.currentNote.textComponents.first,
-                                    ),
+                                  ),
                       ),
                     ],
                   ),

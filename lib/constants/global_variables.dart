@@ -1,5 +1,7 @@
 const List<int> templateSetSizes = [3, 8, 5, 6];
 
+const String siteDomain = "https://wallme.web.app/";
+
 const List<String> fonts = [
   'Poppins',
   'Montserrat',
@@ -19,7 +21,13 @@ const Map<int, double> textRatios = {
   15: 0.2125,
   16: 0.2125,
   17: 0.6375,
-  18: 0.6375
+  18: 0.6375,
+  31: 0.6375,
+  32: 0.6375,
+  33: 0.6375,
+  34: 0.6375,
+  35: 0.6375,
+  36: 0.6375
 };
 
 const Map<int, int> totalImagesPerTemplate = {

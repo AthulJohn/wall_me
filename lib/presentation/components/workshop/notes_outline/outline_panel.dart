@@ -14,6 +14,7 @@ import '../../../../logic/bloc/singlenote/singlenote_bloc.dart';
 import '../../../../logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 import '../../../../logic/models/workshop/singlenote_model.dart';
 import '../templates/template_displays/template_2_display.dart';
+import '../templates/template_displays/template_3_display.dart';
 
 class PageOutline extends StatelessWidget {
   final bool isExpanded;
@@ -54,7 +55,7 @@ class PageOutlineBody extends StatelessWidget {
       case 2:
         return ViewTemplate2(note: note, isOutline: true);
       case 3:
-      // return  ViewTemplate3(note:note,isOutline:true);
+        return ViewTemplate3(note: note, isOutline: true);
       default:
         return ViewTemplate1(note: note, isOutline: true);
     }
