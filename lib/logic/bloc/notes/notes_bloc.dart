@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wall_me/constants/global_variables.dart';
 import 'package:wall_me/logic/bloc/singlenote/singlenote_bloc.dart';
+import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 import 'package:wall_me/logic/models/workshop/image_component_model.dart';
 import 'package:wall_me/logic/models/workshop/text_component_model.dart';
 
 import '../../data_providers/image_picker_provider.dart';
 import '../../models/workshop/singlenote_model.dart';
+import '../textfield/textfield_cubit.dart';
 
 part 'notes_event.dart';
 part 'notes_state.dart';
@@ -92,7 +94,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     }
   }
 
-  void _nextPageFunction(event, emit) {
+  void _nextPageFunction(NextPage event, emit) {
     emit(state.copyWith(notesStatus: NotesStatus.loading));
     try {
       if (state.currentNoteIndex < state.notes.length - 1) {
@@ -110,6 +112,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         add(AddNotes());
       }
       event.singlenoteBloc.add(SetNote(state.currentNote ?? SingleNote()));
+      event.textFieldCubit.setTextComponent(TextComponent());
     } catch (e) {
       debugPrint("In function _nextPageFunction of NotesBloc, $e");
       emit(state.copyWith(notesStatus: NotesStatus.error));
@@ -126,6 +129,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           notesStatus: NotesStatus.success,
         ));
         event.singlenoteBloc.add(SetNote(state.currentNote ?? SingleNote()));
+
+        event.textFieldCubit.setTextComponent(TextComponent());
       }
     } catch (e) {
       debugPrint("In function _previousPageFunction of NotesBloc, $e");
@@ -133,7 +138,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     }
   }
 
-  void _goToPageFunction(event, emit) {
+  void _goToPageFunction(GoToPage event, emit) {
     emit(state.copyWith(notesStatus: NotesStatus.loading));
     try {
       if (event.index < state.notes.length) {
@@ -142,6 +147,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           notesStatus: NotesStatus.success,
         ));
         event.singlenoteBloc.add(SetNote(state.currentNote ?? SingleNote()));
+        event.textFieldCubit.setTextComponent(TextComponent());
+        if (state.currentNote == null || state.currentNote!.templateId == -1) {
+          event.workshopUiCubit.activateTemplatePanel();
+        }
       }
     } catch (e) {
       debugPrint("In function _gotoPageFunction of NotesBloc, $e");

@@ -23,17 +23,27 @@ class SetTemplate extends NotesEvent {
 
 class NextPage extends NotesEvent {
   final SinglenoteBloc singlenoteBloc;
-  NextPage(this.singlenoteBloc);
+  final TextFieldCubit textFieldCubit;
+  final WorkshopUiCubit workshopUiCubit;
+  NextPage(this.singlenoteBloc, this.textFieldCubit, this.workshopUiCubit);
 }
 
 class PreviousPage extends NotesEvent {
   final SinglenoteBloc singlenoteBloc;
-  PreviousPage(this.singlenoteBloc);
+  final TextFieldCubit textFieldCubit;
+  final WorkshopUiCubit workshopUiCubit;
+  PreviousPage(this.singlenoteBloc, this.textFieldCubit, this.workshopUiCubit);
 }
 
 class GoToPage extends NotesEvent {
   final int index;
+  final TextFieldCubit textFieldCubit;
 
   final SinglenoteBloc singlenoteBloc;
-  GoToPage({this.index = 11, required this.singlenoteBloc});
+  final WorkshopUiCubit workshopUiCubit;
+  GoToPage(
+      {this.index = 11,
+      required this.singlenoteBloc,
+      required this.textFieldCubit,
+      required this.workshopUiCubit});
 }

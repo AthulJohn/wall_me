@@ -39,7 +39,7 @@ class ViewTemplate0 extends StatelessWidget {
                     color: backgroundImage.overlayColor
                         .withOpacity(backgroundImage.overlayIntensity),
                     image: backgroundImage.url != ''
-                        ? getDecorationImage(backgroundImage)
+                        ? getDecorationImage(context, backgroundImage)
                         : null,
                   )
                 : null,

@@ -21,6 +21,40 @@ class ImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<WorkshopUiCubit, WorkshopUiState>(
+      builder: (context, state) {
+        return Container(
+            decoration: state.isImageEditOpen &&
+                    BlocProvider.of<SinglenoteBloc>(context)
+                            .state
+                            .currentImageIndex ==
+                        imageIndex
+                ? BoxDecoration(
+                    border:
+                        Border.all(color: CustomColor.tertiaryColor, width: 2))
+                : null,
+            child: ImageContent(
+              imageIndex: imageIndex,
+              borderRadius: borderRadius,
+              imageComponent: imageComponent,
+            ));
+      },
+    );
+  }
+}
+
+class ImageContent extends StatelessWidget {
+  final ImageComponent? imageComponent;
+  final double borderRadius;
+  final int imageIndex;
+  const ImageContent(
+      {super.key,
+      required this.imageIndex,
+      this.imageComponent,
+      this.borderRadius = 0});
+
+  @override
+  Widget build(BuildContext context) {
     return imageComponent == null || imageComponent!.url == ''
         ? InkWell(
             child: Container(
@@ -38,8 +72,8 @@ class ImageWidget extends StatelessWidget {
             ),
             onTap: () {
               BlocProvider.of<WorkshopUiCubit>(context).activateImagePanel();
-              BlocProvider.of<SinglenoteBloc>(context)
-                  .add(AddImage(index: imageIndex));
+              // BlocProvider.of<SinglenoteBloc>(context)
+              //     .add(AddImage(index: imageIndex));
             },
           )
         : InkWell(
@@ -53,54 +87,13 @@ class ImageWidget extends StatelessWidget {
                 //     return BlocBuilder<WorkshopUiCubit, WorkshopUiState>(
                 //         builder: (context, state) {
                 //       return
-                Container(
-              decoration: BlocProvider.of<WorkshopUiCubit>(context)
-                          .state
-                          .isImageEditOpen &&
-                      BlocProvider.of<SinglenoteBloc>(context)
-                              .state
-                              .currentImageIndex ==
-                          imageIndex
-                  ? BoxDecoration(
-                      border: Border.all(
-                          color: CustomColor.tertiaryColor, width: 2))
-                  : null,
-              child: ImageDisplay(
-                imageComponent: imageComponent!,
-                borderRadius: borderRadius,
-              ),
-            )
-
-            ///;
-            //     });
-            //   },
-            // ),
-            );
+                imageComponent == null || imageComponent!.isValidUrl
+                    ? ImageDisplay(
+                        imageComponent: imageComponent!,
+                        borderRadius: borderRadius,
+                        isEditable: true,
+                      )
+                    : Center(child: Text('Invalid Url')),
+          );
   }
 }
-
-// class ImageContent extends StatelessWidget {
-//   const ImageContent({
-//     super.key,
-//     required this.imageComponent,
-//   });
-
-//   final ImageComponent imageComponent;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Stack(
-//       fit: StackFit.expand,
-//       children: [
-//         Image.network(
-//           imageComponent.url,
-//           fit: imageComponent.fit,
-//         ),
-//         Container(
-//           color: imageComponent.overlayColor
-//               .withOpacity(imageComponent.overlayIntensity),
-//         )
-//       ],
-//     );
-//   }
-// }

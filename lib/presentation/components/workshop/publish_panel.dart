@@ -134,7 +134,7 @@ class PublishPanelBody extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               if (publishstate is ImageUploading)
                 const Center(
                   child: Text('Uploading Images...'),

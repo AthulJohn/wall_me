@@ -19,12 +19,15 @@ class SinglenoteBloc extends Bloc<SinglenoteEvent, SinglenoteState> {
       : super(SinglenoteState(note ?? SingleNote())) {
     on<SetNote>(_setNoteFunction);
     on<AddImage>(_pickImageFunction);
+
+    on<AddImageUrl>(_addImageUrlFunction);
     on<ChangeText>(_changeTextFunction);
     on<ChangeCurrentImage>(_changeCurrentImageFunction);
     on<ActivateBackgroundImagePanel>(_activateBackgroundImagePanelFunction);
     on<ChangeTextSelection>(_changeTextSelectionFunction);
     on<ChangeImageStyle>(_changeImageStyleFunction);
     on<ChangeImageColor>(_changeImageColorFunction);
+    on<SetImageInvalid>(_setImageInvalidFunction);
   }
   void _setNoteFunction(event, emit) async {
     emit(SinglenoteState(event.note));
@@ -50,13 +53,20 @@ class SinglenoteBloc extends Bloc<SinglenoteEvent, SinglenoteState> {
     }
   }
 
+  void _addImageUrlFunction(event, emit) {
+    emit(state.copyWith(imageStatus: LoadingStatus.loading));
+    emit(state.addImageToCurrentNote(
+        imagePath: event.url,
+        mimeType: "image/jpeg",
+        imageindex: state.currentImageIndex));
+  }
+
   void _changeCurrentImageFunction(event, emit) {
     emit(state.copyWith(
         imageStatus: LoadingStatus.success, currentImageIndex: event.index));
   }
 
   void _activateBackgroundImagePanelFunction(event, emit) {
-    print("Activating BG");
     emit(state.addBackgroundImageToCurrentNote());
   }
 
@@ -133,5 +143,16 @@ class SinglenoteBloc extends Bloc<SinglenoteEvent, SinglenoteState> {
       debugPrint("In function _changeImageFitFunction of NotesBloc, $e");
       emit(state.copyWith(imageStatus: LoadingStatus.error));
     }
+  }
+
+  void _setImageInvalidFunction(event, emit) {
+    List<ImageComponent> imageComponents = state.note.imageComponents;
+    for (int i = 0; i < imageComponents.length; i++) {
+      if (imageComponents[i].url == event.url) {
+        imageComponents[i] = imageComponents[i].copyWith(isValidUrl: false);
+      }
+    }
+    emit(state.copyWith(
+        note: state.note.copyWith(imageComponents: imageComponents)));
   }
 }

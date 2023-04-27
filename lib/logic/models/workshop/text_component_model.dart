@@ -10,7 +10,7 @@ class TextComponent {
   final int textId;
 
   TextComponent({
-    this.text = "Sample Text",
+    this.text = "",
     this.fontFamily = "Poppins",
     this.fontSize = 40,
     this.fontColor = Colors.black,

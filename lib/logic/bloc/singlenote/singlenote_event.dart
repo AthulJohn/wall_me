@@ -18,6 +18,11 @@ class AddImage extends SinglenoteEvent {
   const AddImage({this.index});
 }
 
+class AddImageUrl extends SinglenoteEvent {
+  final String url;
+  const AddImageUrl(this.url);
+}
+
 class ChangeCurrentImage extends SinglenoteEvent {
   final int? index;
   const ChangeCurrentImage({this.index});
@@ -43,4 +48,9 @@ class ChangeImageColor extends SinglenoteEvent {
 class ChangeText extends SinglenoteEvent {
   final TextComponent textComponent;
   const ChangeText(this.textComponent);
+}
+
+class SetImageInvalid extends SinglenoteEvent {
+  final String url;
+  const SetImageInvalid(this.url);
 }

@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:wall_me/global_functions.dart';
 import 'package:wall_me/logic/bloc/notes/notes_bloc.dart';
+import 'package:wall_me/logic/bloc/textfield/textfield_cubit.dart';
 import 'package:wall_me/presentation/components/workshop/notes_outline/add_page_button.dart';
 import 'package:wall_me/presentation/components/workshop/notes_outline/non_selected_template.dart';
 import 'package:wall_me/presentation/components/workshop/templates/template_displays/template_0_display.dart';
@@ -43,7 +44,10 @@ class PageOutlineBody extends StatelessWidget {
     BlocProvider.of<NotesBloc>(context).add(
         SetSingleNote(BlocProvider.of<SinglenoteBloc>(context).state.note));
     BlocProvider.of<NotesBloc>(context).add(GoToPage(
-        index: ind, singlenoteBloc: BlocProvider.of<SinglenoteBloc>(context)));
+        index: ind,
+        singlenoteBloc: BlocProvider.of<SinglenoteBloc>(context),
+        textFieldCubit: BlocProvider.of<TextFieldCubit>(context),
+        workshopUiCubit: BlocProvider.of<WorkshopUiCubit>(context)));
   }
 
   Widget chooseTemplate(int templateId, SingleNote note) {

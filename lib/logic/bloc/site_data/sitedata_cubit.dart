@@ -41,8 +41,10 @@ class SitedataCubit extends Cubit<SitedataState> {
       for (int j = 0; j < notes.length; j++) {
         if (notes[j].imageComponents.isNotEmpty) {
           for (int i = 0; i < notes[j].imageComponents.length; i++) {
-            futures.add(ImageUploder.uploadImage(
-                siteUrl, notes[j].imageComponents[i], notes[j].noteid, i));
+            if (notes[j].imageComponents[i].url.startsWith("blob")) {
+              futures.add(ImageUploder.uploadImage(
+                  siteUrl, notes[j].imageComponents[i], notes[j].noteid, i));
+            }
             index++;
           }
         }
@@ -53,7 +55,9 @@ class SitedataCubit extends Cubit<SitedataState> {
         for (int j = 0; j < notes.length; j++) {
           if (notes[j].imageComponents.isNotEmpty) {
             for (int i = 0; i < notes[j].imageComponents.length; i++) {
-              notes[j].imageComponents[i].url = value[index];
+              if (notes[j].imageComponents[i].url.startsWith("blob")) {
+                notes[j].imageComponents[i].url = value[index];
+              }
               index++;
             }
           }

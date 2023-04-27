@@ -69,6 +69,23 @@ class ImagePanelBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
+          Center(child: Text("or")),
+          const SizedBox(height: 10),
+          TextField(
+            decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "Paste Image URL here",
+                isDense: true,
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 5, vertical: 5)),
+            onChanged: (value) {
+              if (value.startsWith("http")) {
+                BlocProvider.of<SinglenoteBloc>(context)
+                    .add(AddImageUrl(value));
+              }
+            },
+          ),
+          const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(

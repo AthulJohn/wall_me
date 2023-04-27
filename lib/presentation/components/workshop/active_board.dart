@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wall_me/logic/bloc/singlenote/singlenote_bloc.dart';
+import 'package:wall_me/logic/bloc/textfield/textfield_cubit.dart';
 import 'package:wall_me/logic/bloc/workshop_ui/workshop_ui_cubit.dart';
 import 'package:wall_me/logic/models/workshop/singlenote_model.dart';
 import 'package:wall_me/presentation/components/workshop/select_template_note.dart';
@@ -22,11 +23,15 @@ class ActiveBoard extends StatelessWidget {
     BlocProvider.of<NotesBloc>(context).add(
         SetSingleNote(BlocProvider.of<SinglenoteBloc>(context).state.note));
     if (dir == NavDirection.up) {
-      BlocProvider.of<NotesBloc>(context)
-          .add(PreviousPage(BlocProvider.of<SinglenoteBloc>(context)));
+      BlocProvider.of<NotesBloc>(context).add(PreviousPage(
+          BlocProvider.of<SinglenoteBloc>(context),
+          BlocProvider.of<TextFieldCubit>(context),
+          BlocProvider.of<WorkshopUiCubit>(context)));
     } else {
-      BlocProvider.of<NotesBloc>(context)
-          .add(NextPage(BlocProvider.of<SinglenoteBloc>(context)));
+      BlocProvider.of<NotesBloc>(context).add(NextPage(
+          BlocProvider.of<SinglenoteBloc>(context),
+          BlocProvider.of<TextFieldCubit>(context),
+          BlocProvider.of<WorkshopUiCubit>(context)));
     }
   }
 

@@ -52,8 +52,11 @@ class TextColumn extends StatelessWidget {
                           child: LayoutBuilder(builder: (BuildContext context,
                               BoxConstraints constraints) {
                             return Padding(
-                              padding: EdgeInsets.all(getFontSize(tc.fontSize,
-                                  constraints.maxWidth, state.note.templateId)),
+                              padding: EdgeInsets.all(getFontSize(
+                                      tc.fontSize,
+                                      constraints.maxWidth,
+                                      state.note.templateId) /
+                                  2.5),
                               child: Text(
                                 tc.text,
                                 style: TextStyle(

@@ -42,8 +42,8 @@ class SingleNote {
     while (imageComponents.length <= index) {
       imageComponents.add(ImageComponent());
     }
-    imageComponents[index] =
-        (imageComponents[index].copyWith(url: imagePath, mimeType: mimeType));
+    imageComponents[index] = (imageComponents[index]
+        .copyWith(url: imagePath, mimeType: mimeType, isValidUrl: true));
   }
 
   void addBackgroundImage() {

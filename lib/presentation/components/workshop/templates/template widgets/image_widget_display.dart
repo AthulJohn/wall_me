@@ -5,12 +5,14 @@ import 'package:wall_me/presentation/components/workshop/templates/template%20wi
 class ImageDisplay extends StatelessWidget {
   final ImageComponent? imageComponent;
   final double borderRadius;
+  final bool isEditable;
   // final int imageIndex;
   const ImageDisplay(
       {super.key,
       // required this.imageIndex,
       this.imageComponent,
-      this.borderRadius = 0});
+      this.borderRadius = 0,
+      this.isEditable = false});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class ImageDisplay extends StatelessWidget {
         : Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(borderRadius),
-                image: getDecorationImage(imageComponent!)));
+                image: getDecorationImage(context, imageComponent!,
+                    isEditable: isEditable)));
   }
 }
