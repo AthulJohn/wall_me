@@ -198,6 +198,14 @@ class PublishPanelBody extends StatelessWidget {
                     version: QrVersions.auto,
                     size: 220,
                     gapless: true,
+                    dataModuleStyle: const QrDataModuleStyle(
+                      dataModuleShape: QrDataModuleShape.circle,
+                      color: Colors.black,
+                    ),
+                    // embeddedImage:
+                    //     const AssetImage("assets/images/logo-bg.jpg"),
+                    // embeddedImageStyle:
+                    //     QrEmbeddedImageStyle(size: const Size(50, 50)),
                   ),
                 ),
               const SizedBox(height: 10),
