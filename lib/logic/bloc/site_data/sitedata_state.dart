@@ -1,9 +1,9 @@
 part of 'sitedata_cubit.dart';
 
 abstract class SitedataState extends Equatable {
-  const SitedataState(this.siteUrl, this.notes);
+  const SitedataState(this.siteUrl, this.notes, [this.completeUrl = '']);
   final List<SingleNote> notes;
-  final String siteUrl, completeUrl = '';
+  final String siteUrl, completeUrl;
 
   @override
   List<Object> get props => [notes, siteUrl, completeUrl];
@@ -20,7 +20,7 @@ class SitedataLoading extends SitedataState {
 class SitedataSuccess extends SitedataState {
   const SitedataSuccess(
       String siteUrl, List<SingleNote> notes, String completeUrl)
-      : super(siteUrl, notes);
+      : super(siteUrl, notes, completeUrl);
 }
 
 class ImageUploading extends SitedataState {
@@ -32,7 +32,8 @@ class ImageUploading extends SitedataState {
 }
 
 class SiteSendSuccess extends SitedataState {
-  const SiteSendSuccess(String siteUrl) : super(siteUrl, const []);
+  const SiteSendSuccess(String siteUrl, String completeUrl)
+      : super(siteUrl, const [], completeUrl);
 }
 
 class SitedataError extends SitedataState {

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:linkfy_text/linkfy_text.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wall_me/constants/color_pallette.dart';
+import 'package:share_plus/share_plus.dart';
 import 'dart:math';
 
 import 'package:wall_me/global_functions.dart';
@@ -28,6 +29,7 @@ class PublishPanel extends StatelessWidget {
         builder: (context, state) {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           if (state.isPublishOpen)
             Expanded(
@@ -36,7 +38,7 @@ class PublishPanel extends StatelessWidget {
                   BlocProvider.of<WorkshopUiCubit>(context).closePublishPanel();
                 },
                 child: Container(
-                  color: Colors.black12,
+                  color: Colors.black38,
                 ),
               ),
             ),
@@ -66,12 +68,28 @@ class PublishPanelBody extends StatelessWidget {
           return ListView(
             // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    "Publish WebPoster",
-                    style: CustomTextStyles.panelTitle,
-                  )),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.keyboard_double_arrow_right,
+                    ),
+                    onPressed: () {
+                      BlocProvider.of<WorkshopUiCubit>(context)
+                          .closePublishPanel();
+                    },
+                  ),
+                  const Expanded(
+                    child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          "Publish WebPoster",
+                          style: CustomTextStyles.panelTitle,
+                        )),
+                  ),
+                ],
+              ),
               const SizedBox(height: 20),
               Container(
                 padding: const EdgeInsets.all(10),
@@ -164,14 +182,37 @@ class PublishPanelBody extends StatelessWidget {
                 ),
               const SizedBox(height: 10),
               CustomElevatedButton(
-                  onPressed: publishstate.completeUrl.isEmpty ? null : () {},
+                  onPressed: publishstate.completeUrl.isEmpty
+                      ? null
+                      : () {
+                          Share.share(
+                              "Hey, Checkout this webposter that I made using WallMe.\n${publishstate.completeUrl}");
+                        },
                   text: 'Share Url',
                   icon: Icons.share),
               const SizedBox(height: 10),
+              if (publishstate.completeUrl.isNotEmpty)
+                Center(
+                  child: QrImage(
+                    data: publishstate.completeUrl,
+                    version: QrVersions.auto,
+                    size: 220,
+                    gapless: true,
+                  ),
+                ),
+              const SizedBox(height: 10),
               CustomElevatedButton(
-                  onPressed: publishstate.completeUrl.isEmpty ? null : () {},
-                  text: "Generate QR Code",
-                  icon: Icons.qr_code_2)
+                  onPressed: publishstate.completeUrl.isEmpty
+                      ? null
+                      : () {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: const Text(
+                                'Downloading QR Code is not yet Supported!'),
+                            backgroundColor: Colors.green[300],
+                          ));
+                        },
+                  text: "Download QR Code",
+                  icon: Icons.qr_code_2),
             ],
           );
         }));

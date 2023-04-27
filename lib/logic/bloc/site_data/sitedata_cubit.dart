@@ -62,7 +62,7 @@ class SitedataCubit extends Cubit<SitedataState> {
       emit(const SitedataLoading());
       await SendFunctions.sendSiteCleanData(siteUrl, notes);
 
-      emit(SiteSendSuccess(siteUrl));
+      emit(SiteSendSuccess(siteUrl, siteDomain + siteUrl));
     } catch (e) {
       emit(SitedataError(e.toString()));
     }
